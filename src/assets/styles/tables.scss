@@ -7,6 +7,17 @@
   border-radius: 12px;
   width: auto;
   max-width: 1280px;
+  &--mp{
+    padding: 30px 30px;
+    margin: 0;
+    margin-bottom: 30px;
+    &.table .mat-paginator{
+      margin-top: 0;
+    }
+    &.table tr.mat-row{
+      height: 40px;
+    }
+  }
   &--fw{
     max-width: 100%;
   }
@@ -18,6 +29,10 @@
     &--buttons{
       display: flex;
       justify-content: space-between;
+    }
+    &--small{
+      font-size: 18px;
+      margin-bottom: 12px;
     }
   }
 
@@ -245,4 +260,8 @@
       }
     }
   }
+}
+
+.history-modal{
+  overflow: auto;
 }

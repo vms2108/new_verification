@@ -58,6 +58,9 @@
       }
     }
   }
+  &__actions{
+    display: flex;
+  }
   &__main, &__register{
     position: absolute;
     left: 0;

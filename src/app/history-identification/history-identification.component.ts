@@ -1,4 +1,4 @@
-import { IdentificationTableItem } from './../core/models/identificationTableItem.model';
+import { IdentificationTableItem } from '../core/models/identificationTableItem.model';
 import { IdentificationService } from '../core/services/identification.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -6,6 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Language } from 'angular-l10n';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { TableDetailsComponent } from '../dialogs/table-details/table-details.component';
 
 @Component({
   selector: 'app-history-identification',
@@ -14,40 +16,45 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class HistoryIdentificationComponent implements OnInit {
   private identifications: IdentificationTableItem[];
+
   filterGroup: FormGroup = new FormGroup({
-    search: new FormControl({disabled: true}, Validators.required),
-    datesFrom: new FormControl({disabled: true}, Validators.required),
-    datesTo: new FormControl({disabled: true}, Validators.required),
-    result: new FormControl({disabled: true}, Validators.required),
-    reason: new FormControl({disabled: true}, Validators.required),
+    search: new FormControl({ disabled: true }, Validators.required),
+    datesFrom: new FormControl({ disabled: true }, Validators.required),
+    datesTo: new FormControl({ disabled: true }, Validators.required),
+    result: new FormControl({ disabled: true }, Validators.required),
+    reason: new FormControl({ disabled: true }, Validators.required)
   });
   pickerMin;
   pickerMax;
   data: any;
-  reasons = [{
-    name: 'transaction',
-    value: 2
-  },
-  {
-    name: 'initiative',
-    value: 3
-  }
+  reasons = [
+    {
+      name: 'transaction',
+      value: 2
+    },
+    {
+      name: 'initiative',
+      value: 3
+    }
   ];
-  results = [
-    'pass',
-    'fail',
-    'waiting'
-  ];
+  results = ['pass', 'fail', 'waiting'];
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'user_id', 'reason', 'date', 'result', 'details', 'verifier'];
+  displayedColumns: string[] = ['id', 'user_id', 'reason', 'date', 'result', 'verifier', 'details'];
+
   @Language() lang: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private identificationService: IdentificationService, private fb: FormBuilder) {
+
+  constructor(
+    private identificationService: IdentificationService,
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) {
     this.identifications = this.identificationService.generateHistoryTable();
     this.dataSource = new MatTableDataSource();
   }
+
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -62,21 +69,25 @@ export class HistoryIdentificationComponent implements OnInit {
       datesTo: maxDate,
       reason: [null],
       result: [null]
-     });
-    this.filterGroup.valueChanges.subscribe(() => {this.filterData(); });
+    });
+    this.filterGroup.valueChanges.subscribe(() => {
+      this.filterData();
+    });
+    window.scrollTo(0, 0);
   }
+
   filterData() {
-    this.dataSource.data = this.data.filter((item) => {
+    this.dataSource.data = this.data.filter(item => {
       const filter = this.filterGroup.value;
       let dateStart = filter.datesFrom;
       let dateEnd = filter.datesTo;
-      if ( !(dateStart instanceof Date) ) {
+      if (!(dateStart instanceof Date)) {
         dateStart = new Date(dateStart);
       }
-      if ( !(dateEnd instanceof Date) ) {
+      if (!(dateEnd instanceof Date)) {
         dateEnd = new Date(dateEnd);
       }
-      if ( +dateStart > +dateEnd ) {
+      if (+dateStart > +dateEnd) {
         filter.datesFrom = dateEnd;
         filter.datesTo = dateStart;
         dateStart = this.filterGroup.value.datesFrom;
@@ -91,7 +102,12 @@ export class HistoryIdentificationComponent implements OnInit {
       dateEnd.setSeconds(59);
       dateEnd.setMilliseconds(99);
       const date = +item.date <= +dateEnd && +item.date >= +dateStart;
-      const search = filter.search ? item.searchString.trim().toLowerCase().indexOf(filter.search.trim().toLowerCase()) > -1 : true;
+      const search = filter.search
+        ? item.searchString
+            .trim()
+            .toLowerCase()
+            .indexOf(filter.search.trim().toLowerCase()) > -1
+        : true;
       const reason = filter.reason && filter.reason.length ? filter.reason.indexOf(item.reason) > -1 : true;
       const result = filter.result && filter.result.length ? filter.result.indexOf(item.result) > -1 : true;
       this.filterGroup.get('datesFrom').setValue(dateStart, { emitEvent: false });
@@ -101,11 +117,22 @@ export class HistoryIdentificationComponent implements OnInit {
   }
 
   getDates(data: IdentificationTableItem[]) {
-  const dates =  data.map(i => i.date).sort((a, b) => a.getTime() - b.getTime());
+    const dates = data.map(i => i.date).sort((a, b) => a.getTime() - b.getTime());
 
     return {
       minDate: dates[0],
       maxDate: dates[dates.length - 1]
     };
+  }
+
+  more(row: any) {
+    const dialogRef = this.dialog.open(TableDetailsComponent, {
+      width: '1024px',
+      panelClass: 'history-modal',
+      data: {
+        mode: 'identification',
+        id: row.id
+      }
+    });
   }
 }

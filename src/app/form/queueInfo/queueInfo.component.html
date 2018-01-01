@@ -1,0 +1,31 @@
+<div class="queue-info" [class.mt]="marginTop">
+  <div class="container">
+    <div class="queue-info__content">
+      <ul class="queue-info__list">
+        <li class="queue-info__item">
+          <span>{{ 'Total deals:' | translate:lang }}</span>
+          <span>{{ waitingDealCount }}</span>
+        </li>
+        <li class="queue-info__item">
+          <span>{{ 'Waiting for verification:' | translate:lang }}</span>
+          <span>{{ waitingVerificationCount }}</span>
+        </li>
+        <li class="queue-info__item">
+          <span>{{ 'Waiting for identification with the status of transaction:' | translate:lang }}</span>
+          <span>{{ waitingIdentificationTransactionCount }}</span>
+        </li>
+        <li class="queue-info__item">
+          <span>{{ 'Waiting for identification with the status of initiative:' | translate:lang }}</span>
+          <span>{{ waitingIdentificationTransactionCount }}</span>
+        </li>
+      </ul>
+      <button
+        class="queue-info__btn"
+        [class.hidden]="noQueue"
+        (click)="redirectTo()" >
+        {{ 'Go to' | translate:lang }}
+        {{ nextProcedure | translate:lang }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -2,11 +2,10 @@ import { AuthInfo } from '../core/models/authInfo.model';
 import { UserInfo } from '../core/models/userInfo.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../core/services/auth.service';
-import { LocaleService, Language } from 'angular-l10n';
+import { Language } from 'angular-l10n';
 import { UsersService } from '../core/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +14,6 @@ import { MatSort } from '@angular/material/sort';
 })
 export class MainComponent implements OnInit {
   public userInfo: UserInfo;
-  private authInfo: AuthInfo;
   dataVerification: MatTableDataSource<any>;
   dataIdentificationTransaction: MatTableDataSource<any>;
   dataIdentificationInitiative: MatTableDataSource<any>;
@@ -29,7 +27,7 @@ export class MainComponent implements OnInit {
   @ViewChild('paginatorIdIn') paginatorIdIn: MatPaginator;
   @ViewChild('paginatorDeal') paginatorDeal: MatPaginator;
 
-  constructor(private authService: AuthService, private usersService: UsersService) {
+  constructor(private usersService: UsersService) {
     this.dataVerification = new MatTableDataSource(this.waitingVerification);
     this.dataIdentificationTransaction = new MatTableDataSource(this.waitingIdentificationTransaction);
     this.dataIdentificationInitiative = new MatTableDataSource(this.waitingIdentificationInitiative);
@@ -37,12 +35,11 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userInfo = this.authService.getUserInfo();
-    this.authInfo = this.authService.getAuthInfo();
     this.dataVerification.paginator = this.paginatorVer;
     this.dataIdentificationTransaction.paginator = this.paginatorIdT;
     this.dataIdentificationInitiative.paginator = this.paginatorIdIn;
     this.dataDeals.paginator = this.paginatorDeal;
+    window.scrollTo(0, 0);
   }
   get waitingVerification() {
     return this.usersService.getWaitingVerification().map((item, i) => {

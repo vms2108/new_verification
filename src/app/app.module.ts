@@ -19,38 +19,25 @@ import { FormModule } from './form/form.module';
 import { MaterialModule } from './material/material.module';
 import { VerificationModule } from './verification/verification.module';
 import { IdentificationModule } from './identification/identification.module';
-import { HistoryVerificationModule } from './history-verification/history-verification.module';
-import { HistoryIdentificationModule } from './history-identification/history-identification.module';
 import { HeaderLangModule } from './header-lang/header-lang.module';
 
 import { L10nConfig, L10nLoader, TranslationModule, StorageStrategy, ProviderType } from 'angular-l10n';
-import { QueueInfoComponent } from './queueInfo/queueInfo.component';
 
 const l10nConfig: L10nConfig = {
   locale: {
-    languages: [
-      { code: 'en', dir: 'ltr' },
-      { code: 'ru', dir: 'ltr' }
-    ],
+    languages: [{ code: 'en', dir: 'ltr' }, { code: 'ru', dir: 'ltr' }],
     language: 'en',
     storage: StorageStrategy.Cookie
   },
   translation: {
-    providers: [
-      { type: ProviderType.Static, prefix: './assets/locales/locale-' }
-    ],
+    providers: [{ type: ProviderType.Static, prefix: './assets/locales/locale-' }],
     caching: true,
     missingValue: 'No translation found... :(('
   }
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainComponent,
-    LoginComponent,
-    QueueInfoComponent
-  ],
+  declarations: [AppComponent, MainComponent, LoginComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -65,8 +52,6 @@ const l10nConfig: L10nConfig = {
     FormModule,
     VerificationModule,
     IdentificationModule,
-    HistoryVerificationModule,
-    HistoryIdentificationModule,
     TranslationModule.forRoot(l10nConfig),
     HeaderLangModule
   ],
@@ -74,9 +59,7 @@ const l10nConfig: L10nConfig = {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(
-    public l10nLoader: L10nLoader
-  ) {
+  constructor(public l10nLoader: L10nLoader) {
     this.l10nLoader.load();
   }
 }

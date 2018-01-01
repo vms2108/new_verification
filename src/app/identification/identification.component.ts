@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { UsersService, AuthService } from '../core/services';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { chunk } from 'lodash';
@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IndetificationConfirmComponent } from '../dialogs/indetification-confirm/indetification-confirm.component';
 import { IdentificationService } from '../core/services/identification.service';
 import { random } from 'lodash';
-import { Language, TranslationService } from 'angular-l10n';
+import { Language } from 'angular-l10n';
 import { QueueItem } from '../core/models/queueItem.model';
 import { Router } from '@angular/router';
 import { UserInfo } from '../core/models/userInfo.model';
@@ -19,7 +19,7 @@ import { UserInfo } from '../core/models/userInfo.model';
   styleUrls: ['./identification.component.css']
 })
 export class IdentificationComponent implements OnInit {
-  public user: User;
+  public user: any;
   public sections: any[] = [];
   public approved = false;
   public fromFrom = [];
@@ -32,22 +32,39 @@ export class IdentificationComponent implements OnInit {
 
   @Language() lang: string;
 
-  constructor(private usersService: UsersService,
-    private fb: FormBuilder, private dialog: MatDialog,
+  @Input() id: number;
+  public viewMode = false;
+
+  constructor(
+    private usersService: UsersService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
     private identificationService: IdentificationService,
-    private translationService: TranslationService,
     private authService: AuthService,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    if (this.id) {
+      this.viewMode = true;
+      this.initViewMode(this.id);
+    } else {
+      this.initAsForm();
+    }
+  }
+
+  initAsForm() {
     this.queueItem = this.usersService.nextVerification();
     this.initForm();
     this.userInfo = this.authService.getUserInfo();
+    window.scrollTo(0, 0);
   }
+
+  initViewMode(id: number) {}
 
   initForm() {
     const nextQueueItem = this.queueItem;
-    if ( !nextQueueItem ) {
+    if (!nextQueueItem) {
       this.router.navigate(['']);
     } else {
       if (nextQueueItem.type === 'verification') {
@@ -57,6 +74,7 @@ export class IdentificationComponent implements OnInit {
         this.subscribeToFormChanges();
       }
     }
+    window.scrollTo(0, 0);
   }
 
   getFormSections(form: FormGroup) {
@@ -101,7 +119,7 @@ export class IdentificationComponent implements OnInit {
   generateForm(queueItem: QueueItem) {
     // Базовые
     const {
-      userInfo: { name, surname, date_of_birth}
+      userInfo: { name, surname, date_of_birth }
     } = queueItem;
     this.indetificationForm.addControl(
       'base',
@@ -118,7 +136,7 @@ export class IdentificationComponent implements OnInit {
 
     // Место жительства
     const {
-      userInfo: { country, city, adress}
+      userInfo: { country, city, adress }
     } = queueItem;
     this.indetificationForm.addControl(
       'address',
@@ -144,8 +162,7 @@ export class IdentificationComponent implements OnInit {
         state: null,
         fields: this.fb.group({
           main_doc_number: this.generateField('Document Number', main_doc_number),
-          main_doc_validdate: this.generateField('Validity'
-          , moment(main_doc_validdate).format('DD.MM.YYYY')),
+          main_doc_validdate: this.generateField('Validity', moment(main_doc_validdate).format('DD.MM.YYYY')),
           main_doc_photo: this.generateField('Photo document', main_doc_photo, true),
           main_doc_selfie: this.generateField('Selfi with the document', main_doc_selfie, true)
         })
@@ -154,11 +171,7 @@ export class IdentificationComponent implements OnInit {
 
     // Дополнительный документ
     const {
-      userInfo: {
-        secondary_doc_number,
-        secondary_doc_photo,
-        secondary_doc_validdate
-      }
+      userInfo: { secondary_doc_number, secondary_doc_photo, secondary_doc_validdate }
     } = queueItem;
     this.indetificationForm.addControl(
       'secondary_doc',
@@ -167,10 +180,7 @@ export class IdentificationComponent implements OnInit {
         state: null,
         fields: this.fb.group({
           secondary_doc_number: this.generateField('Document Number', secondary_doc_number),
-          secondary_doc_validdate: this.generateField(
-            'Validity',
-            moment(secondary_doc_validdate).format('DD.MM.YYYY')
-          ),
+          secondary_doc_validdate: this.generateField('Validity', moment(secondary_doc_validdate).format('DD.MM.YYYY')),
           secondary_doc_photo: this.generateField('Photo document', secondary_doc_photo, true)
         })
       })
@@ -180,6 +190,8 @@ export class IdentificationComponent implements OnInit {
       section.fields = this.getFields(section);
       return section;
     });
+
+    this.user = { name, surname };
   }
 
   sectionStateChanges() {
@@ -230,16 +242,19 @@ export class IdentificationComponent implements OnInit {
   }
 
   openDialog(approved: boolean) {
-    if (approved) {this.text = 'You have decided to identify the user';
-    } else {this.text = 'You decided not to identify the user'; }
+    if (approved) {
+      this.text = 'You have decided to identify the user';
+    } else {
+      this.text = 'You decided not to identify the user';
+    }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: {text: `${this.text}`, user: `${this.queueItem.userInfo.name} ${this.queueItem.userInfo.surname}`}
+      data: { text: `${this.text}`, user: `${this.queueItem.userInfo.name} ${this.queueItem.userInfo.surname}` }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const data = this.getResult();
-        const number =  random(2, 3);
+        const number = random(2, 3);
         let totals = 'waiting';
         if (this.approved === true) {
           totals = 'pass';
@@ -247,7 +262,9 @@ export class IdentificationComponent implements OnInit {
         if (this.approved === false) {
           totals = 'fail';
         }
-        const verifier = this.userInfo.firstName + ' ' + this.userInfo.lastName + ' ' + this.userInfo.email;
+        const verifier = `${
+          this.userInfo.firstName ? `${this.userInfo.firstName} ${this.userInfo.lastName}}` : this.userInfo.email
+        }`;
         this.identificationService.saveIdentifications(data, this.queueItem.id, totals, number, verifier);
         this.usersService.updateUser(this.queueItem, approved);
         this.indetificationForm.reset();
@@ -263,18 +280,18 @@ export class IdentificationComponent implements OnInit {
   getResult() {
     const arr = [];
     const fields = {};
-      Object.keys(this.indetificationForm.value).forEach((name: string) => {
-        if (name !== 'title') {
-          Object.keys(this.indetificationForm.value[name].fields).forEach((name2: string) => {
-              const field = this.indetificationForm.value[name].fields[name2];
-              field.name = name2;
-              arr.push(field);
-          });
-        }
-        arr.forEach((item) => {
-          fields[item.name] = { value: item.value, state: item.state, message: item.message};
+    Object.keys(this.indetificationForm.value).forEach((name: string) => {
+      if (name !== 'title') {
+        Object.keys(this.indetificationForm.value[name].fields).forEach((name2: string) => {
+          const field = this.indetificationForm.value[name].fields[name2];
+          field.name = name2;
+          arr.push(field);
         });
+      }
+      arr.forEach(item => {
+        fields[item.name] = { value: item.value, state: item.state, message: item.message };
       });
+    });
     return fields;
   }
 }

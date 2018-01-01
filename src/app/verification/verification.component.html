@@ -3,9 +3,9 @@
   <div class="form__body">
     <h2 class="form__title">
       {{ "User verification" | translate:lang }}
-      <span *ngIf="user && user.info">
-        {{ user.info.name }}
-        {{ user.info.surname }}
+      <span *ngIf="user">
+        {{ user.name }}
+        {{ user.surname }}
       </span>
     </h2>
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Language } from 'angular-l10n';
-import { UsersService } from '../core/services';
 import { Router } from '@angular/router';
+import { UsersService } from '../../core/services';
 
 @Component({
   selector: 'app-queue-info',
@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
   styleUrls: ['queueInfo.component.scss']
 })
 export class QueueInfoComponent implements OnInit {
-  returnUrl: string;
-  private noQueue = true;
-  private nextProcedure: string;
+  public returnUrl: string;
+  public noQueue = true;
+  public nextProcedure: string;
 
-  constructor(private usersService: UsersService,
-  private router: Router) {}
+  public marginTop = false;
+
+  @Input()
+  set mtop(value: any) {
+    this.marginTop = true;
+  }
+
+  constructor(private usersService: UsersService, private router: Router) {}
   @Language() lang: string;
 
   ngOnInit() {
@@ -36,14 +42,20 @@ export class QueueInfoComponent implements OnInit {
   next() {
     if (this.usersService.getWaitingVerification().length > 0) {
       this.nextProcedure = 'verification';
-      setTimeout(() => { this.noQueue = false; });
+      setTimeout(() => {
+        this.noQueue = false;
+      });
     } else {
-      if (this.usersService.getWaitingTransactionIdentification().length > 0 ||
-      this.usersService.getWaitingInitiativeIdentification().length > 0) {
+      if (
+        this.usersService.getWaitingTransactionIdentification().length > 0 ||
+        this.usersService.getWaitingInitiativeIdentification().length > 0
+      ) {
         this.nextProcedure = 'identification';
-        setTimeout(() => { this.noQueue = false; });
+        setTimeout(() => {
+          this.noQueue = false;
+        });
       } else {
-          this.nextProcedure = '';
+        this.nextProcedure = '';
       }
     }
   }

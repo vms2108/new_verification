@@ -1,13 +1,11 @@
-import { Verification } from './../models/verification.model';
-import { element } from 'protractor';
-import { UserInfo } from './../models/userInfo.model';
-import { QueueItem } from './../models/queueItem.model';
+import { UserInfo } from '../models/userInfo.model';
+import { QueueItem } from '../models/queueItem.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { User } from '../models';
 
 import users from '../../../assets/data/users.json';
-import { find, remove } from 'lodash';
+import { remove } from 'lodash';
 
 @Injectable()
 export class UsersService {
@@ -69,103 +67,131 @@ export class UsersService {
 
   // ожидающие верификации
   getWaitingVerification() {
-    const waitingVerifications = this.getUserVerificationStatus(users).filter(
-      user => user.verification_status === 1
-    );
+    const waitingVerifications = this.getUserVerificationStatus(users).filter(user => user.verification_status === 1);
     const queue: QueueItem[] = [];
 
     waitingVerifications.forEach((user: User) => {
-      user.verifications.forEach((verification: {id: number, amount: number, date: Date}) => {
-        queue.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'verification',
-        transactionAmount: verification.amount, date: new Date(verification.date) });
+      user.verifications.forEach((verification: { id: number; amount: number; date: Date }) => {
+        queue.push({
+          id: user.id,
+          userInfo: user.info,
+          transactionId: verification.id,
+          type: 'verification',
+          transactionAmount: verification.amount,
+          date: new Date(verification.date)
+        });
       });
     });
-    return queue.sort((n1, n2): number => {
-      if (n1.transactionAmount < n2.transactionAmount) {
-        return 1;
-      } else {
-        if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+    return queue.sort(
+      (n1, n2): number => {
+        if (n1.transactionAmount < n2.transactionAmount) {
           return 1;
+        } else {
+          if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+            return 1;
+          }
         }
       }
-    });
+    );
   }
 
   // идентификации со статусом transaction
   getWaitingTransactionIdentification() {
-    const waitingVerifications = this.getUserVerificationStatus(users).filter(
-      user => user.verification_status === 2
-    );
+    const waitingVerifications = this.getUserVerificationStatus(users).filter(user => user.verification_status === 2);
     const queue: QueueItem[] = [];
     waitingVerifications.forEach((user: User) => {
-        queue.push({id: user.id, userInfo: user.info, type: 'identification', date: new Date(user.verifications[0].date),
-        identificationCause: 'transaction'});
+      queue.push({
+        id: user.id,
+        userInfo: user.info,
+        type: 'identification',
+        date: new Date(user.verifications[0].date),
+        identificationCause: 'transaction'
+      });
     });
-    return queue.sort((n1, n2): number => {
+    return queue.sort(
+      (n1, n2): number => {
         if (n1.date > n2.date) {
           return 1;
         }
-    });
+      }
+    );
   }
 
   // идентификации со статусом initiative
   getWaitingInitiativeIdentification() {
-    const waitingVerifications = this.getUserVerificationStatus(users).filter(
-      user => user.verification_status === 3
-    );
+    const waitingVerifications = this.getUserVerificationStatus(users).filter(user => user.verification_status === 3);
     const queue: QueueItem[] = [];
     waitingVerifications.forEach((user: User) => {
-        queue.push({id: user.id, userInfo: user.info, type: 'identification', date:  user.updated,
-        identificationCause: 'initiative'});
+      queue.push({
+        id: user.id,
+        userInfo: user.info,
+        type: 'identification',
+        date: user.updated,
+        identificationCause: 'initiative'
+      });
     });
-    return queue.sort((n1, n2): number => {
+    return queue.sort(
+      (n1, n2): number => {
         if (n1.date > n2.date) {
           return 1;
         }
-    });
+      }
+    );
   }
 
   // ожидающие сделки
   getWaitingDeal() {
-    const waitingVerifications = this.getUserVerificationStatus(users).filter(
-      user => user.verification_status === 1
-    );
-    const waitingIdentifications = this.getUserVerificationStatus(users).filter(
-      user => user.verification_status === 2
-    );
+    const waitingVerifications = this.getUserVerificationStatus(users).filter(user => user.verification_status === 1);
+    const waitingIdentifications = this.getUserVerificationStatus(users).filter(user => user.verification_status === 2);
     let queueV: QueueItem[] = [];
     let queueI: QueueItem[] = [];
     waitingVerifications.forEach((user: User) => {
-      user.verifications.forEach((verification: {id: number, amount: number, date: Date}) => {
-        queueV.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'verification',
-        transactionAmount: verification.amount, date: new Date(verification.date) });
+      user.verifications.forEach((verification: { id: number; amount: number; date: Date }) => {
+        queueV.push({
+          id: user.id,
+          userInfo: user.info,
+          transactionId: verification.id,
+          type: 'verification',
+          transactionAmount: verification.amount,
+          date: new Date(verification.date)
+        });
       });
     });
     waitingIdentifications.forEach((user: User) => {
-      user.verifications.forEach((verification: {id: number, amount: number, date: Date}) => {
-        queueI.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'identification',
-        transactionAmount: verification.amount, date: new Date(verification.date) });
+      user.verifications.forEach((verification: { id: number; amount: number; date: Date }) => {
+        queueI.push({
+          id: user.id,
+          userInfo: user.info,
+          transactionId: verification.id,
+          type: 'identification',
+          transactionAmount: verification.amount,
+          date: new Date(verification.date)
+        });
       });
     });
-    queueV =  queueV.sort((n1, n2): number => {
-      if (n1.transactionAmount < n2.transactionAmount) {
-        return 1;
-      } else {
-        if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+    queueV = queueV.sort(
+      (n1, n2): number => {
+        if (n1.transactionAmount < n2.transactionAmount) {
           return 1;
+        } else {
+          if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+            return 1;
+          }
         }
       }
-    });
+    );
 
-    queueI =  queueI.sort((n1, n2): number => {
-      if (n1.transactionAmount < n2.transactionAmount) {
-        return 1;
-      } else {
-        if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+    queueI = queueI.sort(
+      (n1, n2): number => {
+        if (n1.transactionAmount < n2.transactionAmount) {
           return 1;
+        } else {
+          if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+            return 1;
+          }
         }
       }
-    });
+    );
     const itog: QueueItem[] = [];
     queueV.forEach((item: QueueItem) => {
       itog.push(item);
@@ -197,7 +223,7 @@ export class UsersService {
     if (item.type === 'verification') {
       user.failVerification = !result;
       if (result) {
-        remove(user.verifications, (v) =>  v.id === item.transactionId);
+        remove(user.verifications, v => v.id === item.transactionId);
       }
     }
   }

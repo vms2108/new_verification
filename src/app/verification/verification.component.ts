@@ -1,6 +1,6 @@
 import { Identification } from '../core/models/identification.model';
 import { VerificationService } from '../core/services/verification.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsersService, AuthService } from '../core/services';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { chunk, random } from 'lodash';
@@ -19,7 +19,7 @@ import { UserInfo } from '../core/models/userInfo.model';
   styleUrls: ['./verification.component.css']
 })
 export class VerificationComponent implements OnInit {
-  public user: User;
+  public user: any;
   public queueItem: QueueItem;
   public sections: any[] = [];
   public approved = false;
@@ -28,10 +28,15 @@ export class VerificationComponent implements OnInit {
   public verificationForm: FormGroup = this.fb.group({
     title: 'Верификация пользователя'
   });
-  private userInfo: UserInfo;
+  public userInfo: UserInfo;
   @Language() lang: string;
 
-  constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog,
+  @Input() id: string;
+
+  constructor(
+    private usersService: UsersService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
     private verificationService: VerificationService,
     private translationService: TranslationService,
     private authService: AuthService,
@@ -41,12 +46,12 @@ export class VerificationComponent implements OnInit {
     this.queueItem = this.usersService.nextVerification();
     this.initForm();
     this.userInfo = this.authService.getUserInfo();
-    console.log(this.userInfo.firstName + ' ' + this.userInfo.lastName + ' ' + this.userInfo.email);
+    window.scrollTo(0, 0);
   }
 
   initForm() {
     const nextQueueItem = this.queueItem;
-    if ( !nextQueueItem ) {
+    if (!nextQueueItem) {
       this.router.navigate(['']);
     } else {
       if (nextQueueItem.type !== 'verification') {
@@ -56,6 +61,7 @@ export class VerificationComponent implements OnInit {
         this.subscribeToFormChanges();
       }
     }
+    window.scrollTo(0, 0);
   }
 
   getFormSections(form: FormGroup) {
@@ -100,7 +106,7 @@ export class VerificationComponent implements OnInit {
   generateForm(queueItem: QueueItem) {
     // Базовые
     const {
-      userInfo: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo,   main_doc_validdate}
+      userInfo: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo, main_doc_validdate }
     } = queueItem;
     this.verificationForm.addControl(
       'base',
@@ -114,8 +120,7 @@ export class VerificationComponent implements OnInit {
           date_of_birth: this.generateField('Date of birth', moment(date_of_birth).format('DD.MM.YYYY')),
           country: this.generateField('Country', country),
           main_doc_number: this.generateField('Document Number', main_doc_number),
-          main_doc_validdate: this.generateField('Validity',
-          moment(main_doc_validdate).format('DD.MM.YYYY')),
+          main_doc_validdate: this.generateField('Validity', moment(main_doc_validdate).format('DD.MM.YYYY')),
           main_doc_photo: this.generateField('Photo document', main_doc_photo, true)
         })
       })
@@ -127,8 +132,7 @@ export class VerificationComponent implements OnInit {
         title: 'Checking the list of terrorists',
         state: null,
         onlyRead: false,
-        fields: this.fb.group({
-        })
+        fields: this.fb.group({})
       })
     );
 
@@ -138,8 +142,7 @@ export class VerificationComponent implements OnInit {
         title: 'Internal list check',
         state: null,
         onlyRead: false,
-        fields: this.fb.group({
-        })
+        fields: this.fb.group({})
       })
     );
 
@@ -147,6 +150,8 @@ export class VerificationComponent implements OnInit {
       section.fields = this.getFields(section);
       return section;
     });
+
+    this.user = { name, surname };
   }
 
   sectionStateChanges() {
@@ -197,17 +202,20 @@ export class VerificationComponent implements OnInit {
   }
 
   openDialog(approved: boolean) {
-    if (approved) {this.text = 'You have decided to verify the user';
-  } else {this.text = 'You decided not to verify the user'; }
+    if (approved) {
+      this.text = 'You have decided to verify the user';
+    } else {
+      this.text = 'You decided not to verify the user';
+    }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: { text: `${this.text}`, user: `${this.queueItem.userInfo.name} ${this.queueItem.userInfo.surname}`}
+      data: { text: `${this.text}`, user: `${this.queueItem.userInfo.name} ${this.queueItem.userInfo.surname}` }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const user_info = this.getUserData();
         const test = this.getResult();
-        const deal_id =  this.queueItem.transactionId;
+        const deal_id = this.queueItem.transactionId;
         let totals = 'waiting';
         if (this.approved === true) {
           totals = 'pass';
@@ -230,18 +238,18 @@ export class VerificationComponent implements OnInit {
   getUserData() {
     const arr = [];
     const fields = {};
-      Object.keys(this.verificationForm.value).forEach((name: string) => {
-        if (name === 'base') {
-          Object.keys(this.verificationForm.value[name].fields).forEach((name2: string) => {
-              const field = this.verificationForm.value[name].fields[name2];
-              field.name = name2;
-              arr.push(field);
-          });
-        }
-        arr.forEach((item) => {
-          fields[item.name] =  item.value;
+    Object.keys(this.verificationForm.value).forEach((name: string) => {
+      if (name === 'base') {
+        Object.keys(this.verificationForm.value[name].fields).forEach((name2: string) => {
+          const field = this.verificationForm.value[name].fields[name2];
+          field.name = name2;
+          arr.push(field);
         });
+      }
+      arr.forEach(item => {
+        fields[item.name] = item.value;
       });
+    });
     return fields;
   }
 
@@ -249,7 +257,7 @@ export class VerificationComponent implements OnInit {
     const arr = [];
     const fields = {};
     Object.keys(this.verificationForm.value).forEach((name: string, item) => {
-       if (name === 'inner_list' || name === 'list_of_terror') {
+      if (name === 'inner_list' || name === 'list_of_terror') {
         fields[name] = this.verificationForm.value[name].state;
       }
     });
