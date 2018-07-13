@@ -10,8 +10,6 @@
       <app-field [Label]= 'labelValidityMain' [Value]='validityMain' [Id] = '"validityMain"' (onChanged)="toggle($event)" ></app-field>
     </div>
     <div class="form__block">
-      <app-toggle [Id] = '"baseData"' (onChanged)="toggleBase($event)" >
-      </app-toggle>
       <div class="form__title">Базовые данные</div>
       <app-field [Label]= 'labelName' [Value]='name' ></app-field>
       <app-field [Label]= 'labelSurname' [Value]='surname' ></app-field>
@@ -19,15 +17,12 @@
       <app-field [Label]= 'labelBirthplace' [Value]='birthplace' ></app-field>
     </div>
     <div class="form__block">
-      <app-toggle [Id] = '"location"' (onChanged)="toggleLocation($event)" ></app-toggle>
-      <div class="form__title">Место жительства</div>
       <app-field [Label]= 'labelIndex' [Value]='index' ></app-field>
       <app-field [Label]= 'labelCountry' [Value]='country' ></app-field>
       <app-field [Label]= 'labelCity' [Value]='city' ></app-field>
       <app-field [Label]= 'labelAdress' [Value]='address' ></app-field>
     </div>
     <div class="form__block">
-      <app-toggle [Id] = '"additionDocument"' (onChanged)="toggleAddition($event)" ></app-toggle>
       <div class="form__title">Дополнительный документ</div>
       <app-photo [Path]='"assets/8.jpg"'></app-photo>
       <app-field [Label]= 'labelTypeAddition' [Value]='typeAddition' ></app-field>
@@ -35,7 +30,6 @@
       <app-field [Label]= 'labelValidityAddition' [Value]='validityAddition' ></app-field>
     </div>
     <div class="form__block">
-      <app-toggle [Id] = '"binding"' (onChanged)="toggleBinding($event)" ></app-toggle>
       <div class="form__title">Привязка основного и дополнительного документа</div>
       <app-photo [Path]='"assets/8.jpg"'></app-photo>
       <app-photo [Path]='"assets/8.jpg"'></app-photo>

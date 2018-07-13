@@ -22,6 +22,5 @@ export class MainComponent implements OnInit {
   ngOnInit() {
       this.userInfo = this.authService.getUserInfo();
       this.authInfo = this.authService.getAuthInfo();
-      console.log(this.userInfo);
   }
 }
