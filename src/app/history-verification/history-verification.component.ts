@@ -1,3 +1,4 @@
+import { HistoryVerificationService } from './../core/services/history-verification.service';
 import { Component, OnInit } from '@angular/core';
 import { StaticDataSource } from '../core/services/static.datasource';
 import { History } from '../core/models/history.model';
@@ -10,12 +11,12 @@ import { History } from '../core/models/history.model';
 })
 export class HistoryVerificationComponent implements OnInit {
   private history: History[] = [];
-  constructor(private staticdata: StaticDataSource) { }
+  constructor(private historyVerificationService: HistoryVerificationService) { }
 
   ngOnInit() {
   }
 
-  get Records(): History[] {
-    return this.staticdata.getHistory();
+  get Records() {
+    return this.historyVerificationService.getHistoryItems();
   }
 }

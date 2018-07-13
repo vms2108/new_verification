@@ -1,3 +1,4 @@
+import { HistoryVerificationService } from './services/history-verification.service';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertService } from './services';
@@ -20,7 +21,8 @@ import { AuthService } from './services/auth.service';
         AlertService,
         UserService,
         ApiService,
-        AuthService
+        AuthService,
+        HistoryVerificationService
     ],
     bootstrap: [
     ],

@@ -10,7 +10,7 @@
         <div class="history-container__cell">{{item.id}}</div>
         <div class="history-container__cell">{{item.userId}}</div>
         <div class="history-container__cell">{{item.deal}}</div>
-        <div class="history-container__cell">{{item.data}}</div>
+        <div class="history-container__cell">{{item.data | date : 'dd.MM.yyyy HH:mm'}}</div>
         <div class="history-container__cell">{{item.result}}</div>
     </div>
 </div>

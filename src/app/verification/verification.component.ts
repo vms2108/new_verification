@@ -1,3 +1,4 @@
+import { HistoryVerificationService } from './../core/services/history-verification.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerificationComponent implements OnInit {
 
-  constructor() { }
+  constructor(public historyVerificationService: HistoryVerificationService) { }
   name = 'Ivan';
   labelName = 'Имя';
   surname = 'Ivanov';
@@ -23,7 +24,52 @@ export class VerificationComponent implements OnInit {
   validityMain = '23.09.2028';
   labelValidityMain = 'Срок действия';
 
+  Terror = 'neutral';
+  InnerTest = 'neutral';
+
   ngOnInit() {
+  }
+
+  toggleTerror($event) {
+    this.Terror = $event;
+  }
+  toggleInnerTest($event) {
+    this.InnerTest = $event;
+  }
+
+
+  allGreen () {
+    return this.Terror === 'on' &&
+    this.InnerTest === 'on';
+  }
+
+  greenOrRed() {
+    return !this.allGreen() &&
+    this.Terror !== 'neutral' &&
+    this.InnerTest !== 'neutral';
+  }
+
+  get firstButton() {
+    if (this.allGreen()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  successClick() {
+    this.historyVerificationService.addHistoryItem('pass');
+    console.log(this.historyVerificationService.getHistoryItems());
+  }
+  unsuccessClick() {
+    this.historyVerificationService.addHistoryItem('fail');
+    console.log(this.historyVerificationService.getHistoryItems());
+  }
+  get secondButton() {
+    if (this.greenOrRed()) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }
