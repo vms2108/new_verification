@@ -1,0 +1,15 @@
+<div class='switcher'>
+  <label  class='switcher-label switcher-off' [for]='off'>off</label>
+  <input [id]='off' class='switcher-radio-off' type='radio' [name]='value' [value]='off' (click)="change('off')">
+    
+  <label class='switcher-label switcher-neutral' [for]='neutral'>neutral</label>
+  <input [id]='neutral' class='switcher-radio-neutral' type='radio' [name]='value' [value]='neutral' checked (click)="change('neutral')">
+    
+  <label class='switcher-label switcher-on' [for]='on'>on</label>
+  <input [id]='on' class='switcher-radio-on' type='radio' [name]='value' [value]='on' (click)="change('on')" >
+  <div class='switcher-slider'></div>
+  <div class="switcher__cause">
+    <b>Причина отказа</b>
+    <textarea name="failure-documentbinding" [id]="value"></textarea>
+  </div>
+</div>

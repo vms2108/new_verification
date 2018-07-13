@@ -1,0 +1,116 @@
+.switcher {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    display: inline-block;
+    margin: 1px 10px;
+    height: 20px;
+    width: 150px;
+    z-index: 1;
+  }
+  
+  .switcher-off {
+    left: 1px;
+    width: 33%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .switcher-neutral {
+    left: 33%;
+    width: 33%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .switcher-on{
+    right: 1px;
+    width: 33%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .switcher-label {
+    position: absolute;
+    text-indent: -9999px;
+    z-index: 2;
+  }
+  
+  .switcher input {
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  .switcher-slider {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1) inset, 0 0 4px rgba(0, 0, 0, 0.5) inset, 0 2px 2px 1px rgba(0, 0, 0, 0.3) inset;
+    transition: background-color 0.2s linear 0s;
+  }
+  
+  .switcher-slider:after {
+    transition: left 0.2s linear 0s, right 0.2s linear 0s;
+    background: linear-gradient(#D0D0D0, #FDFDFD) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    content: "";
+    position: absolute;
+    top: 1px;
+    border-radius: 50%;
+    height: calc(100% - 2px);
+    width: calc(19px);
+    box-shadow: 0 0 1px 1px #f4f4f4 inset, 0 0 3px 1px rgba(0, 0, 0, 0.6);
+    left: 33%;
+  }
+  
+  .switcher-radio-on:checked  ~ .switcher-slider {
+    background-color: #81EA89;
+  }
+  
+  .switcher-radio-neutral:checked  ~ .switcher-slider {
+    background: #ddd;
+  }
+  
+  .switcher-radio-off:checked  ~ .switcher-slider {
+    background-color: #ED8282;
+  }
+  
+  .switcher-radio-on:checked  ~ .switcher-slider:after {
+    left: calc(29px + 2*(100%/3));
+  }
+  
+  .switcher-radio-neutral:checked  ~ .switcher-slider:after {
+    left: calc(17px + 100%/3);
+  }
+  
+  .switcher-radio-off:checked  ~ .switcher-slider:after {
+    left: 1px;
+  }
+  
+  .switcher__cause {
+    z-index: 10;
+    width: 400px;
+    box-sizing: border-box;
+    background: rgb(230, 230, 230);
+    padding: 20px;
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: -420px;
+    border: 1px solid black;
+  }
+  .switcher__cause b {
+      font-weight: normal;
+      font-size: 24px;
+  }
+  
+  .switcher__cause textarea {
+    width: 360px;
+    box-sizing: border-box;
+    height: 100px;
+    margin-top: 10px;
+    border: 2px solid black;
+    resize: none;
+  }
+  .switcher-radio-off:checked ~ .switcher__cause {
+    display: block;
+  }

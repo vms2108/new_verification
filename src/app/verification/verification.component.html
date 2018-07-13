@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="page__header">Верификация пользователя</h1>
+  <div class="form">
+    <div class="form__block">
+      <div class="form__title">Базовые данные</div>
+      <app-photo [Path]='"assets/8.jpg"'></app-photo>
+      <app-field [Label]= 'labelName' [Value]='name' ></app-field>
+      <app-field [Label]= 'labelSurname' [Value]='surname' ></app-field>
+      <app-field [Label]= 'labelBirthday' [Value]='birthday' ></app-field>
+      <app-field [Label]= 'labelCountry' [Value]='country' ></app-field>
+      <app-field [Label]= 'labelTypeMain' [Value]='typeMain' ></app-field>
+      <app-field [Label]= 'labelNumberMain' [Value]='numberMain' ></app-field>
+      <app-field [Label]= 'labelValidityMain' [Value]='validityMain' ></app-field>
+    </div>
+      <div class="form__block">
+          <app-toggle [Id] = '"terror"' ></app-toggle>
+          <div class="form__title">Проверка пользователя по списку экстремистов</div>
+      </div>
+      <div class="form__block">
+          <app-toggle [Id] = '"innerTest"' ></app-toggle>
+          <div class="form__title">Проверка пользователя по внутренним критериям</div>
+      </div>
+  </div>
+</div>

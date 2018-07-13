@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  &__label {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  &__value {
+    font-size: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border: 2px solid #000;
+    background: rgba(227, 230, 210, 0.7);
+  }
+}

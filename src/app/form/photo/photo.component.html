@@ -1,0 +1,7 @@
+<a class="photo" (click)="open()" >
+  <img [src]='Path' alt="Document photo" width="200">
+</a>
+<div class="photo--hidden" [class.visible]="visible" >
+  <button class="closer" (click)="close()" (keyup)= "onKeyDown($event)" ></button>
+  <img [src]='Path' alt="Document photo" width="600">
+</div>

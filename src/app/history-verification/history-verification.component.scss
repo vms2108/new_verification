@@ -1,0 +1,26 @@
+.history-container {
+  margin-top: 20px;
+  width: 100%;
+  &__row {
+    display: flex;
+    border: 1px solid black;
+    border-bottom: none;
+    width: 700px;
+    &:last-child {
+      border-bottom: 1px solid black;
+    }
+  }
+  &__cell {
+    padding: 5px;
+    font-size: 18px;
+    width: 150px;
+    border-left: 1px solid black;
+    text-align: center;
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      width: 100px;
+    }
+  }
+}

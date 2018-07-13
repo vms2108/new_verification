@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+        "id": 1,
+        "name": "Ivan",
+        "surname": "Ivanov",
+        "birthday": "28.03.1991",
+        "birthplace": "Samara"
+        },
+        {
+        "id": 2,
+        "name": "Daniil",
+        "surname": "Petrov",
+        "birthday": "08.03.1993",
+        "birthplace": "Moskow"
+        }
+    ]
+}
