@@ -50,26 +50,15 @@ export class VerificationComponent implements OnInit {
   }
 
   get firstButton() {
-    if (this.allGreen()) {
-      return false;
-    } else {
-      return true;
-    }
+    return !this.allGreen();
+  }
+  get secondButton() {
+    return !this.greenOrRed();
   }
   successClick() {
     this.historyVerificationService.addHistoryItem('pass');
-    console.log(this.historyVerificationService.getHistoryItems());
   }
   unsuccessClick() {
     this.historyVerificationService.addHistoryItem('fail');
-    console.log(this.historyVerificationService.getHistoryItems());
   }
-  get secondButton() {
-    if (this.greenOrRed()) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
 }
