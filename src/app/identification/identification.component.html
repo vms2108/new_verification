@@ -3,12 +3,11 @@
   <h1 class="page__header">Идентификация пользователя</h1>
   <div class="form">
     <div class="form__block">
-      <app-toggle [Id] = '"mainDocument"' (onChanged)="toggleMain($event)" ></app-toggle>
       <div class="form__title">Основной документ</div>
       <app-photo [Path]='"assets/8.jpg"'></app-photo>
-      <app-field [Label]= 'labelTypeMain' [Value]='typeMain' ></app-field>
-      <app-field [Label]= 'labelNumberMain' [Value]='numberMain' ></app-field>
-      <app-field [Label]= 'labelValidityMain' [Value]='validityMain' ></app-field>
+      <app-field [Label]= 'labelTypeMain' [Value]='typeMain' [Id] = '"typeMain"' (onChanged)="toggle($event)"  ></app-field>
+      <app-field [Label]= 'labelNumberMain' [Value]='numberMain' [Id] = '"numberMain"' (onChanged)="toggle($event)" ></app-field>
+      <app-field [Label]= 'labelValidityMain' [Value]='validityMain' [Id] = '"validityMain"' (onChanged)="toggle($event)" ></app-field>
     </div>
     <div class="form__block">
       <app-toggle [Id] = '"baseData"' (onChanged)="toggleBase($event)" >
