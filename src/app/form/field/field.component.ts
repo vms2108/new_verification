@@ -12,18 +12,13 @@ export class FieldComponent implements OnInit {
   @Input() Value: string;
   @Input() Label: string;
   @Input() Id: string;
-  on: string = null;
-  off: string = null;
-  neutral: string = null;
-  value: string = null;
+  currentStatus = undefined;
   ngOnInit() {
-    this.on = 'on' + this.Id;
-    this.off = 'off' + this.Id;
-    this.neutral = 'neutral' + this.Id;
-    this.value = 'value' + this.Id;
   }
   change (value: string) {
     this.onChanged.emit(value);
   }
-
+  onClick(value) {
+    this.currentStatus = value;
+  }
 }
