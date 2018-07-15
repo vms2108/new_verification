@@ -1,67 +1,37 @@
 
 <div class="form">
   <div class="form__body">
-    <h2 class="form__title">Идентификация пользователя {{ 'Semen Semenov' }}</h2>
-    <div class="form-group">
-      <h3 class="form-group__title">Базовые данные</h3>
-      <div class="form__fieldgroup">
-        <app-field class="form__field" label="Имя"></app-field>
-        <app-field class="form__field" label="Фамилия"></app-field>
-      </div>
-      <div class="form__fieldgroup">
-        <app-field class="form__field" label="Дата рождения"></app-field>
-        <app-field class="form__field" label="Место рождения"></app-field>
-      </div>
-    </div>
-    <div class="form-group">
-      <h3 class="form-group__title">Место жительства</h3>
-      <div class="form__fieldgroup">
-        <app-field class="form__field" label="Почтовый индекс"></app-field>
-        <app-field class="form__field" label="Страна"></app-field>
-      </div>
-      <div class="form__fieldgroup">
-        <app-field class="form__field" label="Район (штат, административная единица)"></app-field>
-        <app-field class="form__field" label="Город (населенный пункт)"></app-field>
-      </div>
-      <div class="form__fieldgroup form__fieldgroup--3">
-        <app-field class="form__field" label="Улица"></app-field>
-        <app-field class="form__field" label="Дом"></app-field>
-        <app-field class="form__field" label="Квартира"></app-field>
+    <h2 class="form__title">
+      Идентификация пользователя
+      <span *ngIf="user && user.info">
+        {{ user.info.name }}
+        {{ user.info.surname }}
+      </span>
+    </h2>
+
+    <div
+      class="form-group"
+      *ngFor="let section of sections"
+      [formGroup]="section">
+      <h3 class="form-group__title">{{ section.get('title').value }}</h3>
+      <div class="form__fieldgroup" *ngFor="let fieldgroup of section.fields">
+        <app-field
+          *ngFor="let field of fieldgroup"
+          class="form__field"
+          [field]="field">
+        </app-field>
       </div>
     </div>
-    <div class="form-group">
-      <h3 class="form-group__title">Основной документ</h3>
-      <div class="form__fieldgroup form__fieldgroup--3">
-        <app-field class="form__field" label="Вид документа"></app-field>
-        <app-field class="form__field" label="Номер документа"></app-field>
-        <app-field class="form__field" label="Срок действия документа"></app-field>
-      </div>
-      <div class="form__fieldgroup">
-        <app-field class="form__field" label="Фото документа"></app-field>
-        <app-field class="form__field" label="Селфи с документом"></app-field>
-      </div>
-    </div>
-    <div class="form-group">
-      <h3 class="form-group__title">Дополнительный документ</h3>
-      <div class="form__fieldgroup form__fieldgroup--3">
-        <app-field class="form__field" label="Вид документа"></app-field>
-        <app-field class="form__field" label="Дата документа"></app-field>
-        <app-field class="form__field" label="Срок действия"></app-field>
-      </div>
-      <div class="form__fieldgroup">
-        <app-field class="form__field" label="Фото документа"></app-field>
-        <app-field class="form__field" label="Селфи с документом"></app-field>
-      </div>
-    </div>
+
     <div class="form__buttons">
-        <div class="form__buttons-group">
-          <button mat-raised-button class="form__button">
-            Идентификация пройдена
-          </button>
-          <button mat-raised-button class="form__button">
-            Идентификация не пройдена
-          </button>
-        </div>
+      <div class="form__buttons-group">
+        <button mat-raised-button class="form__button">
+          Идентификация пройдена
+        </button>
+        <button mat-raised-button class="form__button">
+          Идентификация не пройдена
+        </button>
+      </div>
     </div>
   </div>
 </div>

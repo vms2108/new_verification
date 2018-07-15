@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '../../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'app-field',
@@ -7,18 +8,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class FieldComponent {
   @Input() label: string;
+  @Input() field: FormGroup;
 
-  // // tslint:disable-next-line:no-output-on-prefix
-  // @Output() onChanged = new EventEmitter<string>();
-  // constructor() { }
-  // @Input() Value: string;
-  // @Input() Label: string;
-  // @Input() Id: string;
-  // currentStatus = undefined;
-  // change (value: string) {
-  //   this.onChanged.emit(value);
-  // }
-  // onClick(value) {
-  //   this.currentStatus = value;
-  // }
+  toggleState() {
+    const currentState = this.field.get('state').value;
+    let newState = null;
+    if (currentState === null) {
+      newState = true;
+    }
+    if (currentState === true) {
+      newState = false;
+    }
+    if (currentState === false) {
+      newState = null;
+    }
+    this.field.get('state').setValue(newState);
+  }
 }

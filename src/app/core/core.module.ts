@@ -1,8 +1,7 @@
 import { HistoryVerificationService } from './services/history-verification.service';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertService } from './services';
-import { UserService } from './services/user.service';
+import { UsersService } from './services/users.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AlertComponent } from './directives';
 import { CommonModule } from '@angular/common';
@@ -10,24 +9,10 @@ import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 
 @NgModule({
-    declarations: [
-       AlertComponent,
-    ],
-    imports: [
-        CommonModule
-    ],
-    providers: [
-        AuthGuard,
-        AlertService,
-        UserService,
-        ApiService,
-        AuthService,
-        HistoryVerificationService
-    ],
-    bootstrap: [
-    ],
-    exports: [
-        AlertComponent
-    ]
- })
- export class CoreModule { }
+  declarations: [AlertComponent],
+  imports: [CommonModule],
+  providers: [AuthGuard, AlertService, UsersService, ApiService, AuthService, HistoryVerificationService],
+  bootstrap: [],
+  exports: [AlertComponent]
+})
+export class CoreModule {}

@@ -1,4 +1,4 @@
-import { HistoryVerificationService } from './../core/services/history-verification.service';
+import { HistoryVerificationService } from '../core/services/history-verification.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./verification.component.css']
 })
 export class VerificationComponent implements OnInit {
-
-  constructor(public historyVerificationService: HistoryVerificationService) { }
+  constructor(public historyVerificationService: HistoryVerificationService) {}
   name = 'Ivan';
   labelName = 'Имя';
   surname = 'Ivanov';
@@ -27,8 +26,7 @@ export class VerificationComponent implements OnInit {
   Terror = 'neutral';
   InnerTest = 'neutral';
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toggleTerror($event) {
     this.Terror = $event;
@@ -37,16 +35,12 @@ export class VerificationComponent implements OnInit {
     this.InnerTest = $event;
   }
 
-
-  allGreen () {
-    return this.Terror === 'on' &&
-    this.InnerTest === 'on';
+  allGreen() {
+    return this.Terror === 'on' && this.InnerTest === 'on';
   }
 
   greenOrRed() {
-    return !this.allGreen() &&
-    this.Terror !== 'neutral' &&
-    this.InnerTest !== 'neutral';
+    return !this.allGreen() && this.Terror !== 'neutral' && this.InnerTest !== 'neutral';
   }
 
   get firstButton() {

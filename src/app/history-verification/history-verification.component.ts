@@ -1,4 +1,4 @@
-import { HistoryVerificationService } from './../core/services/history-verification.service';
+import { HistoryVerificationService } from '../core/services/history-verification.service';
 import { Component, OnInit } from '@angular/core';
 import { History } from '../core/models/history.model';
 
@@ -9,10 +9,9 @@ import { History } from '../core/models/history.model';
 })
 export class HistoryVerificationComponent implements OnInit {
   private history: History[] = [];
-  constructor(private historyVerificationService: HistoryVerificationService) { }
+  constructor(private historyVerificationService: HistoryVerificationService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   get Records() {
     return this.historyVerificationService.getHistoryItems();

@@ -24,6 +24,8 @@
     align-items: center;
     & span{
       display: block;
+      cursor: pointer;
+      user-select: none;
     }
   }
   &__toggle{

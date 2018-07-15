@@ -1,13 +1,14 @@
-<div class="field">
+<div class="field" [formGroup]="field">
   <div class="field__header">
-    <div class="field__label"><span>{{ label }}</span></div>
-    <app-toggle class="field__toggle"></app-toggle>
+    <div class="field__label"><span (click)="toggleState()">{{ field.get('title').value }}</span></div>
+    <app-toggle class="field__toggle" formControlName="state"></app-toggle>
   </div>
   <mat-form-field>
-    <input matInput readonly value="какое-то значение поле хъ че здесь">
+    <input matInput readonly formControlName="value">
   </mat-form-field>
-  <mat-form-field [class.hidden]="true">
+  <mat-form-field [class.hidden]="!(field.get('state').value === false)">
     <textarea
+      formControlName="message"
       matInput
       placeholder="Причина отказа"
       cdkTextareaAutosize
