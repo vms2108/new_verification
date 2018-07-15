@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../core/services';
-import { FormBuilder, FormGroup, AbstractControl } from '../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { chunk } from 'lodash';
 import { User } from '../core/models';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { IndetificationConfirmComponent } from '../dialogs/indetification-confirm/indetification-confirm.component';
 
 @Component({
   selector: 'app-identification',
@@ -19,7 +21,7 @@ export class IdentificationComponent implements OnInit {
     title: 'Идентификация пользователя'
   });
 
-  constructor(private usersService: UsersService, private fb: FormBuilder) {}
+  constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.user = this.usersService.getUser();
@@ -204,5 +206,15 @@ export class IdentificationComponent implements OnInit {
     this.sectionStateChanges();
     this.fieldStateChanges();
     this.allFieldsChanges();
+  }
+
+  openDialog(approved: boolean) {
+    const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
+      width: '500px',
+      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

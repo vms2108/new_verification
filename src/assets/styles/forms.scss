@@ -411,3 +411,15 @@
     left: 0;top: 0;
   }
 }
+
+
+.confirm-dialog{
+  padding: 10px;
+  &__text{
+    margin: 0;
+    margin-bottom: 25px;
+  }
+  &__buttons{
+
+  }
+}

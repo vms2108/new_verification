@@ -3,24 +3,31 @@ import { FieldComponent } from './form/field/field.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
+
 import { VerificationComponent } from './verification/verification.component';
 import { MainComponent } from './main/main.component';
 import { IdentificationComponent } from './identification/identification.component';
 import { HistoryVerificationComponent } from './history-verification/history-verification.component';
 import { HistoryIdentificationComponent } from './history-identification/history-identification.component';
-import { AppRoutingModule } from './app.routing';
+import { LoginComponent } from './login';
+
 import { ToggleComponent } from './form/toggle/toggle.component';
 import { PhotoComponent } from './form/photo/photo.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from './login';
+
 import { CoreModule } from './core/core.module';
+import { DialogsModule } from './dialogs/dialogs.module';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -46,8 +53,10 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DialogsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -28,10 +28,18 @@
 
     <div class="form__buttons">
       <div class="form__buttons-group">
-        <button mat-raised-button class="form__button form__button--pass" *ngIf="approved">
+        <button
+          mat-raised-button
+          class="form__button form__button--pass"
+          (click)="openDialog(true)"
+          *ngIf="approved">
           Идентификация пройдена
         </button>
-        <button mat-raised-button class="form__button form__button--delete" *ngIf="!approved">
+        <button
+          mat-raised-button
+          class="form__button form__button--delete"
+          *ngIf="!approved"
+          (click)="openDialog(false)" >
           Идентификация не пройдена
         </button>
       </div>
