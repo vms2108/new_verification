@@ -1,20 +1,13 @@
-<h2>Login</h2>
-<form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" autocomplete="off" formControlName="email" class="form-control" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" autocomplete="off" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">Login</button>
-    </div>
-</form>
+<div class="login">
+  <form class="login__form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <div class="login__loader" [class.show]="sending"></div>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Логин" name="email" formControlName="email" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Пароль" name="password" formControlName="password" required>
+    </mat-form-field>
+    <button class="login__button" mat-raised-button color="primary" [disabled]="!loginForm.valid || sending">Войти</button>
+    <p class="login__msg" [class.show]="userNotFound">Неверный логин или пароль</p>
+  </form>
+</div>

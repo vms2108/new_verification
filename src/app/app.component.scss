@@ -1,34 +1,100 @@
-.page-header {
-  margin: 0;
-  margin-bottom: 30px;
+.app{
+  padding-top: 60px;
+}
+
+.header{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 60px;
+  background-color: #3E3E51;
+  box-shadow: 0 3px 24px rgba(0, 0, 0, 0.15);
+  z-index: 200;
   width: 100%;
-  background: rgba(150,200,200, 0.7);
-
-  &__wrapper {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      
+  min-width: 1000px;
+  &__container{
+    height: 60px;
+    width: 100%;
+    position: relative;
   }
-
-  &__items {
-    margin: 0;
-    padding: 0;
+  &__nav{
+    font-size: 0;
+    line-height: 0;
+    & a{
+      height: 60px;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #fff;
+      display: inline-block;
+      padding: 24px 0 0;
+      position: relative;
+      margin-right: 20px;
+      &.m0{
+        margin-right: 0;
+      }
+      &:last-child{
+        margin-right: 0;
+      }
+      &::after{
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-color: #f7931a;
+        opacity: 0;
+      }
+      &.active{
+        &::after{
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &__main, &__register{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    justify-content: space-between;
-    list-style: none;
     align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
   }
-  
-  &__link {
-    display: flex;
-    text-decoration: none;
-    color: #000;
-    font-size: 18px;
-    padding: 20px 30px;
-
-    &:hover {
-      background: rgba(230,230,230, 0.9);
+  &__logo{
+    & svg{
+      display: block;
+      width: 111px;
+      height: 28px;
+      & path{
+        fill: #fefefe;
+      }
+    }
+  }
+  &__user{
+    font-size: 0;
+    & span{
+      vertical-align: middle;
+      margin-right: 12px;
+      font-size: 15px;
+      color: #fff;
+      line-height: 1;
+      margin-top: -2px;
+      display: inline-block;;
+    }
+    & button, a{
+      display: inline-block;
+      width: 18px;
+      height: 14px;
+      vertical-align: middle;
     }
   }
 }

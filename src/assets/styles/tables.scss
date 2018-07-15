@@ -1,0 +1,244 @@
+.table{
+  background-color: #353545;
+  box-shadow: 0 0 24px rgba(0,0,0,.15);
+  padding: 40px 50px;
+  color: #fff;
+  margin: 30px auto 50px;
+  border-radius: 12px;
+  width: auto;
+  max-width: 1280px;
+  &--fw{
+    max-width: 100%;
+  }
+  &__title{
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 6px;
+    &--buttons{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__titb{
+    display: block;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    line-height: 15px;
+    height: 38px;
+    padding: 0 24px;
+    cursor: pointer;
+
+    padding-top: 11px;
+    font-weight: normal;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all .2s ease;
+    user-select: none;
+    &:hover{
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &__filters{
+    margin: 30px 0;
+    padding: 0 6px;
+  }
+
+  & .mat-table,
+  & .mat-paginator{
+    background: none;
+  }
+
+  & .mat-header-row, .mat-row{
+    border-bottom-color: rgba(196, 196, 196, .25);
+    padding: 0 6px;
+  }
+
+  & .mat-cell{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+    font-size: 14px;
+    &:last-child{
+      padding-right: 0;
+    }
+    & .link, & .change-status{
+      cursor: pointer;
+      display: inline-block;
+      border-bottom: 1px solid rgba(255, 255, 255, .5);
+      &:hover{
+        color: #f7931a;
+        border-bottom-color: #f7931a;
+      }
+    }
+    & .change-status{
+      border-bottom: 1px dashed rgba(255, 255, 255, .5);
+    }
+  }
+
+  .mat-row{
+    cursor: pointer;
+    &:hover{
+      background-color: rgba(255, 255, 255, .1);
+    }
+    &.nopointer{
+      cursor: initial;
+    }
+    &.unread{
+      background-color: rgb(59, 59, 84);
+      &:hover{
+        background-color:  hsl(240, 17%, 30%);
+      }
+    }
+  }
+
+  & .mat-paginator{
+    margin-top: 30px;
+    & .mat-form-field-ripple{
+      background-color: #f7931a;
+    }
+    & .mat-form-field.mat-focused.mat-primary .mat-select-arrow{
+      color: #f7931a;
+    }
+  }
+
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled){
+  color: #f7931a;
+}
+
+.table-filters{
+  display: flex;
+  align-items: center;
+  font-size: 0;
+  flex-wrap: wrap;
+  &__labels{
+    display: flex;
+    margin: 20px 0 0;
+    width: 100%;
+    @media screen and (min-width: 1280px){
+      width: auto;
+      margin: 0;
+    }
+  }
+  &__heading{
+    font-size: 13px;
+    line-height: 18px;
+    padding: 7px 0;
+    margin-right: 20px;
+  }
+  &__input{
+    font-size: 13px;
+    line-height: 18px;
+    display: block;
+    & input{
+      display: block;
+      border: none;
+      background: none;
+      color: #fff;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .25);
+      &::placeholder{
+        opacity: 1;
+        color: rgba(255, 255, 255, .5);
+      }
+    }
+    margin-right: 25px;
+  }
+  &__checkbox{
+    cursor: pointer;
+    & input{
+      display: none;
+      &:checked{
+        & + span {
+          background-color: rgba(255, 255, 255, 0.25);
+          border: 1px solid rgba(255, 255, 255, 0);
+        }
+      }
+    }
+    & span{
+      display: block;
+      font-size: 13px;
+      line-height: 18px;
+      padding: 5px 12px;
+      border-radius: 24px;
+      background-color: rgba(255, 255, 255, 0);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all .2s ease;
+      user-select: none;
+    }
+    margin-right: 8px;
+    &:last-child{
+      margin-right: 0;
+    }
+    &--ml{
+      margin-left: 20px;
+    }
+  }
+  &__calendar{
+    display: flex;
+    margin-right: 25px;
+    & span{
+      display: block;
+      font-size: 13px;
+      line-height: 18px;
+      margin-right: 10px;
+    }
+  }
+  &__select{
+    font-size: 14px;
+    height: 25px;
+    margin-top: -4px;
+    .mat-form-field-infix{
+      border-top: 0;
+    }
+    .mat-form-field-underline{
+      bottom: 0;
+    }
+    .mat-form-field-wrapper{
+      padding-bottom: 0;
+    }
+    .mat-input-underline.mat-form-field-underline{
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+    &--mr{
+      margin-right: 30px;
+    }
+  }
+  &__datepicker{
+    font-size: 14px;
+    margin-right: 15px;
+    &:last-child{
+      margin-right: 25px;
+    }
+    & .mat-form-field{
+      line-height: 18px;
+      & .mat-form-field-infix{
+        padding: 0;
+        border: 0;
+      }
+      & .mat-form-field-wrapper{
+        padding: 0;
+      }
+      & .mat-form-field-infix{
+        width: 80px;
+      }
+    }
+
+    & .mat-form-field-disabled {
+      & .mat-form-field-underline {
+        top: 24px;
+        background-image: none;
+        background-color: rgba(255, 255, 255, .25);
+      }
+      & .mat-input-element:disabled{
+        color: #fff;
+      }
+    }
+  }
+}

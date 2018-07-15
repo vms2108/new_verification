@@ -1,0 +1,73 @@
+*{
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+input, textarea{
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+button{
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+body{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; // Font Smoothing for webkit
+  -moz-osx-font-smoothing: grayscale;  // Font Smoothing for firefox
+  min-width: 1024px;
+  margin: 0;
+  background-color: #282834;
+  color: #fff;
+}
+
+.hidden{
+  display: none !important;
+}
+
+.container{
+  padding: 0 15px;
+  margin: 0 auto;
+  width: 100%;
+  @media screen and (min-width: 768px){
+    padding: 0 30px;
+    max-width: 1450px;
+  }
+  &--fw{
+    max-width: 1920px;
+  }
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 0;
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #282834 !important;
+}

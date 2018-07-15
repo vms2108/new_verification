@@ -5,48 +5,50 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService} from '../core/services';
+import { AlertService } from '../core/services';
 
 @Component({
-    templateUrl: 'login.component.html',
+  selector: 'app-login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
-    loading = false;
-    submitted = false;
-    returnUrl: string;
+  loginForm: FormGroup;
+  submitted = false;
+  returnUrl: string;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private alertService: AlertService,
-        private apiService: ApiService,
-        private authService: AuthService
-      ) {}
-      public sending = false;
-      public formError = false;
-      public userNotFound = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService,
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {}
+  public sending = false;
+  public formError = false;
+  public userNotFound = false;
 
-    ngOnInit() {
-        this.loginForm = this.formBuilder.group({
-            email: ['', Validators.required],
-            password: ['', Validators.required]
-        });
-        this.authService.logout();
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+    this.authService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
 
   submitLogin() {
+    if (!this.loginForm.valid) {
+      return;
+    }
     this.sending = true;
+    this.userNotFound = false;
     const email = this.loginForm.get('email').value.toLowerCase();
     const password = this.loginForm.get('password').value;
     this.apiService
       .post('api/token/', { email, password })
-      .subscribe(
-        this.successLogin.bind(this),
-        this.loginError.bind(this)
-    );
+      .subscribe(this.successLogin.bind(this), this.loginError.bind(this));
   }
 
   successLogin(res: any) {

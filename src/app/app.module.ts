@@ -12,36 +12,42 @@ import { HistoryIdentificationComponent } from './history-identification/history
 import { AppRoutingModule } from './app.routing';
 import { ToggleComponent } from './form/toggle/toggle.component';
 import { PhotoComponent } from './form/photo/photo.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login';
 import { CoreModule } from './core/core.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      VerificationComponent,
-      MainComponent,
-      IdentificationComponent,
-      HistoryVerificationComponent,
-      HistoryIdentificationComponent,
-      FieldComponent,
-      ToggleComponent,
-      PhotoComponent,
-      ButtonComponent,
-      LoginComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      ReactiveFormsModule,
-      HttpClientModule,
-      CoreModule
-   ],
-   providers: [
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    VerificationComponent,
+    MainComponent,
+    IdentificationComponent,
+    HistoryVerificationComponent,
+    HistoryIdentificationComponent,
+    FieldComponent,
+    ToggleComponent,
+    PhotoComponent,
+    ButtonComponent,
+    LoginComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    CoreModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    BrowserAnimationsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
