@@ -3,6 +3,7 @@ import { UsersService } from '../core/services';
 import { FormBuilder, FormGroup, AbstractControl } from '../../../node_modules/@angular/forms';
 import { chunk } from 'lodash';
 import { User } from '../core/models';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-identification',
@@ -12,6 +13,7 @@ import { User } from '../core/models';
 export class IdentificationComponent implements OnInit {
   public user: User;
   public sections: any[] = [];
+  public approved = false;
 
   public indetificationForm: FormGroup = this.fb.group({
     title: 'Идентификация пользователя'
@@ -25,11 +27,11 @@ export class IdentificationComponent implements OnInit {
     this.subscribeToFormChanges();
   }
 
-  getFormSections() {
-    if (!this.indetificationForm) {
+  getFormSections(form: FormGroup) {
+    if (!form) {
       return [];
     }
-    const controls = this.indetificationForm.controls;
+    const controls = form.controls;
     const sections = [];
     Object.keys(controls).forEach((name: string) => {
       if (name !== 'title') {
@@ -39,7 +41,7 @@ export class IdentificationComponent implements OnInit {
     return sections;
   }
 
-  getFields(section: AbstractControl) {
+  getFields(section: AbstractControl, noChunks = false) {
     const sectionFields = section.get('fields') as FormGroup;
     const fields = [];
     Object.keys(sectionFields.controls).forEach((name: string) => {
@@ -47,14 +49,18 @@ export class IdentificationComponent implements OnInit {
         fields.push(sectionFields.controls[name]);
       }
     });
+    if (noChunks) {
+      return fields;
+    }
     const grouped = chunk(fields, 2);
     return grouped;
   }
 
-  generateField(title: string, value: string) {
+  generateField(title: string, value: any, photo = false) {
     return this.fb.group({
       title,
       value,
+      photo,
       state: [undefined],
       message: null
     });
@@ -73,7 +79,7 @@ export class IdentificationComponent implements OnInit {
         fields: this.fb.group({
           name: this.generateField('Имя', name),
           surname: this.generateField('Фамилия', surname),
-          date_of_birth: this.generateField('Дата рождения', date_of_birth),
+          date_of_birth: this.generateField('Дата рождения', moment(date_of_birth).format('DD.MM.YYYY')),
           birth_country: this.generateField('Место рождения', birth_country)
         })
       })
@@ -112,9 +118,9 @@ export class IdentificationComponent implements OnInit {
         fields: this.fb.group({
           main_doc_type: this.generateField('Вид документа', main_doc_type),
           main_doc_number: this.generateField('Номер документа', main_doc_number),
-          main_doc_validdate: this.generateField('Срок действия', main_doc_validdate),
-          main_doc_photo: this.generateField('Фото документа', main_doc_photo),
-          main_doc_selfie: this.generateField('Селфи с документом', main_doc_selfie)
+          main_doc_validdate: this.generateField('Срок действия', moment(main_doc_validdate).format('DD.MM.YYYY')),
+          main_doc_photo: this.generateField('Фото документа', main_doc_photo, true),
+          main_doc_selfie: this.generateField('Селфи с документом', main_doc_selfie, true)
         })
       })
     );
@@ -137,22 +143,66 @@ export class IdentificationComponent implements OnInit {
         fields: this.fb.group({
           secondary_doc_type: this.generateField('Вид документа', secondary_doc_type),
           secondary_doc_number: this.generateField('Номер документа', secondary_doc_number),
-          secondary_doc_validdate: this.generateField('Срок действия', secondary_doc_validdate),
-          secondary_doc_photo: this.generateField('Фото документа', secondary_doc_photo),
-          secondary_doc_selfie: this.generateField('Селфи с документом', secondary_doc_selfie)
+          secondary_doc_validdate: this.generateField(
+            'Срок действия',
+            moment(secondary_doc_validdate).format('DD.MM.YYYY')
+          ),
+          secondary_doc_photo: this.generateField('Фото документа', secondary_doc_photo, true),
+          secondary_doc_selfie: this.generateField('Селфи с документом', secondary_doc_selfie, true)
         })
       })
     );
 
-    this.sections = this.getFormSections().map(section => {
+    this.sections = this.getFormSections(this.indetificationForm).map(section => {
       section.fields = this.getFields(section);
       return section;
     });
   }
 
+  sectionStateChanges() {
+    this.sections.forEach((section: FormGroup) => {
+      section.get('state').valueChanges.subscribe(state => {
+        const fields = this.getFields(section, true);
+        fields.forEach((field: any) => {
+          field.get('state').setValue(state);
+        });
+      });
+    });
+  }
+
+  fieldStateChanges() {
+    this.sections.forEach((section: any) => {
+      const fields = this.getFields(section, true);
+      fields.forEach((field: FormGroup) => {
+        field.get('state').valueChanges.subscribe(() => {
+          const states = fields.map(f => f.get('state').value);
+          if (states.length === states.filter(s => s === true).length) {
+            section.get('state').setValue(true, { emitEvent: false });
+          } else if (states.length === states.filter(s => s === false).length) {
+            section.get('state').setValue(false, { emitEvent: false });
+          } else {
+            section.get('state').setValue(null, { emitEvent: false });
+          }
+        });
+      });
+    });
+  }
+
+  allFieldsChanges() {
+    this.indetificationForm.valueChanges.subscribe(() => {
+      let approved = true;
+      this.sections.forEach(section => {
+        if (section.get('state').value !== true) {
+          approved = false;
+        }
+      });
+      this.approved = approved;
+    });
+  }
+
   subscribeToFormChanges() {
-    // this.indetificationForm.valueChanges.subscribe(() => {
-    //   console.log(this.indetificationForm.value);
-    // });
+    this.sectionStateChanges();
+    this.fieldStateChanges();
+    this.allFieldsChanges();
   }
 }

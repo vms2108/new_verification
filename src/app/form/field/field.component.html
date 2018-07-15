@@ -3,9 +3,10 @@
     <div class="field__label"><span (click)="toggleState()">{{ field.get('title').value }}</span></div>
     <app-toggle class="field__toggle" formControlName="state"></app-toggle>
   </div>
-  <mat-form-field>
+  <mat-form-field *ngIf="!isPhoto">
     <input matInput readonly formControlName="value">
   </mat-form-field>
+  <app-photo *ngIf="isPhoto" [src]="field.get('value').value"></app-photo>
   <mat-form-field [class.hidden]="!(field.get('state').value === false)">
     <textarea
       formControlName="message"

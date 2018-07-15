@@ -10,6 +10,10 @@ export class FieldComponent {
   @Input() label: string;
   @Input() field: FormGroup;
 
+  get isPhoto(): boolean {
+    return this.field.get('photo').value;
+  }
+
   toggleState() {
     const currentState = this.field.get('state').value;
     let newState = null;

@@ -21,14 +21,14 @@ const users: User[] = [
       main_doc_type: 'passport',
       main_doc_number: '1234 6666789',
       main_doc_validdate: '2020-10-10T14:48:00',
-      main_doc_photo: 'passport_scan.jpg',
-      main_doc_selfie: 'passport_selfie.jpg',
+      main_doc_photo: 'assets/passport_scan.jpg',
+      main_doc_selfie: 'assets/passport_selfie.jpg',
 
       secondary_doc_type: 'driver id',
       secondary_doc_number: '478099325',
       secondary_doc_validdate: '2025-10-10T14:48:00',
-      secondary_doc_photo: 'passport_scan.jpg',
-      secondary_doc_selfie: 'passport_selfie.jpg'
+      secondary_doc_photo: 'assets/passport_scan.jpg',
+      secondary_doc_selfie: 'assets/passport_selfie.jpg'
     }
   }
 ];
