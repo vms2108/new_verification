@@ -1,42 +1,67 @@
 
-<div class="container">
-  <h1 class="page__header">Идентификация пользователя</h1>
-  <div class="form">
-    <div class="form__block">
-      <div class="form__title">Основной документ</div>
-      <app-photo [Path]='"assets/8.jpg"'></app-photo>
-      <app-field [Label]= 'labelTypeMain' [Value]='typeMain' [Id] = '"typeMain"' (onChanged)="toggle($event)"  ></app-field>
-      <app-field [Label]= 'labelNumberMain' [Value]='numberMain' [Id] = '"numberMain"' (onChanged)="toggle($event)" ></app-field>
-      <app-field [Label]= 'labelValidityMain' [Value]='validityMain' [Id] = '"validityMain"' (onChanged)="toggle($event)" ></app-field>
+<div class="form">
+  <div class="form__body">
+    <h2 class="form__title">Идентификация пользователя {{ 'Semen Semenov' }}</h2>
+    <div class="form-group">
+      <h3 class="form-group__title">Базовые данные</h3>
+      <div class="form__fieldgroup">
+        <app-field class="form__field" label="Имя"></app-field>
+        <app-field class="form__field" label="Фамилия"></app-field>
+      </div>
+      <div class="form__fieldgroup">
+        <app-field class="form__field" label="Дата рождения"></app-field>
+        <app-field class="form__field" label="Место рождения"></app-field>
+      </div>
     </div>
-    <div class="form__block">
-      <div class="form__title">Базовые данные</div>
-      <app-field [Label]= 'labelName' [Value]='name' ></app-field>
-      <app-field [Label]= 'labelSurname' [Value]='surname' ></app-field>
-      <app-field [Label]= 'labelBirthday' [Value]='birthday' ></app-field>
-      <app-field [Label]= 'labelBirthplace' [Value]='birthplace' ></app-field>
+    <div class="form-group">
+      <h3 class="form-group__title">Место жительства</h3>
+      <div class="form__fieldgroup">
+        <app-field class="form__field" label="Почтовый индекс"></app-field>
+        <app-field class="form__field" label="Страна"></app-field>
+      </div>
+      <div class="form__fieldgroup">
+        <app-field class="form__field" label="Район (штат, административная единица)"></app-field>
+        <app-field class="form__field" label="Город (населенный пункт)"></app-field>
+      </div>
+      <div class="form__fieldgroup form__fieldgroup--3">
+        <app-field class="form__field" label="Улица"></app-field>
+        <app-field class="form__field" label="Дом"></app-field>
+        <app-field class="form__field" label="Квартира"></app-field>
+      </div>
     </div>
-    <div class="form__block">
-      <app-field [Label]= 'labelIndex' [Value]='index' ></app-field>
-      <app-field [Label]= 'labelCountry' [Value]='country' ></app-field>
-      <app-field [Label]= 'labelCity' [Value]='city' ></app-field>
-      <app-field [Label]= 'labelAdress' [Value]='address' ></app-field>
+    <div class="form-group">
+      <h3 class="form-group__title">Основной документ</h3>
+      <div class="form__fieldgroup form__fieldgroup--3">
+        <app-field class="form__field" label="Вид документа"></app-field>
+        <app-field class="form__field" label="Номер документа"></app-field>
+        <app-field class="form__field" label="Срок действия документа"></app-field>
+      </div>
+      <div class="form__fieldgroup">
+        <app-field class="form__field" label="Фото документа"></app-field>
+        <app-field class="form__field" label="Селфи с документом"></app-field>
+      </div>
     </div>
-    <div class="form__block">
-      <div class="form__title">Дополнительный документ</div>
-      <app-photo [Path]='"assets/8.jpg"'></app-photo>
-      <app-field [Label]= 'labelTypeAddition' [Value]='typeAddition' ></app-field>
-      <app-field [Label]= 'labelNumberAddition' [Value]='numberAddition' ></app-field>
-      <app-field [Label]= 'labelValidityAddition' [Value]='validityAddition' ></app-field>
+    <div class="form-group">
+      <h3 class="form-group__title">Дополнительный документ</h3>
+      <div class="form__fieldgroup form__fieldgroup--3">
+        <app-field class="form__field" label="Вид документа"></app-field>
+        <app-field class="form__field" label="Дата документа"></app-field>
+        <app-field class="form__field" label="Срок действия"></app-field>
+      </div>
+      <div class="form__fieldgroup">
+        <app-field class="form__field" label="Фото документа"></app-field>
+        <app-field class="form__field" label="Селфи с документом"></app-field>
+      </div>
     </div>
-    <div class="form__block">
-      <div class="form__title">Привязка основного и дополнительного документа</div>
-      <app-photo [Path]='"assets/8.jpg"'></app-photo>
-      <app-photo [Path]='"assets/8.jpg"'></app-photo>
-    </div>
-    <div class="btn-container">
-      <app-button [active]='firstButton' (myClick)='successClick()' [name]='"Идентификация пройдена"'  ></app-button>
-      <app-button [active]='secondButton' (myClick)='unsuccessClick()' [name]='"Идентификация не пройдена"' ></app-button>
+    <div class="form__buttons">
+        <div class="form__buttons-group">
+          <button mat-raised-button class="form__button">
+            Идентификация пройдена
+          </button>
+          <button mat-raised-button class="form__button">
+            Идентификация не пройдена
+          </button>
+        </div>
     </div>
   </div>
 </div>

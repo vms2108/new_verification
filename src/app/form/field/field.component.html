@@ -1,16 +1,17 @@
 <div class="field">
-  <div class="field__label">{{Label}}</div>
-  <div class="field__value">{{Value}}</div>
-    <div class="toggle" [class.success]="currentStatus === true" [class.fail]="currentStatus === false" >
-      <div class="toggle__ball"></div>
-      <div class="toggle__btns">
-        <button class="toggle__btn" (click)="onClick(false)" ></button>
-        <button class="toggle__btn" (click)="onClick(undefined)"></button>
-        <button class="toggle__btn" (click)="onClick(true)"></button>
-      </div>
-      <div class="toggle__cause">
-        <b>Причина отказа</b>
-        <textarea name="failure-documentbinding" [id]="value"></textarea>
-      </div>
-    </div>
+  <div class="field__header">
+    <div class="field__label"><span>{{ label }}</span></div>
+    <app-toggle class="field__toggle"></app-toggle>
+  </div>
+  <mat-form-field>
+    <input matInput readonly value="какое-то значение поле хъ че здесь">
+  </mat-form-field>
+  <mat-form-field [class.hidden]="true">
+    <textarea
+      matInput
+      placeholder="Причина отказа"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="5"></textarea>
+  </mat-form-field>
 </div>

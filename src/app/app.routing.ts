@@ -9,11 +9,11 @@ import { AuthGuard } from './core/guards';
 import { LoginComponent } from './login';
 
 const routes: Routes = [
-  { path: '', component: MainComponent, canActivate: [AuthGuard]},
-  { path: 'verification', component: VerificationComponent, canActivate: [AuthGuard] },
-  { path: 'identification', component: IdentificationComponent, canActivate: [AuthGuard]},
-  { path: 'history/verification', component: HistoryVerificationComponent, canActivate: [AuthGuard] },
-  { path: 'history/identification', component: HistoryIdentificationComponent, canActivate: [AuthGuard] },
+  { path: '', component: MainComponent, canActivate: [AuthGuard] },
+  { path: 'verification/form', component: VerificationComponent, canActivate: [AuthGuard] },
+  { path: 'verification/history', component: HistoryVerificationComponent, canActivate: [AuthGuard] },
+  { path: 'identification/form', component: IdentificationComponent, canActivate: [AuthGuard] },
+  { path: 'identification/history', component: HistoryIdentificationComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }
 ];
