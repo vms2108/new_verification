@@ -28,6 +28,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     FormsModule,
     BrowserAnimationsModule,
     DialogsModule
