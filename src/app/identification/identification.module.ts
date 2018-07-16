@@ -5,6 +5,7 @@ import { FormModule } from '../form/form.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IdentificationComponent } from './identification.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { IdentificationComponent } from './identification.component';
   imports: [
       FormModule,
       ReactiveFormsModule,
-      CommonModule
+      CommonModule,
+      MaterialModule
   ],
   providers: [],
   bootstrap: [],

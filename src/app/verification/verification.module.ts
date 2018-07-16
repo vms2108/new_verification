@@ -5,6 +5,7 @@ import { VerificationComponent } from './verification.component';
 import { FormModule } from '../form/form.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { CommonModule } from '@angular/common';
   imports: [
       FormModule,
       ReactiveFormsModule,
-      CommonModule
+      CommonModule,
+      MaterialModule
   ],
   providers: [],
   bootstrap: [],

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Data } from '@angular/router';
 
 @Injectable()
-export class HistoryVerificationService {
+export class VerificationService {
   public historyItem: History;
   constructor() {}
   historyItems = [];

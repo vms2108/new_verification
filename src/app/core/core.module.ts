@@ -1,4 +1,4 @@
-import { HistoryVerificationService } from './services/history-verification.service';
+import { VerificationService } from './services/verification.service';
 import { NgModule } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -9,7 +9,7 @@ import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
-  providers: [AuthGuard, UsersService, ApiService, AuthService, HistoryVerificationService],
+  providers: [AuthGuard, UsersService, ApiService, AuthService, VerificationService],
   bootstrap: [],
   exports: []
 })

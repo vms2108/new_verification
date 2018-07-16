@@ -132,7 +132,6 @@ export class IdentificationComponent implements OnInit {
       info: {
         secondary_doc_number,
         secondary_doc_photo,
-        secondary_doc_selfie,
         secondary_doc_type,
         secondary_doc_validdate
       }
@@ -149,8 +148,7 @@ export class IdentificationComponent implements OnInit {
             'Срок действия',
             moment(secondary_doc_validdate).format('DD.MM.YYYY')
           ),
-          secondary_doc_photo: this.generateField('Фото документа', secondary_doc_photo, true),
-          secondary_doc_selfie: this.generateField('Селфи с документом', secondary_doc_selfie, true)
+          secondary_doc_photo: this.generateField('Фото документа', secondary_doc_photo, true)
         })
       })
     );
