@@ -7,7 +7,7 @@
     <input matInput readonly formControlName="value">
   </mat-form-field>
   <app-photo *ngIf="isPhoto" [src]="field.get('value').value"></app-photo>
-  <mat-form-field [class.hidden]="!(field.get('state').value === false)">
+  <mat-form-field [class.hidden]="!(field.get('state').value === false)" *ngIf="toggleNone">
     <textarea
       formControlName="message"
       matInput
