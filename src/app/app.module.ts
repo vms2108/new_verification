@@ -28,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FieldNoneToggleComponent } from './form/field-none-toggle/field-none-toggle.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ToggleComponent,
     PhotoComponent,
     ButtonComponent,
-    LoginComponent
+    LoginComponent,
+    FieldNoneToggleComponent
   ],
   imports: [
     CommonModule,

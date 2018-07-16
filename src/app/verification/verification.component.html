@@ -1,25 +1,51 @@
-<!-- <div class="form">
-  <div class="form__block">
-    <div class="form__title">Базовые данные</div>
-    <app-photo [Path]='"assets/8.jpg"'></app-photo>
-    <app-field [Label]= 'labelName' [Value]='name' ></app-field>
-    <app-field [Label]= 'labelSurname' [Value]='surname' ></app-field>
-    <app-field [Label]= 'labelBirthday' [Value]='birthday' ></app-field>
-    <app-field [Label]= 'labelCountry' [Value]='country' ></app-field>
-    <app-field [Label]= 'labelTypeMain' [Value]='typeMain' ></app-field>
-    <app-field [Label]= 'labelNumberMain' [Value]='numberMain' ></app-field>
-    <app-field [Label]= 'labelValidityMain' [Value]='validityMain' ></app-field>
+
+<div class="form">
+  <div class="form__body">
+    <h2 class="form__title">
+      Идентификация пользователя
+      <span *ngIf="user && user.info">
+        {{ user.info.name }}
+        {{ user.info.surname }}
+      </span>
+    </h2>
+
+    <div>
+      <div
+        class="form-group"
+        *ngFor="let section of sections"
+        [formGroup]="section">
+        <div class="form-group__header">
+          <app-toggle class="form-group__state" formControlName="state" *ngIf="!section.get('onlyRead').value"></app-toggle>
+          <h3 class="form-group__title">{{ section.get('title').value }}</h3>
+        </div>
+        <div class="form__fieldgroup" *ngFor="let fieldgroup of section.fields">
+          <app-field
+            *ngFor="let field of fieldgroup"
+            class="form__field"
+            [toggleNone]="false"
+            [field]="field">
+          </app-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__buttons">
+      <div class="form__buttons-group">
+        <button
+          mat-raised-button
+          class="form__button form__button--pass"
+          (click)="openDialog(true)"
+          *ngIf="approved">
+          Идентификация пройдена
+        </button>
+        <button
+          mat-raised-button
+          class="form__button form__button--delete"
+          *ngIf="!approved"
+          (click)="openDialog(false)" >
+          Идентификация не пройдена
+        </button>
+      </div>
+    </div>
   </div>
-    <div class="form__block">
-        <app-toggle [Id] = '"terror"' (onChanged)="toggleTerror($event)" ></app-toggle>
-        <div class="form__title">Проверка пользователя по списку экстремистов</div>
-    </div>
-    <div class="form__block">
-        <app-toggle [Id] = '"innerTest"' (onChanged)="toggleInnerTest($event)" ></app-toggle>
-        <div class="form__title">Проверка пользователя по внутренним критериям</div>
-    </div>
-    <div class="btn-container">
-      <app-button [active]='firstButton' (myClick)='successClick()' [name]='"Идентификация пройдена"'  ></app-button>
-      <app-button [active]='secondButton' (myClick)='unsuccessClick()' [name]='"Идентификация не пройдена"' ></app-button>
-    </div>
-</div> -->
+</div>

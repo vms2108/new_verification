@@ -9,6 +9,7 @@ import { FormGroup } from '../../../../node_modules/@angular/forms';
 export class FieldComponent {
   @Input() label: string;
   @Input() field: FormGroup;
+  @Input() toggleNone = true;
 
   get isPhoto(): boolean {
     return this.field.get('photo').value;
