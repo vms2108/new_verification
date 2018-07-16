@@ -18,7 +18,7 @@ export class VerificationComponent implements OnInit {
   public approved = false;
 
   public indetificationForm: FormGroup = this.fb.group({
-    title: 'Идентификация пользователя'
+    title: 'Верификация пользователя'
   });
 
   constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog) {}

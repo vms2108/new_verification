@@ -2,7 +2,7 @@
 <div class="form">
   <div class="form__body">
     <h2 class="form__title">
-      Идентификация пользователя
+      Верификация пользователя
       <span *ngIf="user && user.info">
         {{ user.info.name }}
         {{ user.info.surname }}
@@ -36,14 +36,14 @@
           class="form__button form__button--pass"
           (click)="openDialog(true)"
           *ngIf="approved">
-          Идентификация пройдена
+          Верификация пройдена
         </button>
         <button
           mat-raised-button
           class="form__button form__button--delete"
           *ngIf="!approved"
           (click)="openDialog(false)" >
-          Идентификация не пройдена
+          Верификация не пройдена
         </button>
       </div>
     </div>
