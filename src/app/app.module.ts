@@ -28,7 +28,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FieldNoneToggleComponent } from './form/field-none-toggle/field-none-toggle.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -42,8 +44,7 @@ import { FieldNoneToggleComponent } from './form/field-none-toggle/field-none-to
     ToggleComponent,
     PhotoComponent,
     ButtonComponent,
-    LoginComponent,
-    FieldNoneToggleComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -56,6 +57,9 @@ import { FieldNoneToggleComponent } from './form/field-none-toggle/field-none-to
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     FormsModule,
     BrowserAnimationsModule,
     DialogsModule
