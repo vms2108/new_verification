@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '../../../../node_modules/@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-field',

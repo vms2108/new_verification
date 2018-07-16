@@ -1,5 +1,3 @@
-import { ButtonComponent } from './form/button/button.component';
-import { FieldComponent } from './form/field/field.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,39 +9,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 
-import { VerificationComponent } from './verification/verification.component';
 import { MainComponent } from './main/main.component';
-import { IdentificationComponent } from './identification/identification.component';
 import { HistoryVerificationComponent } from './history-verification/history-verification.component';
 import { HistoryIdentificationComponent } from './history-identification/history-identification.component';
 import { LoginComponent } from './login';
 
-import { ToggleComponent } from './form/toggle/toggle.component';
-import { PhotoComponent } from './form/photo/photo.component';
-
 import { CoreModule } from './core/core.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { FormModule } from './form/form.module';
+import { MaterialModule } from './material/material.module';
+import { VerificationModule } from './verification/verification.module';
+import { IdentificationModule } from './identification/identification.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VerificationComponent,
     MainComponent,
-    IdentificationComponent,
     HistoryVerificationComponent,
     HistoryIdentificationComponent,
-    FieldComponent,
-    ToggleComponent,
-    PhotoComponent,
-    ButtonComponent,
     LoginComponent
   ],
   imports: [
@@ -53,16 +37,13 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
+    MaterialModule,
     FormsModule,
     BrowserAnimationsModule,
-    DialogsModule
+    DialogsModule,
+    FormModule,
+    VerificationModule,
+    IdentificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
