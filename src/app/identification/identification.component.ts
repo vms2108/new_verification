@@ -6,6 +6,8 @@ import { User } from '../core/models';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { IndetificationConfirmComponent } from '../dialogs/indetification-confirm/indetification-confirm.component';
+import { History } from '../core/models/history.model';
+import { IdentificationService } from '../core/services/identification.service';
 
 @Component({
   selector: 'app-identification',
@@ -16,12 +18,15 @@ export class IdentificationComponent implements OnInit {
   public user: User;
   public sections: any[] = [];
   public approved = false;
+  public fromFrom = [];
 
   public indetificationForm: FormGroup = this.fb.group({
     title: 'Идентификация пользователя'
   });
 
-  constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog) {}
+  constructor(private usersService: UsersService,
+    private fb: FormBuilder, private dialog: MatDialog,
+    private identificationService: IdentificationService) {}
 
   ngOnInit() {
     this.user = this.usersService.getUser();
@@ -71,7 +76,7 @@ export class IdentificationComponent implements OnInit {
   generateForm(user: User) {
     // Базовые
     const {
-      info: { name, surname, date_of_birth, birth_country }
+      info: { name, surname, date_of_birth}
     } = user;
     this.indetificationForm.addControl(
       'base',
@@ -81,15 +86,14 @@ export class IdentificationComponent implements OnInit {
         fields: this.fb.group({
           name: this.generateField('Имя', name),
           surname: this.generateField('Фамилия', surname),
-          date_of_birth: this.generateField('Дата рождения', moment(date_of_birth).format('DD.MM.YYYY')),
-          birth_country: this.generateField('Место рождения', birth_country)
+          date_of_birth: this.generateField('Дата рождения', moment(date_of_birth).format('DD.MM.YYYY'))
         })
       })
     );
 
     // Место жительства
     const {
-      info: { post_index, country, district, city, street, home, flat }
+      info: { country, city, adress}
     } = user;
     this.indetificationForm.addControl(
       'address',
@@ -97,20 +101,16 @@ export class IdentificationComponent implements OnInit {
         title: 'Место жительства',
         state: null,
         fields: this.fb.group({
-          post_index: this.generateField('Почтовый индекс', post_index),
           country: this.generateField('Страна', country),
-          district: this.generateField('Район (штат, административная единица)', district),
           city: this.generateField('Город (населенный пункт)', city),
-          street: this.generateField('Улица', street),
-          home: this.generateField('Дом', home),
-          flat: this.generateField('Квартира', flat)
+          street: this.generateField('Адресс', adress)
         })
       })
     );
 
     // Основной документ
     const {
-      info: { main_doc_number, main_doc_photo, main_doc_selfie, main_doc_type, main_doc_validdate }
+      info: { main_doc_number, main_doc_photo, main_doc_selfie, main_doc_validdate }
     } = user;
     this.indetificationForm.addControl(
       'main_doc',
@@ -118,7 +118,6 @@ export class IdentificationComponent implements OnInit {
         title: 'Основной документ',
         state: null,
         fields: this.fb.group({
-          main_doc_type: this.generateField('Вид документа', main_doc_type),
           main_doc_number: this.generateField('Номер документа', main_doc_number),
           main_doc_validdate: this.generateField('Срок действия', moment(main_doc_validdate).format('DD.MM.YYYY')),
           main_doc_photo: this.generateField('Фото документа', main_doc_photo, true),
@@ -132,7 +131,6 @@ export class IdentificationComponent implements OnInit {
       info: {
         secondary_doc_number,
         secondary_doc_photo,
-        secondary_doc_type,
         secondary_doc_validdate
       }
     } = user;
@@ -142,7 +140,6 @@ export class IdentificationComponent implements OnInit {
         title: 'Дополнительный документ',
         state: null,
         fields: this.fb.group({
-          secondary_doc_type: this.generateField('Вид документа', secondary_doc_type),
           secondary_doc_number: this.generateField('Номер документа', secondary_doc_number),
           secondary_doc_validdate: this.generateField(
             'Срок действия',
@@ -212,7 +209,27 @@ export class IdentificationComponent implements OnInit {
       data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      console.log(this.user.id);
+      const data = this.getResult();
+      this.identificationService.saveIdentifications(data, this.user.id);
     });
+  }
+
+  getResult() {
+    const arr = [];
+    const fields = {};
+      Object.keys(this.indetificationForm.value).forEach((name: string) => {
+        if (name !== 'title') {
+          Object.keys(this.indetificationForm.value[name].fields).forEach((name2: string) => {
+              const field = this.indetificationForm.value[name].fields[name2];
+              field.name = name2;
+              arr.push(field);
+          });
+        }
+        arr.forEach((item) => {
+          fields[item.name] = { value: item.value, state: item.state, message: item.message};
+        });
+      });
+    return fields;
   }
 }

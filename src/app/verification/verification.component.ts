@@ -71,7 +71,7 @@ export class VerificationComponent implements OnInit {
   generateForm(user: User) {
     // Базовые
     const {
-      info: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo,  main_doc_type, main_doc_validdate}
+      info: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo,   main_doc_validdate}
     } = user;
     this.indetificationForm.addControl(
       'base',
@@ -84,7 +84,6 @@ export class VerificationComponent implements OnInit {
           surname: this.generateField('Фамилия', surname),
           date_of_birth: this.generateField('Дата рождения', moment(date_of_birth).format('DD.MM.YYYY')),
           country: this.generateField('Страна', country),
-          main_doc_type: this.generateField('Вид документа', main_doc_type),
           main_doc_number: this.generateField('Номер документа', main_doc_number),
           main_doc_validdate: this.generateField('Срок действия', moment(main_doc_validdate).format('DD.MM.YYYY')),
           main_doc_photo: this.generateField('Фото документа', main_doc_photo, true)
