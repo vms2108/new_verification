@@ -6,8 +6,8 @@ import { User } from '../core/models';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { IndetificationConfirmComponent } from '../dialogs/indetification-confirm/indetification-confirm.component';
-import { History } from '../core/models/history.model';
 import { IdentificationService } from '../core/services/identification.service';
+import { random } from 'lodash';
 
 @Component({
   selector: 'app-identification',
@@ -209,9 +209,9 @@ export class IdentificationComponent implements OnInit {
       data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(this.user.id);
       const data = this.getResult();
-      this.identificationService.saveIdentifications(data, this.user.id);
+      const number =  random(1, 3);
+      this.identificationService.saveIdentifications(data, this.user.id, this.approved, number);
     });
   }
 

@@ -55,7 +55,5 @@ export class HistoryIdentificationComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.identificationsNew = this.identificationService.generateHistoryTable();
-    console.log(this.identificationsNew);
   }
 }
