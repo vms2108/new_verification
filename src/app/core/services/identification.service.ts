@@ -1,13 +1,13 @@
-import { Identification } from './../models/identification.model';
+import { Identification } from '../models/identification.model';
 import { Injectable } from '@angular/core';
-import { TableItem } from '../models/tableItem.model';
+import { IdentificationTableItem } from '../models/identificationTableItem.model';
 
 @Injectable()
 export class IdentificationService {
   constructor() {}
   private identifications: Identification[] = [
     {
-      next_id: 1,
+      id: 1,
       user_id: '11',
       reason: 2,
       date: '2018-07-12',
@@ -81,7 +81,7 @@ export class IdentificationService {
       }
     },
     {
-      next_id: 2,
+      id: 2,
       user_id: '12',
       reason: 1,
       date: '2018-07-13',
@@ -158,13 +158,13 @@ export class IdentificationService {
   saveIdentifications(data: any, id: string, result: string, reason: number) {
     const currentData = new Date();
     const next_id = this.identifications.length + 1;
-    this.identifications.push({'next_id': next_id, 'user_id': id, 'reason': reason,
+    this.identifications.push({'id': next_id, 'user_id': id, 'reason': reason,
     'date': currentData, 'result': result, 'data': data});
   }
-  generateHistoryTable(): TableItem[] {
-    return this.identifications.map((obj: Identification): TableItem => {
+  generateHistoryTable(): IdentificationTableItem[] {
+    return this.identifications.map((obj: Identification): IdentificationTableItem => {
       const {
-        next_id,
+        id,
         user_id,
         reason,
         date,
@@ -175,7 +175,7 @@ export class IdentificationService {
         }
       } = obj;
       return {
-        next_id,
+        id,
         user_id,
         reason,
         date,

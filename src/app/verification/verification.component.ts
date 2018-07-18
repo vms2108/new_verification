@@ -1,7 +1,8 @@
+import { VerificationService } from '../core/services/verification.service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../core/services';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
-import { chunk } from 'lodash';
+import { chunk, random } from 'lodash';
 import { User } from '../core/models';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,11 +18,12 @@ export class VerificationComponent implements OnInit {
   public sections: any[] = [];
   public approved = false;
 
-  public indetificationForm: FormGroup = this.fb.group({
+  public verificationForm: FormGroup = this.fb.group({
     title: 'Верификация пользователя'
   });
 
-  constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog) {}
+  constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog,
+    private verificationService: VerificationService) {}
 
   ngOnInit() {
     this.user = this.usersService.getUser();
@@ -73,7 +75,7 @@ export class VerificationComponent implements OnInit {
     const {
       info: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo,   main_doc_validdate}
     } = user;
-    this.indetificationForm.addControl(
+    this.verificationForm.addControl(
       'base',
       this.fb.group({
         title: null,
@@ -91,8 +93,8 @@ export class VerificationComponent implements OnInit {
       })
     );
 
-    this.indetificationForm.addControl(
-      'list-of-terror',
+    this.verificationForm.addControl(
+      'list_of_terror',
       this.fb.group({
         title: 'Проверка по списку террористов',
         state: null,
@@ -102,8 +104,8 @@ export class VerificationComponent implements OnInit {
       })
     );
 
-    this.indetificationForm.addControl(
-      'inner-list',
+    this.verificationForm.addControl(
+      'inner_list',
       this.fb.group({
         title: 'Проверка по внутренним спискам',
         state: null,
@@ -113,7 +115,7 @@ export class VerificationComponent implements OnInit {
       })
     );
 
-    this.sections = this.getFormSections(this.indetificationForm).map(section => {
+    this.sections = this.getFormSections(this.verificationForm).map(section => {
       section.fields = this.getFields(section);
       return section;
     });
@@ -149,7 +151,7 @@ export class VerificationComponent implements OnInit {
   }
 
   allFieldsChanges() {
-    this.indetificationForm.valueChanges.subscribe(() => {
+    this.verificationForm.valueChanges.subscribe(() => {
       let approved = true;
       this.sections.forEach(section => {
         if (section.get('state').value !== true) {
@@ -172,7 +174,47 @@ export class VerificationComponent implements OnInit {
       data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result) {
+        const user_info = this.getUserData();
+        const test = this.getResult();
+        const deal_id =  random(1, 10);
+        let totals = 'waiting';
+        if (this.approved === true) {
+          totals = 'pass';
+        }
+        if (this.approved === false) {
+          totals = 'fail';
+        }
+        this.verificationService.saveIdentifications(user_info, test, this.user.id, totals, deal_id);
+      }
     });
+  }
+  getUserData() {
+    const arr = [];
+    const fields = {};
+      Object.keys(this.verificationForm.value).forEach((name: string) => {
+        if (name === 'base') {
+          Object.keys(this.verificationForm.value[name].fields).forEach((name2: string) => {
+              const field = this.verificationForm.value[name].fields[name2];
+              field.name = name2;
+              arr.push(field);
+          });
+        }
+        arr.forEach((item) => {
+          fields[item.name] =  item.value;
+        });
+      });
+    return fields;
+  }
+
+  getResult() {
+    const arr = [];
+    const fields = {};
+    Object.keys(this.verificationForm.value).forEach((name: string, item) => {
+       if (name === 'inner_list' || name === 'list_of_terror') {
+        fields[name] = this.verificationForm.value[name].state;
+      }
+    });
+    return fields;
   }
 }

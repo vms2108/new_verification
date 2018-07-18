@@ -22,7 +22,7 @@
         </ng-container>
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата проверки </th>
-          <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.date | date : format : timezone}} </td>
         </ng-container>
         <ng-container matColumnDef="result">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Результат </th>

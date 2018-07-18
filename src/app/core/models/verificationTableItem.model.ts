@@ -1,7 +1,7 @@
-export class TableItem {
-    next_id: number;
+export class VerificationTableItem {
+    id: number;
     user_id: string;
-    reason: number;
+    deal_id: number;
     date: Date | string;
     result: string;
     user_name: string;

@@ -10,8 +10,6 @@ import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { MainComponent } from './main/main.component';
-import { HistoryVerificationComponent } from './history-verification/history-verification.component';
-import { HistoryIdentificationComponent } from './history-identification/history-identification.component';
 import { LoginComponent } from './login';
 
 import { CoreModule } from './core/core.module';
@@ -21,13 +19,13 @@ import { FormModule } from './form/form.module';
 import { MaterialModule } from './material/material.module';
 import { VerificationModule } from './verification/verification.module';
 import { IdentificationModule } from './identification/identification.module';
+import { HistoryVerificationModule } from './history-verification/history-verification.module';
+import { HistoryIdentificationModule } from './identification/history-identification.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    HistoryVerificationComponent,
-    HistoryIdentificationComponent,
     LoginComponent
   ],
   imports: [
@@ -43,7 +41,9 @@ import { IdentificationModule } from './identification/identification.module';
     DialogsModule,
     FormModule,
     VerificationModule,
-    IdentificationModule
+    IdentificationModule,
+    HistoryVerificationModule,
+    HistoryIdentificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

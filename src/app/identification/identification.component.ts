@@ -209,17 +209,18 @@ export class IdentificationComponent implements OnInit {
       data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
     });
     dialogRef.afterClosed().subscribe(result => {
-      const data = this.getResult();
-      console.log(data);
-      const number =  random(1, 3);
-      let totals = 'waiting';
-      if (this.approved === true) {
-        totals = 'pass';
+      if (result) {
+        const data = this.getResult();
+        const number =  random(1, 3);
+        let totals = 'waiting';
+        if (this.approved === true) {
+          totals = 'pass';
+        }
+        if (this.approved === false) {
+          totals = 'fail';
+        }
+        this.identificationService.saveIdentifications(data, this.user.id, totals, number);
       }
-      if (this.approved === false) {
-        totals = 'fail';
-      }
-      this.identificationService.saveIdentifications(data, this.user.id, totals, number);
     });
   }
 

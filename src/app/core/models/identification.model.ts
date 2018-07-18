@@ -1,5 +1,5 @@
 export class Identification {
-  next_id: number;
+  id: number;
   user_id: string;
   reason: number;
   date: Date | string;
