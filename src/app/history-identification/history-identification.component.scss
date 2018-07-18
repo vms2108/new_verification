@@ -1,0 +1,40 @@
+.red {
+  background-color: rgba(237, 130, 130, 0.2);
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(237, 130, 130, 0.5);
+  }
+  &:active {
+    background-color: rgba(237, 130, 130, 0.7);
+  }
+}
+.green {
+  background-color: rgba(129, 234, 137, 0.2);
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(129, 234, 137, 0.5);
+  }
+  &:active {
+    background-color: rgba(129, 234, 137, 0.7);
+  }
+}
+.grey {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  &:active {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+}
+.black {
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  &:active {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}

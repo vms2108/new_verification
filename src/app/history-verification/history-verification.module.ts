@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { HistoryVerificationComponent } from './history-verification.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -13,10 +14,13 @@ import { HistoryVerificationComponent } from './history-verification.component';
       FormModule,
       ReactiveFormsModule,
       CommonModule,
-      MaterialModule
+      MaterialModule,
+      CoreModule
   ],
   providers: [],
   bootstrap: [],
-  exports: [HistoryVerificationComponent]
+  exports: [
+    HistoryVerificationComponent
+  ]
 })
 export class HistoryVerificationModule {}

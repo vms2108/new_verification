@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-history-identification',
   templateUrl: './history-identification.component.html',
-  styleUrls: ['./history-identification.component.css']
+  styleUrls: ['./history-identification.component.scss']
 })
 export class HistoryIdentificationComponent implements OnInit {
   private identifications = [];

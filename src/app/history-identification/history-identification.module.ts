@@ -3,14 +3,16 @@ import { FormModule } from '../form/form.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
-import { HistoryIdentificationComponent } from '../history-identification/history-identification.component';
+import { HistoryIdentificationComponent } from './history-identification.component';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
   declarations: [
-    HistoryIdentificationComponent
+    HistoryIdentificationComponent,
   ],
   imports: [
+      CoreModule,
       FormModule,
       ReactiveFormsModule,
       CommonModule,
@@ -18,6 +20,8 @@ import { HistoryIdentificationComponent } from '../history-identification/histor
   ],
   providers: [],
   bootstrap: [],
-  exports: [HistoryIdentificationComponent]
+  exports: [
+    HistoryIdentificationComponent,
+  ]
 })
 export class HistoryIdentificationModule {}

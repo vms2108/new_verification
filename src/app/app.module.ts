@@ -20,7 +20,7 @@ import { MaterialModule } from './material/material.module';
 import { VerificationModule } from './verification/verification.module';
 import { IdentificationModule } from './identification/identification.module';
 import { HistoryVerificationModule } from './history-verification/history-verification.module';
-import { HistoryIdentificationModule } from './identification/history-identification.module';
+import { HistoryIdentificationModule } from './history-identification/history-identification.module';
 
 @NgModule({
   declarations: [
