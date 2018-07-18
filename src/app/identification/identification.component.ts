@@ -206,7 +206,7 @@ export class IdentificationComponent implements OnInit {
   openDialog(approved: boolean) {
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
+      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}`, identification: true }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -1,3 +1,4 @@
+import { Identification } from './../core/models/identification.model';
 import { VerificationService } from '../core/services/verification.service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../core/services';
@@ -171,7 +172,7 @@ export class VerificationComponent implements OnInit {
   openDialog(approved: boolean) {
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}` }
+      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}`, identification: false }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
