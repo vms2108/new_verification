@@ -10,36 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./history-identification.component.css']
 })
 export class HistoryIdentificationComponent implements OnInit {
-  private identifications = [
-    {
-      id: 1,
-      user_id: 11,
-      user_name: 'Ivan',
-      user_surname: 'Petrov',
-      reason: 2,
-      date: '2018-07-12',
-      result: 'pass'
-    },
-    {
-      id: 2,
-      user_id: 12,
-      user_name: 'Sergey',
-      user_surname: 'Sidorov',
-      reason: 3,
-      date: '2018-07-11',
-      result: 'fail'
-    },
-    {
-      id: 3,
-      user_id: 13,
-      user_name: 'Maxim',
-      user_surname: 'Petuhov',
-      reason: 2,
-      date: '2018-07-11',
-      result: 'waiting'
-    }
-  ];
-  private identificationsNew = [];
+  private identifications = [];
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'user_id', 'reason', 'date', 'result', 'details'];
@@ -48,8 +19,8 @@ export class HistoryIdentificationComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private identificationService: IdentificationService) {
-    this.identificationsNew = this.identificationService.generateHistoryTable();
-    this.dataSource = new MatTableDataSource(this.identificationsNew);
+    this.identifications = this.identificationService.generateHistoryTable();
+    this.dataSource = new MatTableDataSource(this.identifications);
   }
 
   ngOnInit() {

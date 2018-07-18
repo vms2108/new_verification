@@ -103,7 +103,7 @@ export class IdentificationComponent implements OnInit {
         fields: this.fb.group({
           country: this.generateField('Страна', country),
           city: this.generateField('Город (населенный пункт)', city),
-          street: this.generateField('Адресс', adress)
+          adress: this.generateField('Адресс', adress)
         })
       })
     );
@@ -210,8 +210,16 @@ export class IdentificationComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       const data = this.getResult();
+      console.log(data);
       const number =  random(1, 3);
-      this.identificationService.saveIdentifications(data, this.user.id, this.approved, number);
+      let totals = 'waiting';
+      if (this.approved === true) {
+        totals = 'pass';
+      }
+      if (this.approved === false) {
+        totals = 'fail';
+      }
+      this.identificationService.saveIdentifications(data, this.user.id, totals, number);
     });
   }
 

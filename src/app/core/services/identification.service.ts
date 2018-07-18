@@ -1,28 +1,188 @@
+import { Identification } from './../models/identification.model';
 import { Injectable } from '@angular/core';
+import { TableItem } from '../models/tableItem.model';
 
 @Injectable()
 export class IdentificationService {
   constructor() {}
-  identifications = [];
-  next_id = 0;
-  saveIdentifications(data: any, id: string, result: boolean, reason: number) {
+  private identifications: Identification[] = [
+    {
+      next_id: 1,
+      user_id: '11',
+      reason: 2,
+      date: '2018-07-12',
+      result: 'pass',
+      data: {
+          name: {
+          value: 'Ivan',
+          state: true,
+          message: '',
+        },
+        surname: {
+          value: 'Ivanov',
+          state: true,
+          message: '',
+        },
+        date_of_birth: {
+          value: '04.11.1985',
+          state: true,
+          message: '',
+        },
+        country: {
+          value: 'Russia',
+          state: true,
+          message: '',
+        },
+        city: {
+          value: 'Saransk',
+          state: true,
+          message: '',
+        },
+        adress: {
+          value: 'Big Red House',
+          state: true,
+          message: '',
+        },
+        main_doc_number: {
+          value: '1122 334455',
+          state: true,
+          message: '',
+        },
+        main_doc_validdate: {
+          value: '04.11.2085',
+          state: true,
+          message: '',
+        },
+        main_doc_photo: {
+          value: 'assets/passport_scan.jpg',
+          state: true,
+          message: '',
+        },
+        main_doc_selfie: {
+          value: 'assets/passport_selfie.jpg',
+          state: true,
+          message: '',
+        },
+        secondary_doc_number: {
+          value: '223366',
+          state: true,
+          message: '',
+        },
+        secondary_doc_validdate: {
+          value: '04.11.2225',
+          state: true,
+          message: '',
+        },
+        secondary_doc_photo: {
+          value: 'assets/passport_scan.jpg',
+          state: true,
+          message: '',
+        },
+      }
+    },
+    {
+      next_id: 2,
+      user_id: '12',
+      reason: 1,
+      date: '2018-07-13',
+      result: 'fail',
+      data: {
+          name: {
+          value: 'Sidor',
+          state: true,
+          message: '',
+        },
+        surname: {
+          value: 'Sidorov',
+          state: true,
+          message: '',
+        },
+        date_of_birth: {
+          value: '04.11.1955',
+          state: true,
+          message: '',
+        },
+        country: {
+          value: 'Russia',
+          state: true,
+          message: '',
+        },
+        city: {
+          value: 'Bryansk',
+          state: true,
+          message: '',
+        },
+        adress: {
+          value: 'Pushkina 6-24',
+          state: true,
+          message: '',
+        },
+        main_doc_number: {
+          value: '1122 334455',
+          state: false,
+          message: '',
+        },
+        main_doc_validdate: {
+          value: '04.11.2085',
+          state: false,
+          message: '',
+        },
+        main_doc_photo: {
+          value: 'assets/passport_scan.jpg',
+          state: false,
+          message: '',
+        },
+        main_doc_selfie: {
+          value: 'assets/passport_selfie.jpg',
+          state: true,
+          message: '',
+        },
+        secondary_doc_number: {
+          value: '223366',
+          state: true,
+          message: '',
+        },
+        secondary_doc_validdate: {
+          value: '04.11.2225',
+          state: true,
+          message: '',
+        },
+        secondary_doc_photo: {
+          value: 'assets/passport_scan.jpg',
+          state: true,
+          message: '',
+        },
+      }
+    }
+  ];
+  saveIdentifications(data: any, id: string, result: string, reason: number) {
     const currentData = new Date();
-    this.next_id ++;
-    this.identifications.push({'next_id': this.next_id, 'user_id': id, 'reason': reason,
+    const next_id = this.identifications.length + 1;
+    this.identifications.push({'next_id': next_id, 'user_id': id, 'reason': reason,
     'date': currentData, 'result': result, 'data': data});
-
   }
-  generateHistoryTable() {
-    return this.identifications.map((obj) => {
-      const forTable = [];
-      forTable['next_id'] = obj.next_id;
-      forTable['user_id'] = obj.user_id;
-      forTable['reason'] = obj.reason;
-      forTable['date'] = obj.date;
-      forTable['result'] = obj.result;
-      forTable['user_name'] = obj.data.name.value;
-      forTable['user_surname'] = obj.data.surname.value;
-      return forTable;
+  generateHistoryTable(): TableItem[] {
+    return this.identifications.map((obj: Identification): TableItem => {
+      const {
+        next_id,
+        user_id,
+        reason,
+        date,
+        result,
+        data: {
+          name: { value: user_name},
+          surname: { value: user_surname}
+        }
+      } = obj;
+      return {
+        next_id,
+        user_id,
+        reason,
+        date,
+        result,
+        user_name,
+        user_surname
+      };
     });
   }
 }
