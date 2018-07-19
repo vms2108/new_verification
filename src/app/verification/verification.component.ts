@@ -18,6 +18,7 @@ export class VerificationComponent implements OnInit {
   public user: User;
   public sections: any[] = [];
   public approved = false;
+  public text = '';
 
   public verificationForm: FormGroup = this.fb.group({
     title: 'Верификация пользователя'
@@ -170,9 +171,11 @@ export class VerificationComponent implements OnInit {
   }
 
   openDialog(approved: boolean) {
+    if (approved) {this.text = 'Вы приняли решение верифицировать пользователя';
+  } else {this.text = 'Вы приняли решение не верифицировать пользователя'; }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}`, identification: false }
+      data: { text: `${this.text}`, user: `${this.user.info.name} ${this.user.info.surname}`}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

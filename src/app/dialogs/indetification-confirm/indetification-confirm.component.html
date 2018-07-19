@@ -1,20 +1,7 @@
 
 <div class="confirm-dialog">
   <h3 class="confirm-dialog__text">
-    Вы приняли решение
-    <ng-container *ngIf="data.approved && data.identification">
-      идентифицировать
-    </ng-container>
-    <ng-container  *ngIf="!data.approved && data.identification">
-      не идентифицировать
-    </ng-container>
-    <ng-container *ngIf="data.approved && !data.identification">
-      верифицировать
-    </ng-container>
-    <ng-container  *ngIf="!data.approved && !data.identification">
-      не верифицировать
-    </ng-container>
-      Пользователя
+    {{data.text}}
     {{ data.user }}?
   </h3>
   <div class="confirm-dialog__buttons">

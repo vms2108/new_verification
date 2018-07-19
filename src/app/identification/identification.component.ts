@@ -19,6 +19,7 @@ export class IdentificationComponent implements OnInit {
   public sections: any[] = [];
   public approved = false;
   public fromFrom = [];
+  public text = '';
 
   public indetificationForm: FormGroup = this.fb.group({
     title: 'Идентификация пользователя'
@@ -204,9 +205,11 @@ export class IdentificationComponent implements OnInit {
   }
 
   openDialog(approved: boolean) {
+    if (approved) {this.text = 'Вы приняли решение идентифицировать пользователя';
+    } else {this.text = 'Вы приняли решение не идентифицировать пользователя'; }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: { approved, user: `${this.user.info.name} ${this.user.info.surname}`, identification: true }
+      data: {text: `${this.text}`, user: `${this.user.info.name} ${this.user.info.surname}`}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
