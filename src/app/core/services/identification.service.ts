@@ -83,7 +83,7 @@ export class IdentificationService {
     {
       id: 2,
       user_id: '12',
-      reason: 1,
+      reason: 3,
       date: '2018-07-13',
       result: 'fail',
       data: {

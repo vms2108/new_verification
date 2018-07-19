@@ -214,7 +214,7 @@ export class IdentificationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const data = this.getResult();
-        const number =  random(1, 3);
+        const number =  random(2, 3);
         let totals = 'waiting';
         if (this.approved === true) {
           totals = 'pass';

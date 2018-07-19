@@ -12,7 +12,7 @@ export class IdentificationCausePipe implements PipeTransform {
             if (value === 3) {
                 return 'initiative';
             } else {
-                return 'normal';
+                return '';
             }
         }
     }
