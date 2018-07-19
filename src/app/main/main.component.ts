@@ -2,6 +2,7 @@ import { AuthInfo } from '../core/models/authInfo.model';
 import { UserInfo } from '../core/models/userInfo.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/services/auth.service';
+import { LocaleService } from 'angular-l10n';
 
 @Component({
   selector: 'app-main',

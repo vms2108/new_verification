@@ -1,4 +1,4 @@
-import { Identification } from './../core/models/identification.model';
+import { Identification } from '../core/models/identification.model';
 import { VerificationService } from '../core/services/verification.service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../core/services';

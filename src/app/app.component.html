@@ -14,6 +14,11 @@
           <a routerLink="verification/form" routerLinkActive="active">Верификация</a>
           <a routerLink="verification/history" routerLinkActive="active">История верификаций</a>
         </div>
+        <app-header-lang
+          (closeUserMenu)="closeUserMenu()"
+          (toggleLangDropDown)="toggleLangDropdown($event)"
+          [langDropdownVisible]="langDropdownVisible">
+        </app-header-lang>
         <div *ngIf="isAuthenticated" class="header__user" >
           <span>{{ email }}</span>
           <a (click)="logout()">

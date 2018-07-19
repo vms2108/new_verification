@@ -67,7 +67,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    overflow: hidden;
+    overflow: visible;
   }
   &__logo{
     & svg{

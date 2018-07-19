@@ -1,15 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './core/services';
 import { Router } from '@angular/router';
+import { Language, LocaleService } from 'angular-l10n';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [LocaleService]
 })
 export class AppComponent implements OnInit {
   public isAuthenticated = false;
   public email = '';
+  public langDropdownVisible = false;
+  public userMenuVisible = false;
+
+  @Language() lang: string;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -31,5 +37,17 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     this.email = '';
     this.router.navigate(['/login']);
+  }
+
+  closeUserMenu() {
+    this.userMenuVisible = false;
+  }
+  toggleLangDropdown(visible: boolean) {
+    this.langDropdownVisible = visible;
+  }
+  toggleUserMenu(e: Event) {
+    e.stopPropagation();
+    this.langDropdownVisible = false;
+    this.userMenuVisible = !this.userMenuVisible;
   }
 }
