@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.scss']
 })
-export class FieldComponent {
+export class FieldComponent implements OnInit {
   @Input() label: string;
   @Input() field: FormGroup;
   @Input() toggleNone = true;
@@ -14,6 +14,8 @@ export class FieldComponent {
   get isPhoto(): boolean {
     return this.field.get('photo').value;
   }
+
+  ngOnInit() {}
 
   toggleState() {
     const currentState = this.field.get('state').value;

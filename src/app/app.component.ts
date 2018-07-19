@@ -38,10 +38,6 @@ export class AppComponent implements OnInit {
     this.email = '';
     this.router.navigate(['/login']);
   }
-
-  closeUserMenu() {
-    this.userMenuVisible = false;
-  }
   toggleLangDropdown(visible: boolean) {
     this.langDropdownVisible = visible;
   }

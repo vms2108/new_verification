@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { HeaderLangComponent } from './header-lang.component';
+import { TranslationModule } from 'angular-l10n';
 
 @NgModule({
-  imports: [],
+  imports: [TranslationModule],
   declarations: [
     HeaderLangComponent
   ],
-  providers: [HeaderLangComponent],
-  exports: [HeaderLangComponent]
+  providers: [],
+  exports: [
+    HeaderLangComponent
+  ]
 })
 export class HeaderLangModule {
 

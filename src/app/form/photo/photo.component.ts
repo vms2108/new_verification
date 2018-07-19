@@ -6,11 +6,11 @@ import { DomSanitizer, SafeStyle, SafeResourceUrl } from '@angular/platform-brow
   templateUrl: './photo.component.html',
   styleUrls: ['./photo.component.css']
 })
-export class PhotoComponent {
+export class PhotoComponent implements OnInit {
   imageUrlStyle: SafeStyle;
   imageUrl: SafeResourceUrl;
   visible = false;
-
+  ngOnInit() {}
   @Input()
   set src(url: string) {
     this.imageUrlStyle = this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);

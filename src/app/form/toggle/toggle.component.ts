@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 const CONTROL_ACCESSOR = {
@@ -13,12 +13,12 @@ const CONTROL_ACCESSOR = {
   styleUrls: ['./toggle.component.scss'],
   providers: [CONTROL_ACCESSOR]
 })
-export class ToggleComponent implements ControlValueAccessor {
+export class ToggleComponent implements ControlValueAccessor, OnInit {
   state = null;
 
   onChange: Function = () => {};
   onTouched: Function = () => {};
-
+  ngOnInit() {}
   writeValue(state) {
     this.state = state;
   }

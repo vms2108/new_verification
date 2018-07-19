@@ -112,7 +112,6 @@ import { TranslationService, Language, LocaleService } from 'angular-l10n';
 export class HeaderLangComponent implements OnInit {
 
   @Language() lang: string;
-  @Output() closeUserMenu = new EventEmitter();
   @Output() toggleLangDropDown = new EventEmitter();
 
   @Input() langDropdownVisible = false;
@@ -130,14 +129,12 @@ export class HeaderLangComponent implements OnInit {
   toggleLangDropdown(e: Event) {
     e.stopPropagation();
     this.toggleLangDropDown.emit(!this.langDropdownVisible);
-    this.closeUserMenu.emit();
   }
 
   selectLang(lang: string, e: Event) {
     e.stopPropagation();
     this.toggleLangDropDown.emit(false);
     this.localeService.setCurrentLanguage(lang);
-    this.closeUserMenu.emit();
   }
 
 }
