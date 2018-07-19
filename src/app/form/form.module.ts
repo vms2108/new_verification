@@ -7,6 +7,7 @@ import { PhotoComponent } from './photo/photo.component';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '../material/material.module';
 import { AppComponent } from '../app.component';
+import { TranslationModule } from 'angular-l10n';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AppComponent } from '../app.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    TranslationModule
   ],
   providers: [],
   bootstrap: [AppComponent],

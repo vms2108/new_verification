@@ -3,6 +3,7 @@ import { ApiService } from '../core/services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Language } from 'angular-l10n';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   public sending = false;
   public formError = false;
   public userNotFound = false;
+  @Language() lang: string;
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

@@ -2,7 +2,7 @@
 <div class="form">
   <div class="form__body">
     <h2 class="form__title">
-      Идентификация пользователя
+      {{ "User identification" | translate: lang }}
       <span *ngIf="user && user.info">
         {{ user.info.name }}
         {{ user.info.surname }}
@@ -16,7 +16,7 @@
         [formGroup]="section">
         <div class="form-group__header">
           <app-toggle class="form-group__state" formControlName="state"></app-toggle>
-          <h3 class="form-group__title">{{ section.get('title').value }}</h3>
+          <h3 class="form-group__title">{{ section.get('title').value | translate: lang }}</h3>
         </div>
         <div class="form__fieldgroup" *ngFor="let fieldgroup of section.fields">
           <app-field
@@ -35,14 +35,14 @@
           class="form__button form__button--pass"
           (click)="openDialog(true)"
           *ngIf="approved">
-          Идентификация пройдена
+          {{ "Identification passed" | translate: lang }}
         </button>
         <button
           mat-raised-button
           class="form__button form__button--delete"
           *ngIf="!approved"
           (click)="openDialog(false)" >
-          Идентификация не пройдена
+          {{ "Identification not passed" | translate: lang }}
         </button>
       </div>
     </div>

@@ -1,3 +1,52 @@
 {
-  "Identification": "Identification"
+  "Identification": "Identification",
+  "Identification history": "Identification history",
+  "Verification": "Verification",
+  "Verification history": "Verification history",
+
+  "User": "User",
+  "Identification reason": "Identification reason",
+  "Identification date": "Identification date",
+  "Result": "Result",
+  "Learn More": "Learn more",
+  "Search": "Search",
+  "Transaction id": "Transaction id",
+  "Verification date": "Verification date",
+
+  "User identification": "User identification",
+  "Identification passed": "Identification passed",
+  "Identification not passed": "Identification not passed",
+
+  "Basic data": "Basic data",
+  "Name": "Name",
+  "Surname": "Surname",
+  "Date of birth": "Date of birth",
+  "Location": "Location",
+  "Country": "Country",
+  "City (locality)": "City (locality)",
+  "Address": "Address",
+  "Basic document": "Basic document",
+  "Document Number": "Document Number",
+  "Validity": "Validity",
+  "Photo document": "Photo document",
+  "Selfi with the document": "Selfi with the document",
+  "Additional document": "Additional document",
+
+  "You have decided to identify the user": "You have decided to identify the user",
+  "You decided not to identify the user": "You decided not to identify the user",
+
+  "Log in": "Log in",
+  "Wrong login or password": "Wrong login or password",
+
+  "User verification": "User verification",
+  "Verification passed": "Verification passed",
+  "Verification not passed": "Verification not passed",
+  "Checking the list of terrorists": "Checking the list of terrorists",
+  "Internal list check": "Internal list check",
+
+  "You have decided to verify the user": "You have decided to verify the user",
+  "You decided not to verify the user": "You decided not to verify the user",
+
+  "Yes": "Yes",
+  "No": "No"
 }

@@ -1,3 +1,52 @@
 {
-    "Identification": "Идентификация"
-  }
+  "Identification": "Идентификация",
+  "Identification history": "История идентификаций",
+  "Verification": "Верификация",
+  "Verification history": "История верификаций",
+
+  "User": "Пользователь",
+  "Identification reason": "Причина идентификации",
+  "Identification date": "Дата проверки",
+  "Result": "Результат",
+  "Learn More": "Подробнее",
+  "Search": "Поиск",
+  "Transaction id": "Id сделки",
+  "Verification date": "Дата верификации",
+
+  "User identification": "Идентификация пользователя",
+  "Identification passed": "Идентификация пройдена",
+  "Identification not passed": "Идентификация не пройдена",
+
+  "Basic data": "Базовые данные",
+  "Name": "Имя",
+  "Surname": "Фамилия",
+  "Date of birth": "Дата рождения",
+  "Location": "Место жительства",
+  "Country": "Страна",
+  "City (locality)": "Город (населенный пункт)",
+  "Address": "Адресс",
+  "Basic document": "Основной документ",
+  "Document Number": "Номер документа",
+  "Validity": "Срок действия",
+  "Photo document": "Фото документа",
+  "Selfi with the document": "Селфи с документом",
+  "Additional document": "Дополнительный документ",
+
+  "You have decided to identify the user": "Вы приняли решение идентифицировать пользователя",
+  "You decided not to identify the user": "Вы приняли решение не идентифицировать пользователя",
+
+  "Log in": "Войти",
+  "Wrong login or password": "Неверный логин или пароль",
+
+  "User verification": "Верификация пользователя",
+  "Verification passed": "Верификация пройдена",
+  "Verification not passed": "Верификация не пройдена",
+  "Checking the list of terrorists": "Проверка по списку террористов",
+  "Internal list check": "Проверка по внутренним спискам",
+
+  "You have decided to verify the user": "Вы приняли решение верифицировать пользователя",
+  "You decided not to verify the user": "Вы приняли решение не верифицировать пользователя",
+
+  "Yes": "Да",
+  "No": "Нет"
+}

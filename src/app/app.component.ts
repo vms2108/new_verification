@@ -6,8 +6,7 @@ import { Language, LocaleService } from 'angular-l10n';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers: [LocaleService]
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   public isAuthenticated = false;

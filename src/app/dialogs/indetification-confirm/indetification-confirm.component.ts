@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Language } from 'angular-l10n';
 
 @Component({
   selector: 'app-indetification-confirm',
@@ -11,6 +12,7 @@ export class IndetificationConfirmComponent implements OnInit {
     private dialogRef: MatDialogRef<IndetificationConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  @Language() lang: string;
   ngOnInit() {}
 
   confirm(value: boolean) {

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Language } from 'angular-l10n';
 
 @Component({
   selector: 'app-field',
@@ -10,6 +11,7 @@ export class FieldComponent implements OnInit {
   @Input() label: string;
   @Input() field: FormGroup;
   @Input() toggleNone = true;
+  @Language() lang: string;
 
   get isPhoto(): boolean {
     return this.field.get('photo').value;

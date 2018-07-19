@@ -1,6 +1,3 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
-
 <header class="header">
   <div class="container">
     <div class="header__container">
@@ -10,9 +7,9 @@
         </a>
         <div *ngIf="isAuthenticated" class="header__nav">
           <a routerLink="identification/form" routerLinkActive="active">{{ "Identification" | translate : lang }}</a>
-          <a routerLink="identification/history" routerLinkActive="active">История идентификаций</a>
-          <a routerLink="verification/form" routerLinkActive="active">Верификация</a>
-          <a routerLink="verification/history" routerLinkActive="active">История верификаций</a>
+          <a routerLink="identification/history" routerLinkActive="active">{{ "Identification history" | translate : lang }}</a>
+          <a routerLink="verification/form" routerLinkActive="active">{{ "Verification" | translate : lang }}</a>
+          <a routerLink="verification/history" routerLinkActive="active">{{ "Verification history" | translate : lang }}</a>
         </div>
         <app-header-lang
           (toggleLangDropDown)="toggleLangDropdown($event)"
@@ -34,7 +31,3 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-
-
-
-

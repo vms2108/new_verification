@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { HistoryIdentificationComponent } from './history-identification.component';
 import { CoreModule } from '../core/core.module';
+import { TranslationModule} from 'angular-l10n';
 
 
 @NgModule({
@@ -12,11 +13,12 @@ import { CoreModule } from '../core/core.module';
     HistoryIdentificationComponent,
   ],
   imports: [
-      CoreModule,
-      FormModule,
-      ReactiveFormsModule,
-      CommonModule,
-      MaterialModule
+    CoreModule,
+    FormModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MaterialModule,
+    TranslationModule
   ],
   providers: [],
   bootstrap: [],

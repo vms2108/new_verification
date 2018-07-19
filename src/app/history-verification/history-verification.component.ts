@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Language } from 'angular-l10n';
 
 @Component({
   selector: 'app-history-verification',
@@ -14,7 +15,7 @@ export class HistoryVerificationComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['id', 'user_id', 'deal_id', 'date', 'result', 'details'];
-
+  @Language() lang: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 

@@ -8,6 +8,7 @@ import { User } from '../core/models';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { IndetificationConfirmComponent } from '../dialogs/indetification-confirm/indetification-confirm.component';
+import { Language, TranslationService } from 'angular-l10n';
 
 @Component({
   selector: 'app-verification',
@@ -23,10 +24,11 @@ export class VerificationComponent implements OnInit {
   public verificationForm: FormGroup = this.fb.group({
     title: 'Верификация пользователя'
   });
+  @Language() lang: string;
 
   constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog,
-    private verificationService: VerificationService) {}
-
+    private verificationService: VerificationService,
+    private translationService: TranslationService) {}
   ngOnInit() {
     this.user = this.usersService.getUser();
     this.generateForm(this.user);
@@ -84,13 +86,14 @@ export class VerificationComponent implements OnInit {
         onlyRead: true,
         state: true,
         fields: this.fb.group({
-          name: this.generateField('Имя', name),
-          surname: this.generateField('Фамилия', surname),
-          date_of_birth: this.generateField('Дата рождения', moment(date_of_birth).format('DD.MM.YYYY')),
-          country: this.generateField('Страна', country),
-          main_doc_number: this.generateField('Номер документа', main_doc_number),
-          main_doc_validdate: this.generateField('Срок действия', moment(main_doc_validdate).format('DD.MM.YYYY')),
-          main_doc_photo: this.generateField('Фото документа', main_doc_photo, true)
+          name: this.generateField('Name', name),
+          surname: this.generateField('Surname', surname),
+          date_of_birth: this.generateField('Date of birth', moment(date_of_birth).format('DD.MM.YYYY')),
+          country: this.generateField('Country', country),
+          main_doc_number: this.generateField('Document Number', main_doc_number),
+          main_doc_validdate: this.generateField('Validity',
+          moment(main_doc_validdate).format('DD.MM.YYYY')),
+          main_doc_photo: this.generateField('Photo document', main_doc_photo, true)
         })
       })
     );
@@ -98,7 +101,7 @@ export class VerificationComponent implements OnInit {
     this.verificationForm.addControl(
       'list_of_terror',
       this.fb.group({
-        title: 'Проверка по списку террористов',
+        title: 'Checking the list of terrorists',
         state: null,
         onlyRead: false,
         fields: this.fb.group({
@@ -109,7 +112,7 @@ export class VerificationComponent implements OnInit {
     this.verificationForm.addControl(
       'inner_list',
       this.fb.group({
-        title: 'Проверка по внутренним спискам',
+        title: 'Internal list check',
         state: null,
         onlyRead: false,
         fields: this.fb.group({
@@ -171,8 +174,8 @@ export class VerificationComponent implements OnInit {
   }
 
   openDialog(approved: boolean) {
-    if (approved) {this.text = 'Вы приняли решение верифицировать пользователя';
-  } else {this.text = 'Вы приняли решение не верифицировать пользователя'; }
+    if (approved) {this.text = 'You have decided to verify the user';
+  } else {this.text = 'You decided not to verify the user'; }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
       data: { text: `${this.text}`, user: `${this.user.info.name} ${this.user.info.surname}`}

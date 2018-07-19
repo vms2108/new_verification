@@ -7,7 +7,7 @@
     <mat-form-field>
       <input matInput type="password" placeholder="Пароль" name="password" formControlName="password" required>
     </mat-form-field>
-    <button class="login__button" mat-raised-button color="primary" [disabled]="!loginForm.valid || sending">Войти</button>
-    <p class="login__msg" [class.show]="userNotFound">Неверный логин или пароль</p>
+    <button class="login__button" mat-raised-button color="primary" [disabled]="!loginForm.valid || sending">{{"Log in" | translate:lang }}</button>
+    <p class="login__msg" [class.show]="userNotFound"> {{"Wrong login or password" | translate:lang }} </p>
   </form>
 </div>
