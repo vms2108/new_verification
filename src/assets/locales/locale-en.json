@@ -37,6 +37,8 @@
 
   "Log in": "Log in",
   "Wrong login or password": "Wrong login or password",
+  "Login": "Login",
+  "Password": "Password",
 
   "User verification": "User verification",
   "Verification passed": "Verification passed",
