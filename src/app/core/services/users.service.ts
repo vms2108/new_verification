@@ -20,8 +20,12 @@ const users: User[] = [
 
       secondary_doc_number: '478099325',
       secondary_doc_validdate: '2025-10-10T14:48:00',
-      secondary_doc_photo: 'assets/passport_scan.jpg'
-    }
+      secondary_doc_photo: 'assets/passport_scan.jpg',
+    },
+    identified: false,
+    verifications: [],
+    updated: '23.03.2018',
+    verification_status: null
   },
   {
     id: '2',
@@ -42,7 +46,16 @@ const users: User[] = [
       secondary_doc_number: '478099325',
       secondary_doc_validdate: '2025-10-10T14:48:00',
       secondary_doc_photo: 'assets/passport_scan.jpg'
-    }
+    },
+    identified: false,
+    verifications: [
+      {
+        id: 1,
+        amount: 100
+        }
+    ],
+    updated: '23.03.2003',
+    verification_status: null
   },
   {
     id: '3',
@@ -63,7 +76,16 @@ const users: User[] = [
       secondary_doc_number: '478099325',
       secondary_doc_validdate: '2025-10-10T14:48:00',
       secondary_doc_photo: 'assets/passport_scan.jpg'
-    }
+    },
+    identified: true,
+    verifications: [
+      {
+      id: 1,
+      amount: 4000
+      }
+    ],
+    updated: '23.03.2003',
+    verification_status: null
   }
 ];
 
@@ -71,5 +93,17 @@ const users: User[] = [
 export class UsersService {
   getUser(): User {
     return users[0];
+  }
+  getUserVerificationStatus(): User[] {
+    return users.map((obj: User): User => {
+      let status = 0;
+      const identified = obj.identified;
+      const needVerifications = obj.verifications.length;
+      if (identified === false && !needVerifications) {status = 3; }
+      if (identified === false && needVerifications) {status = 2; }
+      if (identified === true && needVerifications) {status = 1; }
+      obj.verification_status = status;
+      return obj;
+    });
   }
 }

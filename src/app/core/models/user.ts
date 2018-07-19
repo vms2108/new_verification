@@ -18,4 +18,11 @@ export class User {
     secondary_doc_validdate: string;
     secondary_doc_photo: string;
   };
+  identified: boolean;
+  verifications: {
+    id: number;
+    amount: number;
+  }[];
+  updated: Date | string;
+  verification_status: number;
 }

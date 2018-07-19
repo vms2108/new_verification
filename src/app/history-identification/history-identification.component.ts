@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Language } from 'angular-l10n';
+import { UsersService } from '../core/services';
 
 @Component({
   selector: 'app-history-identification',
@@ -19,7 +20,8 @@ export class HistoryIdentificationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private identificationService: IdentificationService) {
+  constructor(private identificationService: IdentificationService,
+  private usersService: UsersService) {
     this.identifications = this.identificationService.generateHistoryTable();
     this.dataSource = new MatTableDataSource(this.identifications);
   }
@@ -27,5 +29,6 @@ export class HistoryIdentificationComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    console.log(this.usersService.getUserVerificationStatus());
   }
 }
