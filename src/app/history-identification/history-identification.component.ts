@@ -35,7 +35,6 @@ export class HistoryIdentificationComponent implements OnInit {
     this.dataSource.sort = this.sort;
     console.log(this.usersService.generateVerificationQueue());
     console.log(this.usersService.nextVerification());
-    this.usersService.nextVerification();
     this.usersService.updateUser(this.usersService.nextVerification());
     console.log(this.usersService.generateVerificationQueue());
   }

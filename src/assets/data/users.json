@@ -18,7 +18,7 @@
      },
      "identified": false,
      "verifications": [],
-     "updated": "05.03.2018",
+     "updated": "2017-10-10T14:48:00",
      "verification_status": null
   },
   {
@@ -43,15 +43,15 @@
         {
            "id": 10,
            "amount": 100,
-           "date": "01.02.2018"
+           "date": "2017-11-10T14:48:00"
         },
         {
           "id": 11,
           "amount": 500,
-          "date": "01.03.2018"
+          "date": "2017-10-10T14:48:00"
        }
      ],
-     "updated": "03.03.2003",
+     "updated": "2017-08-10T14:48:00",
      "verification_status": null
   },
   {
@@ -76,19 +76,19 @@
         {
            "id": 1,
            "amount": 2000,
-           "date": "08.01.2018"
+           "date": "2017-09-10T14:48:00"
         },
         {
           "id": 4,
           "amount": 2000,
-          "date": "08.02.2018"
+          "date": "2017-07-10T14:48:00"
        }
      ],
-     "updated": "03.03.2003",
+     "updated": "2017-05-10T14:48:00",
      "verification_status": null
   },
   {
-    "id": "3",
+    "id": "4",
     "info": {
        "name": "Aleksandr",
        "surname": "Newhach",
@@ -109,19 +109,19 @@
        {
           "id": 1,
           "amount": 4000,
-          "date": "01.05.2018"
+          "date": "2017-06-10T14:48:00"
        },
        {
          "id": 4,
          "amount": 3000,
-         "date": "02.05.2018"
+         "date": "2018-02-10T14:48:00"
       }
     ],
-    "updated": "03.04.2018",
+    "updated": "2017-01-10T14:48:00",
     "verification_status": null
  },
  {
-  "id": "8",
+  "id": "5",
   "info": {
      "name": "Denis",
      "surname": "Uhov",
@@ -142,19 +142,19 @@
      {
         "id": 10,
         "amount": 100,
-        "date": "04.12.2018"
+        "date": "2018-01-10T14:48:00"
      },
      {
        "id": 11,
        "amount": 500,
-       "date": "05.11.2018"
+       "date": "2018-03-10T14:48:00"
     }
   ],
-  "updated": "03.03.2003",
+  "updated": "2017-02-11T14:48:00",
   "verification_status": null
 },
 {
-  "id": "10",
+  "id": "6",
   "info": {
      "name": "Vasil",
      "surname": "Puhov",
@@ -175,15 +175,15 @@
      {
         "id": 14,
         "amount": 100,
-        "date": "06.11.2017"
+        "date": "2018-04-10T14:48:00"
      },
      {
        "id": 15,
        "amount": 100,
-       "date": "06.11.2018"
+       "date": "2018-05-10T14:48:00"
     }
   ],
-  "updated": "23.03.2003",
+  "updated": "2017-01-14T14:48:00",
   "verification_status": null
 }
 ]

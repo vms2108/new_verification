@@ -7,8 +7,7 @@ import { Subject } from 'rxjs';
 import { User } from '../models';
 
 import users from '../../../assets/data/users.json';
-import userInfo from '../../../assets/data/userInfo.json';
-import { find, remove } from 'lodash'
+import { find, remove } from 'lodash';
 
 @Injectable()
 export class UsersService {
@@ -28,10 +27,6 @@ export class UsersService {
 
   loadUsers() {
     this.users = users;
-  }
-
-  loadUserInfo() {
-    this.userInfo = userInfo;
   }
 
   getUserVerificationStatus(userList: User[]): User[] {
@@ -76,10 +71,11 @@ export class UsersService {
       user => user.verification_status === 1
     );
     const queue: QueueItem[] = [];
+
     waitingVerifications.forEach((user: User) => {
       user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
         queue.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'verification',
-        transactionAmount: verification.amount, date: new Date(verification.date) });
+        transactionAmount: verification.amount, date: verification.date });
       });
     });
     return queue.sort((n1, n2): number => {
@@ -100,7 +96,7 @@ export class UsersService {
     );
     const queue: QueueItem[] = [];
     waitingVerifications.forEach((user: User) => {
-        queue.push({id: user.id, userInfo: user.info, type: 'identification', date: new Date(user.verifications[0].date),
+        queue.push({id: user.id, userInfo: user.info, type: 'identification', date: user.verifications[0].date,
         identificationCause: 'transaction'});
     });
     return queue.sort((n1, n2): number => {
@@ -117,7 +113,7 @@ export class UsersService {
     );
     const queue: QueueItem[] = [];
     waitingVerifications.forEach((user: User) => {
-        queue.push({id: user.id, userInfo: user.info, type: 'identification', date: new Date(user.updated),
+        queue.push({id: user.id, userInfo: user.info, type: 'identification', date:  user.updated,
         identificationCause: 'initiative'});
     });
     return queue.sort((n1, n2): number => {
@@ -140,18 +136,8 @@ export class UsersService {
   }
 
   updateUser(item: QueueItem) {
-    //this.getUserById(item.id).verifications.remove(verification => verification.id === item.id);
-
-   /*  this.users.forEach((user: User) => {
-      if (user.id === item.id) {
-        user.identified = true;
-        user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
-          if (verification.id === item.transactionId) {
-            delete verification;
-          }
-        });
-      }
-    }); */
+    this.getUserById(item.id).identified = true;
+    remove(this.getUserById(item.id).verifications, (v) =>  v.id === item.transactionId);
   }
 
   // обновляет очередь
