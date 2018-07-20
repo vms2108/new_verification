@@ -18,7 +18,7 @@
      },
      "identified": false,
      "verifications": [],
-     "updated": "23.03.2018",
+     "updated": "05.03.2018",
      "verification_status": null
   },
   {
@@ -41,11 +41,17 @@
      "identified": false,
      "verifications": [
         {
-           "id": 1,
-           "amount": 100
-        }
+           "id": 10,
+           "amount": 100,
+           "date": "01.02.2018"
+        },
+        {
+          "id": 11,
+          "amount": 500,
+          "date": "01.03.2018"
+       }
      ],
-     "updated": "23.03.2003",
+     "updated": "03.03.2003",
      "verification_status": null
   },
   {
@@ -69,10 +75,115 @@
      "verifications": [
         {
            "id": 1,
-           "amount": 4000
-        }
+           "amount": 2000,
+           "date": "08.01.2018"
+        },
+        {
+          "id": 4,
+          "amount": 2000,
+          "date": "08.02.2018"
+       }
      ],
-     "updated": "23.03.2003",
+     "updated": "03.03.2003",
      "verification_status": null
-  }
+  },
+  {
+    "id": "3",
+    "info": {
+       "name": "Aleksandr",
+       "surname": "Newhach",
+       "date_of_birth": "1980-10-10T14:48:00",
+       "country": "Russia",
+       "city": "Perm",
+       "adress": "Pushkina 10-11",
+       "main_doc_number": "1234 6666789",
+       "main_doc_validdate": "2020-10-10T14:48:00",
+       "main_doc_photo": "assets/passport_scan.jpg",
+       "main_doc_selfie": "assets/passport_selfie.jpg",
+       "secondary_doc_number": "478099325",
+       "secondary_doc_validdate": "2025-10-10T14:48:00",
+       "secondary_doc_photo": "assets/passport_scan.jpg"
+    },
+    "identified": true,
+    "verifications": [
+       {
+          "id": 1,
+          "amount": 4000,
+          "date": "01.05.2018"
+       },
+       {
+         "id": 4,
+         "amount": 3000,
+         "date": "02.05.2018"
+      }
+    ],
+    "updated": "03.04.2018",
+    "verification_status": null
+ },
+ {
+  "id": "8",
+  "info": {
+     "name": "Denis",
+     "surname": "Uhov",
+     "date_of_birth": "1992-12-12T14:48:00",
+     "country": "Russia",
+     "city": "Kukuevo",
+     "adress": "Lenina 2",
+     "main_doc_number": "1234 6666789",
+     "main_doc_validdate": "2020-10-10T14:48:00",
+     "main_doc_photo": "assets/passport_scan.jpg",
+     "main_doc_selfie": "assets/passport_selfie.jpg",
+     "secondary_doc_number": "478099325",
+     "secondary_doc_validdate": "2025-10-10T14:48:00",
+     "secondary_doc_photo": "assets/passport_scan.jpg"
+  },
+  "identified": false,
+  "verifications": [
+     {
+        "id": 10,
+        "amount": 100,
+        "date": "04.12.2018"
+     },
+     {
+       "id": 11,
+       "amount": 500,
+       "date": "05.11.2018"
+    }
+  ],
+  "updated": "03.03.2003",
+  "verification_status": null
+},
+{
+  "id": "10",
+  "info": {
+     "name": "Vasil",
+     "surname": "Puhov",
+     "date_of_birth": "1992-12-12T14:48:00",
+     "country": "Russia",
+     "city": "Kukuevo",
+     "adress": "Lenina 2",
+     "main_doc_number": "1234 6666789",
+     "main_doc_validdate": "2020-10-10T14:48:00",
+     "main_doc_photo": "assets/passport_scan.jpg",
+     "main_doc_selfie": "assets/passport_selfie.jpg",
+     "secondary_doc_number": "478099325",
+     "secondary_doc_validdate": "2025-10-10T14:48:00",
+     "secondary_doc_photo": "assets/passport_scan.jpg"
+  },
+  "identified": false,
+  "verifications": [
+     {
+        "id": 14,
+        "amount": 100,
+        "date": "06.11.2017"
+     },
+     {
+       "id": 15,
+       "amount": 100,
+       "date": "06.11.2018"
+    }
+  ],
+  "updated": "23.03.2003",
+  "verification_status": null
+}
 ]

@@ -22,6 +22,7 @@ export class User {
   verifications: {
     id: number;
     amount: number;
+    date: Date | string;
   }[];
   updated: Date | string;
   verification_status: number;
