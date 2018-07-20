@@ -1,109 +1,101 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { User } from '../models';
-
-const users: User[] = [
-  {
-    id: '1',
-    info: {
-      name: 'Max',
-      surname: 'Golovach',
-      date_of_birth: '1990-10-10T14:48:00',
-
-      country: 'Russia',
-      city: 'Rostov',
-      adress: 'Vyborgskaya 16-13',
-
-      main_doc_number: '1234 6666789',
-      main_doc_validdate: '2020-10-10T14:48:00',
-      main_doc_photo: 'assets/passport_scan.jpg',
-      main_doc_selfie: 'assets/passport_selfie.jpg',
-
-      secondary_doc_number: '478099325',
-      secondary_doc_validdate: '2025-10-10T14:48:00',
-      secondary_doc_photo: 'assets/passport_scan.jpg',
-    },
-    identified: false,
-    verifications: [],
-    updated: '23.03.2018',
-    verification_status: null
-  },
-  {
-    id: '2',
-    info: {
-      name: 'Artem',
-      surname: 'Usach',
-      date_of_birth: '1992-12-12T14:48:00',
-
-      country: 'Russia',
-      city: 'Kukuevo',
-      adress: 'Lenina 2',
-
-      main_doc_number: '1234 6666789',
-      main_doc_validdate: '2020-10-10T14:48:00',
-      main_doc_photo: 'assets/passport_scan.jpg',
-      main_doc_selfie: 'assets/passport_selfie.jpg',
-
-      secondary_doc_number: '478099325',
-      secondary_doc_validdate: '2025-10-10T14:48:00',
-      secondary_doc_photo: 'assets/passport_scan.jpg'
-    },
-    identified: false,
-    verifications: [
-      {
-        id: 1,
-        amount: 100
-        }
-    ],
-    updated: '23.03.2003',
-    verification_status: null
-  },
-  {
-    id: '3',
-    info: {
-      name: 'Ivan',
-      surname: 'Borodach',
-      date_of_birth: '1980-10-10T14:48:00',
-
-      country: 'Russia',
-      city: 'Perm',
-      adress: 'Pushkina 10-11',
-
-      main_doc_number: '1234 6666789',
-      main_doc_validdate: '2020-10-10T14:48:00',
-      main_doc_photo: 'assets/passport_scan.jpg',
-      main_doc_selfie: 'assets/passport_selfie.jpg',
-
-      secondary_doc_number: '478099325',
-      secondary_doc_validdate: '2025-10-10T14:48:00',
-      secondary_doc_photo: 'assets/passport_scan.jpg'
-    },
-    identified: true,
-    verifications: [
-      {
-      id: 1,
-      amount: 4000
-      }
-    ],
-    updated: '23.03.2003',
-    verification_status: null
-  }
-];
+import users from '../../../assets/data/users.json';
 
 @Injectable()
 export class UsersService {
+  private users: User[];
+  private queue: any[];
+
+  public queueUpdated = new Subject<any>();
+
   getUser(): User {
-    return users[0];
+    return this.users[0];
   }
-  getUserVerificationStatus(): User[] {
-    return users.map((obj: User): User => {
-      let status = 0;
-      const identified = obj.identified;
-      const needVerifications = obj.verifications.length;
-      if (identified === false && !needVerifications) {status = 3; }
-      if (identified === false && needVerifications) {status = 2; }
-      if (identified === true && needVerifications) {status = 1; }
-      obj.verification_status = status;
-      return obj;
-    });
+
+  constructor() {
+    this.init();
+  }
+
+  loadUsers() {
+    this.users = users;
+  }
+
+  getUserVerificationStatus(userList: User[]): User[] {
+    return userList.map(
+      (obj: User): User => {
+        let status = 0;
+        const identified = obj.identified;
+        const needVerifications = obj.verifications.length;
+        if (identified === false && !needVerifications) {
+          status = 3;
+        }
+        if (identified === false && needVerifications) {
+          status = 2;
+        }
+        if (identified === true && needVerifications) {
+          status = 1;
+        }
+        obj.verification_status = status;
+        return obj;
+      }
+    );
+  }
+
+  // генерирует очередь пользователей
+  generateVerificationQueue() {
+    const status1 = this.getWaitingVerification();
+    const status2 = this.getWaitingTransactionIdentification();
+    const status3 = this.getWaitingInitiativeIdentification();
+    return [...status1, ...status2, status3];
+  }
+
+  // ожидающие верификации
+  getWaitingVerification() {
+    return [];
+  }
+
+  // идентификации со статусом transaction
+  getWaitingTransactionIdentification() {
+    return [];
+  }
+
+  // идентификации со статусом initiative
+  getWaitingInitiativeIdentification() {
+    return [];
+  }
+
+  // загружает идентификацию / верификацию / главную страницу в зависимости от очереди
+  nextVerification() {
+    return {};
+  }
+
+  // обновляет пользователя после прохождения верификации / идентификации
+  updateUser() {}
+
+  // обновляет очередь
+  updateQueue() {}
+
+  // после успешного сохранения идентификации / верификации
+  afterVerificatoinEnd() {
+    this.updateUser();
+    this.updateQueue();
+    this.nextVerification();
+  }
+
+  init() {
+    // загружаем пользователей
+    this.loadUsers();
+
+    // формируем статусы
+    this.users = this.getUserVerificationStatus(this.users);
+
+    // создаем очередь
+    this.queue = this.generateVerificationQueue();
+
+    // переходим к следующему в очереди
+
+    // сохраняем / обновляем пока не закончаться люди в очереди
   }
 }
