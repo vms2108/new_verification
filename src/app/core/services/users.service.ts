@@ -18,7 +18,7 @@ export class UsersService {
   public queueUpdated = new Subject<any>();
 
   getUser(): User {
-    return this.users[0];
+    return this.users[this.nextVerification().id];
   }
 
   constructor() {
@@ -121,6 +121,57 @@ export class UsersService {
           return 1;
         }
     });
+  }
+
+  // ожидающие сделки
+  getWaitingDeal() {
+    const waitingVerifications = this.getUserVerificationStatus(users).filter(
+      user => user.verification_status === 1
+    );
+    const waitingIdentifications = this.getUserVerificationStatus(users).filter(
+      user => user.verification_status === 2
+    );
+    let queueV: QueueItem[] = [];
+    let queueI: QueueItem[] = [];
+    waitingVerifications.forEach((user: User) => {
+      user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
+        queueV.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'verification',
+        transactionAmount: verification.amount, date: verification.date });
+      });
+    });
+    waitingIdentifications.forEach((user: User) => {
+      user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
+        queueI.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'identification',
+        transactionAmount: verification.amount, date: verification.date });
+      });
+    });
+    queueV =  queueV.sort((n1, n2): number => {
+      if (n1.transactionAmount < n2.transactionAmount) {
+        return 1;
+      } else {
+        if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+          return 1;
+        }
+      }
+    });
+
+    queueI =  queueI.sort((n1, n2): number => {
+      if (n1.transactionAmount < n2.transactionAmount) {
+        return 1;
+      } else {
+        if (n1.transactionAmount === n2.transactionAmount && n1.date > n2.date) {
+          return 1;
+        }
+      }
+    });
+    const itog: QueueItem[] = [];
+    queueV.forEach((item: QueueItem) => {
+      itog.push(item);
+    });
+    queueI.forEach((item: QueueItem) => {
+      itog.push(item);
+    });
+    return itog;
   }
 
   // загружает идентификацию / верификацию / главную страницу в зависимости от очереди

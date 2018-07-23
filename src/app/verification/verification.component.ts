@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
 import { IndetificationConfirmComponent } from '../dialogs/indetification-confirm/indetification-confirm.component';
 import { Language, TranslationService } from 'angular-l10n';
+import { QueueItem } from '../core/models/queueItem.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-verification',
@@ -17,6 +19,7 @@ import { Language, TranslationService } from 'angular-l10n';
 })
 export class VerificationComponent implements OnInit {
   public user: User;
+  public queueItem: QueueItem;
   public sections: any[] = [];
   public approved = false;
   public text = '';
@@ -28,11 +31,25 @@ export class VerificationComponent implements OnInit {
 
   constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog,
     private verificationService: VerificationService,
-    private translationService: TranslationService) {}
+    private translationService: TranslationService,
+    private router: Router
+  ) {}
   ngOnInit() {
-    this.user = this.usersService.getUser();
-    this.generateForm(this.user);
+    this.queueItem = this.initForm();
+    this.generateForm(this.queueItem);
     this.subscribeToFormChanges();
+  }
+
+  initForm() {
+    const nextQueueItem = this.usersService.nextVerification();
+    if ( !nextQueueItem ) {
+      this.router.navigate(['']);
+    }
+    if (nextQueueItem.type !== 'verification') {
+      this.router.navigate(['/identification/form']);
+    } else {
+      return nextQueueItem;
+    }
   }
 
   getFormSections(form: FormGroup) {
@@ -74,11 +91,11 @@ export class VerificationComponent implements OnInit {
     });
   }
 
-  generateForm(user: User) {
+  generateForm(queueItem: QueueItem) {
     // Базовые
     const {
-      info: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo,   main_doc_validdate}
-    } = user;
+      userInfo: { name, surname, date_of_birth, country, main_doc_number, main_doc_photo,   main_doc_validdate}
+    } = queueItem;
     this.verificationForm.addControl(
       'base',
       this.fb.group({
@@ -178,13 +195,13 @@ export class VerificationComponent implements OnInit {
   } else {this.text = 'You decided not to verify the user'; }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: { text: `${this.text}`, user: `${this.user.info.name} ${this.user.info.surname}`}
+      data: { text: `${this.text}`, user: `${this.queueItem.userInfo.name} ${this.queueItem.userInfo.surname}`}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const user_info = this.getUserData();
         const test = this.getResult();
-        const deal_id =  random(1, 10);
+        const deal_id =  this.queueItem.transactionId;
         let totals = 'waiting';
         if (this.approved === true) {
           totals = 'pass';
@@ -192,7 +209,14 @@ export class VerificationComponent implements OnInit {
         if (this.approved === false) {
           totals = 'fail';
         }
-        this.verificationService.saveIdentifications(user_info, test, this.user.id, totals, deal_id);
+        this.verificationService.saveIdentifications(user_info, test, this.queueItem.id, totals, deal_id);
+        this.usersService.updateUser(this.queueItem);
+        this.queueItem = this.initForm();
+        this.verificationForm.reset();
+        this.verificationForm = this.fb.group({
+          title: 'Верификация пользователя'
+        });
+        this.generateForm(this.queueItem);
       }
     });
   }

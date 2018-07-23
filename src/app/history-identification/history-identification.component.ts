@@ -33,9 +33,5 @@ export class HistoryIdentificationComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(this.usersService.generateVerificationQueue());
-    console.log(this.usersService.nextVerification());
-    this.usersService.updateUser(this.usersService.nextVerification());
-    console.log(this.usersService.generateVerificationQueue());
   }
 }

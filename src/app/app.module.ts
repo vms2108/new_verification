@@ -24,6 +24,7 @@ import { HistoryIdentificationModule } from './history-identification/history-id
 import { HeaderLangModule } from './header-lang/header-lang.module';
 
 import { L10nConfig, L10nLoader, TranslationModule, StorageStrategy, ProviderType } from 'angular-l10n';
+import { QueueInfoComponent } from './queueInfo/queueInfo.component';
 
 const l10nConfig: L10nConfig = {
   locale: {
@@ -47,7 +48,8 @@ const l10nConfig: L10nConfig = {
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    QueueInfoComponent
   ],
   imports: [
     CommonModule,
