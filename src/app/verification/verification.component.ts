@@ -35,20 +35,21 @@ export class VerificationComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit() {
-    this.queueItem = this.initForm();
-    this.generateForm(this.queueItem);
-    this.subscribeToFormChanges();
+    this.queueItem = this.usersService.nextVerification();
+    this.initForm();
   }
 
   initForm() {
-    const nextQueueItem = this.usersService.nextVerification();
+    const nextQueueItem = this.queueItem;
     if ( !nextQueueItem ) {
       this.router.navigate(['']);
-    }
-    if (nextQueueItem.type !== 'verification') {
-      this.router.navigate(['/identification/form']);
     } else {
-      return nextQueueItem;
+      if (nextQueueItem.type !== 'verification') {
+        this.router.navigate(['/identification/form']);
+      } else {
+        this.generateForm(this.queueItem);
+        this.subscribeToFormChanges();
+      }
     }
   }
 
@@ -211,12 +212,12 @@ export class VerificationComponent implements OnInit {
         }
         this.verificationService.saveIdentifications(user_info, test, this.queueItem.id, totals, deal_id);
         this.usersService.updateUser(this.queueItem);
-        this.queueItem = this.initForm();
         this.verificationForm.reset();
         this.verificationForm = this.fb.group({
           title: 'Верификация пользователя'
         });
-        this.generateForm(this.queueItem);
+        this.queueItem = this.usersService.nextVerification();
+        this.initForm();
       }
     });
   }
