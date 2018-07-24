@@ -181,7 +181,8 @@ export class IdentificationService {
         date,
         result,
         user_name,
-        user_surname
+        user_surname,
+        searchString: `${id} ${user_id} ${reason} ${date} ${user_name} ${user_surname}`
       };
     });
   }

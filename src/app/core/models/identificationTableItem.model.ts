@@ -6,4 +6,5 @@ export class IdentificationTableItem {
     result: string;
     user_name: string;
     user_surname: string;
+    searchString?: string;
 }

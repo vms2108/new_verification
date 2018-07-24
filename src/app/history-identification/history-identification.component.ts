@@ -7,6 +7,7 @@ import { Language } from 'angular-l10n';
 import { UsersService } from '../core/services';
 import { User } from '../core/models';
 import users from '../../assets/data/users.json';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-history-identification',
@@ -15,6 +16,12 @@ import users from '../../assets/data/users.json';
 })
 export class HistoryIdentificationComponent implements OnInit {
   private identifications = [];
+  filterGroup: FormGroup = new FormGroup({
+    'search': new FormControl(),
+    'dateFrom': new FormControl(),
+    'dateTo': new FormControl(),
+    'reason': new FormControl()
+  });
   private users: User[];
 
   dataSource: MatTableDataSource<any>;
@@ -23,7 +30,8 @@ export class HistoryIdentificationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private identificationService: IdentificationService,
-  private usersService: UsersService) {
+  private usersService: UsersService,
+  private fb: FormBuilder) {
     this.identifications = this.identificationService.generateHistoryTable();
     this.dataSource = new MatTableDataSource(this.identifications);
   }
