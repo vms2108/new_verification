@@ -9,6 +9,8 @@ import { IndetificationConfirmComponent } from '../dialogs/indetification-confir
 import { IdentificationService } from '../core/services/identification.service';
 import { random } from 'lodash';
 import { Language, TranslationService } from 'angular-l10n';
+import { QueueItem } from '../core/models/queueItem.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-identification',
@@ -21,6 +23,7 @@ export class IdentificationComponent implements OnInit {
   public approved = false;
   public fromFrom = [];
   public text = '';
+  public queueItem: QueueItem;
   public indetificationForm: FormGroup = this.fb.group({
     title: 'Идентификация пользователя'
   });
@@ -30,12 +33,26 @@ export class IdentificationComponent implements OnInit {
   constructor(private usersService: UsersService,
     private fb: FormBuilder, private dialog: MatDialog,
     private identificationService: IdentificationService,
-    private translationService: TranslationService) {}
+    private translationService: TranslationService,
+    private router: Router) {}
 
   ngOnInit() {
-    this.user = this.usersService.getUser();
-    this.generateForm(this.user);
-    this.subscribeToFormChanges();
+    this.queueItem = this.usersService.nextVerification();
+    this.initForm();
+  }
+
+  initForm() {
+    const nextQueueItem = this.queueItem;
+    if ( !nextQueueItem ) {
+      this.router.navigate(['']);
+    } else {
+      if (nextQueueItem.type === 'verification') {
+        this.router.navigate(['/verification/form']);
+      } else {
+        this.generateForm(this.queueItem);
+        this.subscribeToFormChanges();
+      }
+    }
   }
 
   getFormSections(form: FormGroup) {
@@ -77,11 +94,11 @@ export class IdentificationComponent implements OnInit {
     });
   }
 
-  generateForm(user: User) {
+  generateForm(queueItem: QueueItem) {
     // Базовые
     const {
-      info: { name, surname, date_of_birth}
-    } = user;
+      userInfo: { name, surname, date_of_birth}
+    } = queueItem;
     this.indetificationForm.addControl(
       'base',
       this.fb.group({
@@ -97,8 +114,8 @@ export class IdentificationComponent implements OnInit {
 
     // Место жительства
     const {
-      info: { country, city, adress}
-    } = user;
+      userInfo: { country, city, adress}
+    } = queueItem;
     this.indetificationForm.addControl(
       'address',
       this.fb.group({
@@ -114,8 +131,8 @@ export class IdentificationComponent implements OnInit {
 
     // Основной документ
     const {
-      info: { main_doc_number, main_doc_photo, main_doc_selfie, main_doc_validdate }
-    } = user;
+      userInfo: { main_doc_number, main_doc_photo, main_doc_selfie, main_doc_validdate }
+    } = queueItem;
     this.indetificationForm.addControl(
       'main_doc',
       this.fb.group({
@@ -133,12 +150,12 @@ export class IdentificationComponent implements OnInit {
 
     // Дополнительный документ
     const {
-      info: {
+      userInfo: {
         secondary_doc_number,
         secondary_doc_photo,
         secondary_doc_validdate
       }
-    } = user;
+    } = queueItem;
     this.indetificationForm.addControl(
       'secondary_doc',
       this.fb.group({
@@ -213,7 +230,7 @@ export class IdentificationComponent implements OnInit {
     } else {this.text = 'You decided not to identify the user'; }
     const dialogRef = this.dialog.open(IndetificationConfirmComponent, {
       width: '500px',
-      data: {text: `${this.text}`, user: `${this.user.info.name} ${this.user.info.surname}`}
+      data: {text: `${this.text}`, user: `${this.queueItem.userInfo.name} ${this.queueItem.userInfo.surname}`}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -226,7 +243,14 @@ export class IdentificationComponent implements OnInit {
         if (this.approved === false) {
           totals = 'fail';
         }
-        this.identificationService.saveIdentifications(data, this.user.id, totals, number);
+        this.identificationService.saveIdentifications(data, this.queueItem.id, totals, number);
+        this.usersService.updateUser(this.queueItem, approved);
+        this.indetificationForm.reset();
+        this.indetificationForm = this.fb.group({
+          title: 'Идентификация пользователя'
+        });
+        this.queueItem = this.usersService.nextVerification();
+        this.initForm();
       }
     });
   }

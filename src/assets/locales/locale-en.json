@@ -50,5 +50,20 @@
   "You decided not to verify the user": "You decided not to verify the user",
 
   "Yes": "Yes",
-  "No": "No"
+  "No": "No",
+
+  "Waiting for verification:": "Waiting for verification:",
+  "Waiting for identification with the status of transaction:": "Waiting for identification with the status of transaction:",
+  "Waiting for identification with the status of initiative:": "Waiting for identification with the status of initiative:",
+  "Waiting for the transaction:": "Waiting for the transaction:",
+  "Total deals:": "Total deals:",
+  "Go to": "Go to",
+  "verification": "verification",
+  "identification": "identification",
+
+  "Data": "Data",
+  "Deal ID": "Deal ID",
+  "Amount": "Amount",
+  "Waiting for": "Waitling for",
+  "All deals": "All deals"
 }

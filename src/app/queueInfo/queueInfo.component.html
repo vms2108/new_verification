@@ -2,13 +2,13 @@
   <div class="queue-info__container">
     <div class="queue-info__data">
       <ul class="queue-info__items">
-        <li class="queue-info__item">Ожидает верфикацию: 
+        <li class="queue-info__item"> {{ 'Waiting for verification:' | translate:lang }}
         </li>
-        <li class="queue-info__item">Ожидает идентификацию со статусом transaction: 
+        <li class="queue-info__item"> {{ 'Waiting for identification with the status of transaction:' | translate:lang }}
         </li>
-        <li class="queue-info__item">Ожидает идентификацию со статусом initiative: 
+        <li class="queue-info__item"> {{ 'Waiting for identification with the status of initiative:' | translate:lang }}
         </li>
-        <li class="queue-info__item">Ожидает сделки: 
+        <li class="queue-info__item"> {{ 'Total deals:' | translate:lang }}
         </li>
       </ul>
       <ul class="queue-info__items">
@@ -26,7 +26,6 @@
         </li>
       </ul>
     </div>
-    <button class="queue-info__btn" [class.hidden]="noQueue" (click)="next()" >Перейти к {{word}} </button>
-    <button class="queue-info__btn" (click)="minuseOne()" >-1 </button>
+    <button class="queue-info__btn" [class.hidden]="noQueue" (click)="redirectTo()" >{{ 'Go to' | translate:lang }} {{ nextProcedure | translate:lang }} </button>
   </div>
 </div>

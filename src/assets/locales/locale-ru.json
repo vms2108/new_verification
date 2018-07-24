@@ -50,5 +50,20 @@
   "You decided not to verify the user": "Вы приняли решение не верифицировать пользователя",
 
   "Yes": "Да",
-  "No": "Нет"
+  "No": "Нет",
+
+  "Waiting for verification:": "Ожидает верификацию:",
+  "Waiting for identification with the status of transaction:": "Ожидает идентификацию со статусом transaction:",
+  "Waiting for identification with the status of initiative:": "Ожидает идентификацию со статусом initiative:",
+  "Waiting for the transaction:": "Ожидает сделку:",
+  "Total deals:": "Всего сделок:",
+  "Go to": "Перейти к",
+  "verification": "верификации",
+  "identification": "идентификации",
+
+  "Data": "Дата",
+  "Deal ID": "ID сделки",
+  "Amount": "Сумма",
+  "Waiting for": "Ожидает",
+  "All deals": "Все сделки"
 }

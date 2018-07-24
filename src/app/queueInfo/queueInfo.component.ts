@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class QueueInfoComponent implements OnInit {
   returnUrl: string;
-  private noQueue = false;
+  private noQueue = true;
+  private nextProcedure: string;
 
   constructor(private usersService: UsersService,
   private router: Router) {}
   @Language() lang: string;
 
   ngOnInit() {
+    this.next();
   }
 
   get waitingVerificationCount() {
@@ -31,24 +33,21 @@ export class QueueInfoComponent implements OnInit {
   get waitingDealCount() {
     return this.usersService.getWaitingDeal().length;
   }
-  get word() {
+  next() {
     if (this.usersService.getWaitingVerification().length > 0) {
-      return 'verification';
+      this.nextProcedure = 'verification';
+      setTimeout(() => { this.noQueue = false; });
     } else {
       if (this.usersService.getWaitingTransactionIdentification().length > 0 ||
       this.usersService.getWaitingInitiativeIdentification().length > 0) {
-        return 'identification';
+        this.nextProcedure = 'identification';
+        setTimeout(() => { this.noQueue = false; });
       } else {
-        this.noQueue = true;
-        return '';
+          this.nextProcedure = '';
       }
     }
   }
-
-  minuseOne() {
-    this.usersService.updateUser(this.usersService.nextVerification());
-  }
-  next() {
-    this.router.navigate(['/' + this.word + '/form']);
+  redirectTo() {
+    this.router.navigate(['/' + this.nextProcedure + '/form']);
   }
 }

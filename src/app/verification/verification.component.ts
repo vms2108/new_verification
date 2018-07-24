@@ -211,7 +211,7 @@ export class VerificationComponent implements OnInit {
           totals = 'fail';
         }
         this.verificationService.saveIdentifications(user_info, test, this.queueItem.id, totals, deal_id);
-        this.usersService.updateUser(this.queueItem);
+        this.usersService.updateUser(this.queueItem, approved);
         this.verificationForm.reset();
         this.verificationForm = this.fb.group({
           title: 'Верификация пользователя'

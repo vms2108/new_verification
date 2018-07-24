@@ -35,13 +35,15 @@ export class UsersService {
         let status = 0;
         const identified = obj.identified;
         const needVerifications = obj.verifications.length;
-        if (identified === false && !needVerifications) {
+        const failIdentification = obj.failIdentification;
+        const failVerification = obj.failVerification;
+        if (identified === false && !needVerifications && !failIdentification) {
           status = 3;
         }
-        if (identified === false && needVerifications) {
+        if (identified === false && needVerifications && !failIdentification) {
           status = 2;
         }
-        if (identified === true && needVerifications) {
+        if (identified === true && needVerifications && !failVerification) {
           status = 1;
         }
         obj.verification_status = status;
@@ -186,19 +188,18 @@ export class UsersService {
     return this.users.find(user => user.id === id);
   }
 
-  updateUser(item: QueueItem) {
-    this.getUserById(item.id).identified = true;
-    remove(this.getUserById(item.id).verifications, (v) =>  v.id === item.transactionId);
-  }
-
-  // обновляет очередь
-  updateQueue() {}
-
-  // после успешного сохранения идентификации / верификации
-  afterVerificatoinEnd(item: QueueItem) {
-    this.updateUser(item);
-    this.updateQueue();
-    this.nextVerification();
+  updateUser(item: QueueItem, result: boolean) {
+    const user = this.getUserById(item.id);
+    if (item.type === 'identification') {
+      user.identified = result;
+      user.failIdentification = !result;
+    }
+    if (item.type === 'verification') {
+      user.failVerification = !result;
+      if (result) {
+        remove(user.verifications, (v) =>  v.id === item.transactionId);
+      }
+    }
   }
 
   init() {

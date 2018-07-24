@@ -26,4 +26,6 @@ export class User {
   }[];
   updated: Date | string;
   verification_status: number;
+  failIdentification?: boolean;
+  failVerification?: boolean;
 }

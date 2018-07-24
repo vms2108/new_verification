@@ -3,7 +3,7 @@
   <div class="main__container">
     <div class="main__content">
       <div class="table">
-        <h1 class="table__title">Ожидающие верификацию</h1>
+        <h1 class="table__title">{{ 'Waiting for verification:' | translate:lang }}</h1>
         <div class="table__container">
           <table mat-table [dataSource]="dataVerification" matSort>
             <ng-container matColumnDef="number">
@@ -15,7 +15,7 @@
               <td mat-cell *matCellDef="let waitingVerification">ID: {{ waitingVerification.id }}, {{waitingVerification.userInfo.name}} {{waitingVerification.userInfo.surname}} </td>
             </ng-container>
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Data" | translate : lang }} </th>
                 <td mat-cell *matCellDef="let waitingVerification">{{ waitingVerification.date | date : 'dd.MM.yyy' }} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="veriicationColumns"></tr>
@@ -27,7 +27,7 @@
     </div>
     <div class="main__content">
       <div class="table">
-        <h1 class="table__title">Ожидающие идентификацию со статусом transaction</h1>
+        <h1 class="table__title">{{ 'Waiting for identification with the status of transaction:' | translate:lang }}</h1>
         <div class="table__container">
           <table mat-table [dataSource]="dataIdentificationTransaction" matSort>
             <ng-container matColumnDef="number">
@@ -39,7 +39,7 @@
               <td mat-cell *matCellDef="let waitingIdentificationTransaction">ID: {{ waitingIdentificationTransaction.id }}, {{waitingIdentificationTransaction.userInfo.name}} {{waitingIdentificationTransaction.userInfo.surname}} </td>
             </ng-container>
             <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Data" | translate : lang }} </th>
               <td mat-cell *matCellDef="let waitingIdentificationTransaction">{{ waitingIdentificationTransaction.date | date : 'dd.MM.yyy' }} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="identificationColumns"></tr>
@@ -51,7 +51,7 @@
       </div>
       <div class="main__content">
         <div class="table">
-          <h1 class="table__title">Ожидающие идентификацию со статусом initiative</h1>
+          <h1 class="table__title">{{ 'Waiting for identification with the status of initiative:' | translate:lang }}</h1>
           <div class="table__container">
             <table mat-table [dataSource]="dataIdentificationInitiative" matSort>
               <ng-container matColumnDef="number">
@@ -63,7 +63,7 @@
                 <td mat-cell *matCellDef="let waitingIdentificationInitiative">ID: {{ waitingIdentificationInitiative.id }}, {{waitingIdentificationInitiative.userInfo.name}} {{waitingIdentificationInitiative.userInfo.surname}} </td>
               </ng-container>
               <ng-container matColumnDef="date">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Data" | translate : lang }} </th>
                   <td mat-cell *matCellDef="let waitingIdentificationInitiative">{{ waitingIdentificationInitiative.date | date : 'dd.MM.yyy' }} </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="identificationColumns"></tr>
@@ -75,7 +75,7 @@
       </div>
     <div class="main__content">
       <div class="table">
-        <h1 class="table__title">Ожидающие сделки</h1>
+        <h1 class="table__title">{{ 'All deals' | translate:lang }}</h1>
         <div class="table__container">
           <table mat-table [dataSource]="dataDeals" matSort>
             <ng-container matColumnDef="number">
@@ -83,20 +83,20 @@
               <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.queueIndex+1 }} </td>
             </ng-container>
             <ng-container matColumnDef="transactionId">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID сделки </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Deal ID" | translate : lang }} </th>
               <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.transactionId }}</td>
             </ng-container>
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Data" | translate : lang }} </th>
                 <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.date | date : 'dd.MM.yyy' }} </td>
             </ng-container>
             <ng-container matColumnDef="amount">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Сумма</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Amount" | translate : lang }}</th>
                 <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.transactionAmount }} </td>
             </ng-container>
             <ng-container matColumnDef="waiting">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ожидает</th>
-                <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.type }} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Waiting for" | translate : lang }}</th>
+                <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.type | translate: lang }} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="dealsColumns"></tr>
             <tr mat-row *matRowDef="let waitingDeal; columns: dealsColumns;"></tr>
