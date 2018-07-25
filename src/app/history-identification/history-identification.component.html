@@ -1,34 +1,63 @@
 <div class="table">
   <h1 class="table__title">{{ "Identification history" | translate : lang }}</h1>
-  <div class="table__filters table-filters">
+  <div class="table__filters">
     <div class="form-items" [formGroup]="filterGroup">
-        <input class="form-item" formControlName="search" type="text" placeholder="{{ 'Search' | translate : lang }}" >
-        <input class="form-item" matInput [matDatepicker]="from" placeholder="Date from">
-        <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-        <mat-datepicker #from></mat-datepicker>
-        <input class="form-item" matInput [matDatepicker]="to" placeholder="Date to">
-        <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
-        <mat-datepicker #to></mat-datepicker>
-        <select class="form-item form-item--select" placeholder="reason">
-          <option class="form-item__option" value="initiative">
-            initiative
-          </option>
-          <option class="form-item__option" value="transaction">
-            transaction
-          </option>
-        </select>
-        <select class="form-item form-item--select" placeholder="result">
-          <option class="form-item__option" value="pass">
-            pass
-          </option>
-          <option class="form-item__option" value="fail">
-            fail
-          </option>
-          <option class="form-item__option" value="fail">
-              waiting
-            </option>
-        </select>
-    </div>
+      <div class="table__filters table-filters">
+        <label class="table-filters__input">
+          <input formControlName="search" type="text" placeholder="{{ 'User' | translate:lang }}" autocomplete="off">
+        </label>
+
+        <div class="table-filters__calendar">
+          <span>c</span>
+          <div class="table-filters__datepicker">
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="datesFrom"
+                disabled
+                [min]="pickerMin"
+                [max]="pickerMax"
+                formControlName="datesFrom"
+              >
+              <mat-datepicker-toggle matSuffix [for]="datesFrom"></mat-datepicker-toggle>
+              <mat-datepicker #datesFrom disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <span>по</span>
+          <div class="table-filters__datepicker">
+            <mat-form-field>
+              <input
+                matInput
+                [matDatepicker]="datesTo"
+                disabled
+                [min]="pickerMin"
+                [max]="pickerMax"
+                (dateChange)="updateFilters()"
+                formControlName="datesTo"
+              >
+              <mat-datepicker-toggle matSuffix [for]="datesTo"></mat-datepicker-toggle>
+              <mat-datepicker #datesTo disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="table-filters__select table-filters__select--mr">
+          <mat-form-field>
+            <mat-select formControlName="reason" placeholder="Причина" multiple>
+              <mat-option *ngFor="let reason of reasons; let i = index;" [value]="reason.value">{{ reason.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="table-filters__select table-filters__select--mr">
+          <mat-form-field>
+            <mat-select formControlName="result" placeholder="Результат" multiple>
+              <mat-option *ngFor="let result of results; let i = index;" [value]="result">{{ result }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
   </div>
 
   <div class="table__container">

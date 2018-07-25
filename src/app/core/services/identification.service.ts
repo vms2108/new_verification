@@ -1,16 +1,18 @@
 import { Identification } from '../models/identification.model';
 import { Injectable } from '@angular/core';
 import { IdentificationTableItem } from '../models/identificationTableItem.model';
+import { UsersService } from './users.service';
+import { QueueItem } from '../models/queueItem.model';
 
 @Injectable()
 export class IdentificationService {
-  constructor() {}
+  constructor(private usersService: UsersService) {}
   private identifications: Identification[] = [
     {
       id: 1,
       user_id: '11',
       reason: 2,
-      date: '2018-07-12',
+      date: new Date ('2018-07-12'),
       result: 'pass',
       data: {
           name: {
@@ -84,7 +86,7 @@ export class IdentificationService {
       id: 2,
       user_id: '12',
       reason: 3,
-      date: '2018-07-13',
+      date: new Date ('2018-07-13'),
       result: 'fail',
       data: {
           name: {
@@ -162,7 +164,7 @@ export class IdentificationService {
     'date': currentData, 'result': result, 'data': data});
   }
   generateHistoryTable(): IdentificationTableItem[] {
-    return this.identifications.map((obj: Identification): IdentificationTableItem => {
+    const haveResult = this.identifications.map((obj: Identification): IdentificationTableItem => {
       const {
         id,
         user_id,
@@ -182,8 +184,63 @@ export class IdentificationService {
         result,
         user_name,
         user_surname,
-        searchString: `${id} ${user_id} ${reason} ${date} ${user_name} ${user_surname}`
+        searchString: `${user_id} ${user_name} ${user_surname}`
       };
     });
+    const waitingTransaction = this.usersService.getWaitingTransactionIdentification().map((obj: QueueItem): IdentificationTableItem => {
+      const {
+        queueIndex: id,
+        id: user_id,
+        userInfo: {
+          name: user_name,
+          surname: user_surname
+        }
+      } = obj;
+      return {
+        id,
+        user_id,
+        reason: 2,
+        date: undefined,
+        result: 'waiting',
+        user_name,
+        user_surname,
+        searchString: `${user_id} ${user_name} ${user_surname}`
+      };
+    });
+    const waitingInitiative = this.usersService.getWaitingInitiativeIdentification().map((obj: QueueItem): IdentificationTableItem => {
+      const {
+        queueIndex: id,
+        id: user_id,
+        userInfo: {
+          name: user_name,
+          surname: user_surname
+        }
+      } = obj;
+      return {
+        id,
+        user_id,
+        reason: 3,
+        date: undefined,
+        result: 'waiting',
+        user_name,
+        user_surname,
+        searchString: `${user_id} ${user_name} ${user_surname}`
+      };
+    });
+    const arr = [];
+    haveResult.forEach((item) => {
+      arr.push(item);
+    });
+    waitingTransaction.forEach((item) => {
+      arr.push(item);
+    });
+    waitingInitiative.forEach((item) => {
+      arr.push(item);
+    });
+    arr.map((item, i) => {
+      item.id = i + 1;
+    });
+    console.log(arr);
+    return arr;
   }
 }

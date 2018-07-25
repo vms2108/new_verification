@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormModule } from '../form/form.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { HistoryIdentificationComponent } from './history-identification.component';
@@ -18,7 +18,8 @@ import { TranslationModule} from 'angular-l10n';
     ReactiveFormsModule,
     CommonModule,
     MaterialModule,
-    TranslationModule
+    TranslationModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [],

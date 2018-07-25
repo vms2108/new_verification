@@ -20,7 +20,7 @@ export class QueueItem {
   };
   transactionId?: number;
   transactionAmount?: number;
-  date?: string | Date;
+  date?:  Date;
   type: 'verification' | 'identification';
   identificationCause?: 'transaction' | 'initiative';
   queueIndex?: number;

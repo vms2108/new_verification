@@ -24,7 +24,7 @@ export class User {
     amount: number;
     date: Date | string;
   }[];
-  updated: Date | string;
+  updated: Date;
   verification_status: number;
   failIdentification?: boolean;
   failVerification?: boolean;
