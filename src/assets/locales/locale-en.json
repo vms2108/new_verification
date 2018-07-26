@@ -65,5 +65,14 @@
   "Deal ID": "Deal ID",
   "Amount": "Amount",
   "Waiting for": "Waitling for",
-  "All deals": "All deals"
+  "All deals": "All deals",
+
+  "waiting": "waiting",
+  "fail": "fail",
+  "pass": "pass",
+  "initiative": "initiative",
+  "transaction": "transaction",
+  "Reason": "Reason",
+  "from": "from",
+  "to": "to"
 }

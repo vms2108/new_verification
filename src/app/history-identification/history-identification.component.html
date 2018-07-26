@@ -8,13 +8,12 @@
         </label>
 
         <div class="table-filters__calendar">
-          <span>c</span>
+          <span>{{ 'from' | translate:lang }}</span>
           <div class="table-filters__datepicker">
             <mat-form-field>
               <input
                 matInput
                 [matDatepicker]="datesFrom"
-                disabled
                 [min]="pickerMin"
                 [max]="pickerMax"
                 formControlName="datesFrom"
@@ -23,16 +22,14 @@
               <mat-datepicker #datesFrom disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
-          <span>по</span>
+          <span>{{ 'to' | translate:lang }}</span>
           <div class="table-filters__datepicker">
             <mat-form-field>
               <input
                 matInput
                 [matDatepicker]="datesTo"
-                disabled
                 [min]="pickerMin"
                 [max]="pickerMax"
-                (dateChange)="updateFilters()"
                 formControlName="datesTo"
               >
               <mat-datepicker-toggle matSuffix [for]="datesTo"></mat-datepicker-toggle>
@@ -44,16 +41,16 @@
 
         <div class="table-filters__select table-filters__select--mr">
           <mat-form-field>
-            <mat-select formControlName="reason" placeholder="Причина" multiple>
-              <mat-option *ngFor="let reason of reasons; let i = index;" [value]="reason.value">{{ reason.name }}</mat-option>
+            <mat-select formControlName="reason" placeholder="{{'Reason' | translate:lang }}" multiple>
+              <mat-option *ngFor="let reason of reasons; let i = index;" [value]="reason.value">{{ reason.name | translate:lang }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
         <div class="table-filters__select table-filters__select--mr">
           <mat-form-field>
-            <mat-select formControlName="result" placeholder="Результат" multiple>
-              <mat-option *ngFor="let result of results; let i = index;" [value]="result">{{ result }}</mat-option>
+            <mat-select formControlName="result" placeholder="{{'Result' | translate:lng }}" multiple>
+              <mat-option *ngFor="let result of results; let i = index;" [value]="result">{{ result | translate:lang }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -72,15 +69,15 @@
       </ng-container>
       <ng-container matColumnDef="reason">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Identification reason" | translate : lang }} </th>
-        <td mat-cell *matCellDef="let row"> {{row.reason | reason }} </td>
+        <td mat-cell *matCellDef="let row"> {{row.reason | reason | translate:lang }} </td>
       </ng-container>
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Identification date" | translate : lang }} </th>
-        <td mat-cell *matCellDef="let row"> {{row.date | date : format : timezone}} </td>
+        <td mat-cell *matCellDef="let row"><span *ngIf="row.result !== 'waiting'">{{row.date | date : 'dd.MM.yyyy'}}</span></td>
       </ng-container>
       <ng-container matColumnDef="result">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Result" | translate : lang }} </th>
-        <td mat-cell *matCellDef="let row"> {{row.result}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.result | translate:lang }} </td>
       </ng-container>
       <ng-container matColumnDef="details">
         <th mat-header-cell *matHeaderCellDef></th>

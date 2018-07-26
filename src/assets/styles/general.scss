@@ -71,3 +71,17 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
   background-color: #282834 !important;
 }
+
+/* .table-filters__datepicker .mat-form-field-wrapper {
+  position: relative !important;
+} */
+
+.table-filters__datepicker .mat-form-field-underline {
+  bottom: -5px;
+  background-color: rgba(255,255,255, 0.3);
+}
+
+.table-filters__calendar span {
+  line-height: 20px !important;
+  height: 20px;
+}

@@ -200,7 +200,7 @@ export class IdentificationService {
         id,
         user_id,
         reason: 2,
-        date: undefined,
+        date: new Date(),
         result: 'waiting',
         user_name,
         user_surname,
@@ -220,27 +220,26 @@ export class IdentificationService {
         id,
         user_id,
         reason: 3,
-        date: undefined,
+        date: new Date(),
         result: 'waiting',
         user_name,
         user_surname,
         searchString: `${user_id} ${user_name} ${user_surname}`
       };
     });
-    const arr = [];
-    haveResult.forEach((item) => {
-      arr.push(item);
-    });
-    waitingTransaction.forEach((item) => {
-      arr.push(item);
+    let tableItems = [...waitingTransaction, ...waitingInitiative, ...haveResult];
+
+   /*  waitingTransaction.forEach((item) => {
+      tableItems.push(item);
     });
     waitingInitiative.forEach((item) => {
-      arr.push(item);
+      tableItems.push(item);
     });
-    arr.map((item, i) => {
-      item.id = i + 1;
-    });
-    console.log(arr);
-    return arr;
+    haveResult.forEach((item) => {
+      tableItems.push(item);
+    }); */
+    tableItems = tableItems.map((i, index) => { i.id = index + 1; return i; }).sort((a, b) =>
+    (b.date).getTime() - (a.date).getTime());
+    return tableItems;
   }
 }

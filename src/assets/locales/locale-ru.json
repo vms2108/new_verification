@@ -65,5 +65,14 @@
   "Deal ID": "ID сделки",
   "Amount": "Сумма",
   "Waiting for": "Ожидает",
-  "All deals": "Все сделки"
+  "All deals": "Все сделки",
+
+  "waiting": "ожидает",
+  "fail": "не пройдена",
+  "pass": "пройдена",
+  "initiative": "инициатива",
+  "transaction": "сделка",
+  "Reason": "Причина",
+  "from": "с",
+  "to": "по"
 }

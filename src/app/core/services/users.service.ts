@@ -75,7 +75,7 @@ export class UsersService {
     const queue: QueueItem[] = [];
 
     waitingVerifications.forEach((user: User) => {
-      user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
+      user.verifications.forEach((verification: {id: number, amount: number, date: Date}) => {
         queue.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'verification',
         transactionAmount: verification.amount, date: new Date(verification.date) });
       });
@@ -136,13 +136,13 @@ export class UsersService {
     let queueV: QueueItem[] = [];
     let queueI: QueueItem[] = [];
     waitingVerifications.forEach((user: User) => {
-      user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
+      user.verifications.forEach((verification: {id: number, amount: number, date: Date}) => {
         queueV.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'verification',
         transactionAmount: verification.amount, date: new Date(verification.date) });
       });
     });
     waitingIdentifications.forEach((user: User) => {
-      user.verifications.forEach((verification: {id: number, amount: number, date: string}) => {
+      user.verifications.forEach((verification: {id: number, amount: number, date: Date}) => {
         queueI.push({id: user.id, userInfo: user.info, transactionId: verification.id, type: 'identification',
         transactionAmount: verification.amount, date: new Date(verification.date) });
       });
