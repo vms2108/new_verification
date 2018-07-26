@@ -2,7 +2,7 @@ export class Verification {
     id: number;
     user_id: string;
     deal_id: number;
-    date: Date | string;
+    date: Date;
     result: string;
     user_info: {
       name: string;

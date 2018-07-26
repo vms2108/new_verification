@@ -1,18 +1,21 @@
+import { UsersService } from './users.service';
 import { Verification } from '../models/verification.model';
 import { History } from '../models/history.model';
 import { Injectable } from '@angular/core';
 import { Data } from '@angular/router';
 import { VerificationTableItem } from '../models/verificationTableItem.model';
+import { QueueItem } from '../models/queueItem.model';
+import { IdentificationTableItem } from '../models/identificationTableItem.model';
 
 @Injectable()
 export class VerificationService {
-  constructor() {}
+  constructor(private usersService: UsersService) {}
   private verifications: Verification[] = [
     {
       id: 1,
       user_id: '11',
       deal_id: 2,
-      date: '2018-07-12',
+      date: new Date('2018-07-12'),
       result: 'pass',
       user_info: {
         name: 'Ivan',
@@ -36,7 +39,7 @@ export class VerificationService {
     'date': currentData, 'result': result, 'user_info': user_info, 'test': test});
   }
   generateHistoryTable(): VerificationTableItem[] {
-    return this.verifications.map((obj: Verification): VerificationTableItem => {
+    const haveResult = this.verifications.map((obj: Verification): VerificationTableItem => {
       const {
         id,
         user_id,
@@ -55,8 +58,38 @@ export class VerificationService {
         date,
         result,
         user_name,
-        user_surname
+        user_surname,
+        searchString: `${user_id} ${user_name} ${user_surname}`
       };
     });
+    const waitingVerification = this.usersService.getWaitingVerification().map((obj: QueueItem): VerificationTableItem => {
+      const {
+        queueIndex: id,
+        id: user_id,
+        transactionId: deal_id,
+        userInfo: {
+          name: user_name,
+          surname: user_surname
+        }
+      } = obj;
+      return {
+        id,
+        user_id,
+        deal_id,
+        date: new Date(),
+        result: 'waiting',
+        user_name,
+        user_surname,
+        searchString: `${user_id} ${user_name} ${user_surname} ${deal_id}`
+      };
+    });
+    let tableItems = [...waitingVerification, ...haveResult];
+    tableItems = tableItems.sort((a, b) =>
+    (b.date).getTime() - (a.date).getTime());
+    tableItems.map((item, i) => {
+      item.id = i + 1;
+      return item;
+    });
+    return tableItems;
   }
 }

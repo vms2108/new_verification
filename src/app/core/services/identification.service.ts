@@ -228,18 +228,12 @@ export class IdentificationService {
       };
     });
     let tableItems = [...waitingTransaction, ...waitingInitiative, ...haveResult];
-
-   /*  waitingTransaction.forEach((item) => {
-      tableItems.push(item);
-    });
-    waitingInitiative.forEach((item) => {
-      tableItems.push(item);
-    });
-    haveResult.forEach((item) => {
-      tableItems.push(item);
-    }); */
-    tableItems = tableItems.map((i, index) => { i.id = index + 1; return i; }).sort((a, b) =>
+    tableItems = tableItems.sort((a, b) =>
     (b.date).getTime() - (a.date).getTime());
+    tableItems.map((item, i) => {
+      item.id = i + 1;
+      return item;
+    });
     return tableItems;
   }
 }

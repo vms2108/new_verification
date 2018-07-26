@@ -99,9 +99,6 @@ export class HistoryIdentificationComponent implements OnInit {
       return date && search && result && reason;
     });
   }
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
   getDates(data: IdentificationTableItem[]) {
   const dates =  data.map(i => i.date).sort((a, b) => a.getTime() - b.getTime());
