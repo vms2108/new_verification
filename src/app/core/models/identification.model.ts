@@ -4,6 +4,7 @@ export class Identification {
   reason: number;
   date: Date;
   result: string;
+  verifier?: string;
   data: {
     name: {
       value: string;

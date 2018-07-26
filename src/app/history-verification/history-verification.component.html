@@ -72,6 +72,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Result" | translate : lang }}</th>
           <td mat-cell *matCellDef="let row"> {{row.result | translate : lang}} </td>
         </ng-container>
+        <ng-container matColumnDef="verifier">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Verifier" | translate : lang }}  </th>
+          <td mat-cell *matCellDef="let row"> {{row.verifier }} </td>
+        </ng-container>
         <ng-container matColumnDef="details">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row">

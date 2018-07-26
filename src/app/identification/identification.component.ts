@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../core/services';
+import { UsersService, AuthService } from '../core/services';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { chunk } from 'lodash';
 import { User } from '../core/models';
@@ -11,6 +11,7 @@ import { random } from 'lodash';
 import { Language, TranslationService } from 'angular-l10n';
 import { QueueItem } from '../core/models/queueItem.model';
 import { Router } from '@angular/router';
+import { UserInfo } from '../core/models/userInfo.model';
 
 @Component({
   selector: 'app-identification',
@@ -27,6 +28,7 @@ export class IdentificationComponent implements OnInit {
   public indetificationForm: FormGroup = this.fb.group({
     title: 'Идентификация пользователя'
   });
+  public userInfo: UserInfo;
 
   @Language() lang: string;
 
@@ -34,11 +36,13 @@ export class IdentificationComponent implements OnInit {
     private fb: FormBuilder, private dialog: MatDialog,
     private identificationService: IdentificationService,
     private translationService: TranslationService,
+    private authService: AuthService,
     private router: Router) {}
 
   ngOnInit() {
     this.queueItem = this.usersService.nextVerification();
     this.initForm();
+    this.userInfo = this.authService.getUserInfo();
   }
 
   initForm() {
@@ -243,7 +247,8 @@ export class IdentificationComponent implements OnInit {
         if (this.approved === false) {
           totals = 'fail';
         }
-        this.identificationService.saveIdentifications(data, this.queueItem.id, totals, number);
+        const verifier = this.userInfo.firstName + ' ' + this.userInfo.lastName + ' ' + this.userInfo.email;
+        this.identificationService.saveIdentifications(data, this.queueItem.id, totals, number, verifier);
         this.usersService.updateUser(this.queueItem, approved);
         this.indetificationForm.reset();
         this.indetificationForm = this.fb.group({

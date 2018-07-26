@@ -74,5 +74,6 @@
   "transaction": "transaction",
   "Reason": "Reason",
   "from": "from",
-  "to": "to"
+  "to": "to",
+  "Verifier": "Verifier"
 }

@@ -14,6 +14,7 @@ export class IdentificationService {
       reason: 2,
       date: new Date ('2018-07-12'),
       result: 'pass',
+      verifier: 'Marat Muratovich',
       data: {
           name: {
           value: 'Ivan',
@@ -88,6 +89,7 @@ export class IdentificationService {
       reason: 3,
       date: new Date ('2018-07-13'),
       result: 'fail',
+      verifier: 'Fatima Rudolfovna',
       data: {
           name: {
           value: 'Sidor',
@@ -157,11 +159,11 @@ export class IdentificationService {
       }
     }
   ];
-  saveIdentifications(data: any, id: string, result: string, reason: number) {
+  saveIdentifications(data: any, id: string, result: string, reason: number, verifier: string) {
     const currentData = new Date();
     const next_id = this.identifications.length + 1;
     this.identifications.push({'id': next_id, 'user_id': id, 'reason': reason,
-    'date': currentData, 'result': result, 'data': data});
+    'date': currentData, 'result': result, 'data': data, 'verifier': verifier});
   }
   generateHistoryTable(): IdentificationTableItem[] {
     const haveResult = this.identifications.map((obj: Identification): IdentificationTableItem => {
@@ -171,6 +173,7 @@ export class IdentificationService {
         reason,
         date,
         result,
+        verifier,
         data: {
           name: { value: user_name},
           surname: { value: user_surname}
@@ -183,6 +186,7 @@ export class IdentificationService {
         date,
         result,
         user_name,
+        verifier,
         user_surname,
         searchString: `${user_id} ${user_name} ${user_surname}`
       };

@@ -1,7 +1,7 @@
 import { Identification } from '../core/models/identification.model';
 import { VerificationService } from '../core/services/verification.service';
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../core/services';
+import { UsersService, AuthService } from '../core/services';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { chunk, random } from 'lodash';
 import { User } from '../core/models';
@@ -11,6 +11,7 @@ import { IndetificationConfirmComponent } from '../dialogs/indetification-confir
 import { Language, TranslationService } from 'angular-l10n';
 import { QueueItem } from '../core/models/queueItem.model';
 import { Router } from '@angular/router';
+import { UserInfo } from '../core/models/userInfo.model';
 
 @Component({
   selector: 'app-verification',
@@ -27,16 +28,20 @@ export class VerificationComponent implements OnInit {
   public verificationForm: FormGroup = this.fb.group({
     title: 'Верификация пользователя'
   });
+  private userInfo: UserInfo;
   @Language() lang: string;
 
   constructor(private usersService: UsersService, private fb: FormBuilder, private dialog: MatDialog,
     private verificationService: VerificationService,
     private translationService: TranslationService,
+    private authService: AuthService,
     private router: Router
   ) {}
   ngOnInit() {
     this.queueItem = this.usersService.nextVerification();
     this.initForm();
+    this.userInfo = this.authService.getUserInfo();
+    console.log(this.userInfo.firstName + ' ' + this.userInfo.lastName + ' ' + this.userInfo.email);
   }
 
   initForm() {
@@ -210,7 +215,8 @@ export class VerificationComponent implements OnInit {
         if (this.approved === false) {
           totals = 'fail';
         }
-        this.verificationService.saveIdentifications(user_info, test, this.queueItem.id, totals, deal_id);
+        const verifier = this.userInfo.firstName + ' ' + this.userInfo.lastName + ' ' + this.userInfo.email;
+        this.verificationService.saveIdentifications(user_info, test, this.queueItem.id, totals, deal_id, verifier);
         this.usersService.updateUser(this.queueItem, approved);
         this.verificationForm.reset();
         this.verificationForm = this.fb.group({

@@ -40,7 +40,7 @@ export class HistoryIdentificationComponent implements OnInit {
   ];
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'user_id', 'reason', 'date', 'result', 'details'];
+  displayedColumns: string[] = ['id', 'user_id', 'reason', 'date', 'result', 'details', 'verifier'];
   @Language() lang: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -7,4 +7,5 @@ export class IdentificationTableItem {
     user_name: string;
     user_surname: string;
     searchString?: string;
+    verifier?: string;
 }

@@ -4,6 +4,7 @@ export class Verification {
     deal_id: number;
     date: Date;
     result: string;
+    verifier?: string;
     user_info: {
       name: string;
       surname: string;

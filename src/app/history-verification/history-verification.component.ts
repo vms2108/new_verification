@@ -30,7 +30,7 @@ export class HistoryVerificationComponent implements OnInit {
   ];
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'user_id', 'deal_id', 'date', 'result', 'details'];
+  displayedColumns: string[] = ['id', 'user_id', 'deal_id', 'date', 'result', 'details', 'verifier'];
   @Language() lang: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

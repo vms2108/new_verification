@@ -17,6 +17,7 @@ export class VerificationService {
       deal_id: 2,
       date: new Date('2018-07-12'),
       result: 'pass',
+      verifier: 'Tamara Ivanovna',
       user_info: {
         name: 'Ivan',
         surname: 'Ivanov',
@@ -30,13 +31,34 @@ export class VerificationService {
         inner_list: true,
         list_of_terror: true
       }
+    },
+    {
+      id: 2,
+      user_id: '46',
+      deal_id: 2,
+      date: new Date('2018-06-12'),
+      result: 'fail',
+      verifier: 'Zinaida Nikitishna',
+      user_info: {
+        name: 'Afanas',
+        surname: 'Klonov',
+        date_of_birth: '04.11.1955',
+        country: 'Russia',
+        main_doc_number: '1122 334455',
+        main_doc_validdate: '456456',
+        main_doc_photo: 'assets/passport_scan.jpg',
+      },
+      test: {
+        inner_list: false,
+        list_of_terror: true
+      }
     }
   ];
-  saveIdentifications(user_info: any, test: any, id: string, result: string, deal_id: number) {
+  saveIdentifications(user_info: any, test: any, id: string, result: string, deal_id: number, verifier: string) {
     const currentData = new Date();
     const next_id = this.verifications.length + 1;
     this.verifications.push({'id': next_id, 'user_id': id, 'deal_id': deal_id,
-    'date': currentData, 'result': result, 'user_info': user_info, 'test': test});
+    'date': currentData, 'result': result, 'user_info': user_info, 'test': test, 'verifier': verifier});
   }
   generateHistoryTable(): VerificationTableItem[] {
     const haveResult = this.verifications.map((obj: Verification): VerificationTableItem => {
@@ -46,6 +68,7 @@ export class VerificationService {
         deal_id,
         date,
         result,
+        verifier,
         user_info: {
           name: user_name,
           surname: user_surname
@@ -58,6 +81,7 @@ export class VerificationService {
         date,
         result,
         user_name,
+        verifier,
         user_surname,
         searchString: `${user_id} ${user_name} ${user_surname}`
       };
