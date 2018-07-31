@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { IdentificationTableItem } from '../models/identificationTableItem.model';
 import { UsersService } from './users.service';
 import { QueueItem } from '../models/queueItem.model';
+import { find } from 'lodash';
 
 @Injectable()
 export class IdentificationService {
@@ -159,6 +160,7 @@ export class IdentificationService {
       }
     }
   ];
+
   saveIdentifications(data: any, id: string, result: string, reason: number, verifier: string) {
     const currentData = new Date();
     const next_id = this.identifications.length + 1;
@@ -172,6 +174,7 @@ export class IdentificationService {
       verifier: verifier
     });
   }
+
   generateHistoryTable(): IdentificationTableItem[] {
     const haveResult = this.identifications.map(
       (obj: Identification): IdentificationTableItem => {
@@ -245,5 +248,10 @@ export class IdentificationService {
       return item;
     });
     return tableItems;
+  }
+
+  getFormView(id: number) {
+    const identification = find(this.identifications, i => i.id === id);
+    return identification;
   }
 }

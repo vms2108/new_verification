@@ -60,7 +60,11 @@ export class IdentificationComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  initViewMode(id: number) {}
+  initViewMode(id: number) {
+    const item = this.identificationService.getFormView(id);
+    this.viewMode = true;
+    this.generateView(item);
+  }
 
   initForm() {
     const nextQueueItem = this.queueItem;
@@ -106,14 +110,129 @@ export class IdentificationComponent implements OnInit {
     return grouped;
   }
 
-  generateField(title: string, value: any, photo = false) {
+  generateField(title: string, value: any, photo = false, state?: any) {
     return this.fb.group({
       title,
       value,
       photo,
-      state: [undefined],
-      message: null
+      state: state ? state.state : undefined,
+      message: state ? state.message : undefined
     });
+  }
+
+  generateBaseDataForm(fields: any, setState = false) {
+    const { name, surname, date_of_birth } = fields;
+    this.indetificationForm.addControl(
+      'base',
+      this.fb.group({
+        title: 'Basic data',
+        state: null,
+        fields: this.fb.group({
+          name: this.generateField('Name', setState ? name.value : name, false, setState ? surname : undefined),
+          surname: this.generateField(
+            'Surname',
+            setState ? surname.value : surname,
+            false,
+            setState ? surname : undefined
+          ),
+          date_of_birth: this.generateField(
+            'Date of birth',
+            setState ? date_of_birth.value : moment(date_of_birth).format('DD.MM.YYYY'),
+            false,
+            setState ? date_of_birth : undefined
+          )
+        })
+      })
+    );
+  }
+
+  generateAdrressDataForm(fields: any, setState = false) {
+    const { country, city, adress } = fields;
+    this.indetificationForm.addControl(
+      'address',
+      this.fb.group({
+        title: 'Location',
+        state: null,
+        fields: this.fb.group({
+          country: this.generateField(
+            'Country',
+            setState ? country.value : country,
+            false,
+            setState ? country : undefined
+          ),
+          city: this.generateField('City (locality)', setState ? city.value : city, false, setState ? city : undefined),
+          adress: this.generateField('Address', setState ? adress.value : adress, false, setState ? adress : undefined)
+        })
+      })
+    );
+  }
+
+  generateMainDocDataForm(fields: any, setState = false) {
+    const { main_doc_number, main_doc_validdate, main_doc_photo, main_doc_selfie } = fields;
+    this.indetificationForm.addControl(
+      'main_doc',
+      this.fb.group({
+        title: 'Basic document',
+        state: null,
+        fields: this.fb.group({
+          main_doc_number: this.generateField(
+            'Document Number',
+            setState ? main_doc_number.value : main_doc_number,
+            false,
+            setState ? main_doc_number : undefined
+          ),
+          main_doc_validdate: this.generateField(
+            'Validity',
+            setState ? main_doc_validdate.value : moment(main_doc_validdate).format('DD.MM.YYYY'),
+            false,
+            setState ? main_doc_validdate : undefined
+          ),
+          main_doc_photo: this.generateField(
+            'Photo document',
+            setState ? main_doc_photo.value : main_doc_photo,
+            true,
+            setState ? main_doc_photo : undefined
+          ),
+          main_doc_selfie: this.generateField(
+            'Selfi with the document',
+            setState ? main_doc_selfie.value : main_doc_selfie,
+            true,
+            setState ? main_doc_selfie : undefined
+          )
+        })
+      })
+    );
+  }
+
+  generateSecondaryDocFormData(fields: any, setState = false) {
+    const { secondary_doc_number, secondary_doc_validdate, secondary_doc_photo } = fields;
+    this.indetificationForm.addControl(
+      'secondary_doc',
+      this.fb.group({
+        title: 'Additional document',
+        state: null,
+        fields: this.fb.group({
+          secondary_doc_number: this.generateField(
+            'Document Number',
+            setState ? secondary_doc_number.value : secondary_doc_number,
+            false,
+            setState ? secondary_doc_number : undefined
+          ),
+          secondary_doc_validdate: this.generateField(
+            'Validity',
+            setState ? secondary_doc_validdate.value : moment(secondary_doc_validdate).format('DD.MM.YYYY'),
+            false,
+            setState ? secondary_doc_validdate : undefined
+          ),
+          secondary_doc_photo: this.generateField(
+            'Photo document',
+            setState ? secondary_doc_photo.value : secondary_doc_photo,
+            true,
+            setState ? secondary_doc_photo : undefined
+          )
+        })
+      })
+    );
   }
 
   generateForm(queueItem: QueueItem) {
@@ -121,70 +240,25 @@ export class IdentificationComponent implements OnInit {
     const {
       userInfo: { name, surname, date_of_birth }
     } = queueItem;
-    this.indetificationForm.addControl(
-      'base',
-      this.fb.group({
-        title: 'Basic data',
-        state: null,
-        fields: this.fb.group({
-          name: this.generateField('Name', name),
-          surname: this.generateField('Surname', surname),
-          date_of_birth: this.generateField('Date of birth', moment(date_of_birth).format('DD.MM.YYYY'))
-        })
-      })
-    );
+    this.generateBaseDataForm({ name, surname, date_of_birth });
 
     // Место жительства
     const {
       userInfo: { country, city, adress }
     } = queueItem;
-    this.indetificationForm.addControl(
-      'address',
-      this.fb.group({
-        title: 'Location',
-        state: null,
-        fields: this.fb.group({
-          country: this.generateField('Country', country),
-          city: this.generateField('City (locality)', city),
-          adress: this.generateField('Address', adress)
-        })
-      })
-    );
+    this.generateAdrressDataForm({ country, city, adress });
 
     // Основной документ
     const {
       userInfo: { main_doc_number, main_doc_photo, main_doc_selfie, main_doc_validdate }
     } = queueItem;
-    this.indetificationForm.addControl(
-      'main_doc',
-      this.fb.group({
-        title: 'Basic document',
-        state: null,
-        fields: this.fb.group({
-          main_doc_number: this.generateField('Document Number', main_doc_number),
-          main_doc_validdate: this.generateField('Validity', moment(main_doc_validdate).format('DD.MM.YYYY')),
-          main_doc_photo: this.generateField('Photo document', main_doc_photo, true),
-          main_doc_selfie: this.generateField('Selfi with the document', main_doc_selfie, true)
-        })
-      })
-    );
+    this.generateMainDocDataForm({ main_doc_number, main_doc_photo, main_doc_selfie, main_doc_validdate });
 
     // Дополнительный документ
     const {
       userInfo: { secondary_doc_number, secondary_doc_photo, secondary_doc_validdate }
     } = queueItem;
-    this.indetificationForm.addControl(
-      'secondary_doc',
-      this.fb.group({
-        title: 'Additional document',
-        state: null,
-        fields: this.fb.group({
-          secondary_doc_number: this.generateField('Document Number', secondary_doc_number),
-          secondary_doc_validdate: this.generateField('Validity', moment(secondary_doc_validdate).format('DD.MM.YYYY')),
-          secondary_doc_photo: this.generateField('Photo document', secondary_doc_photo, true)
-        })
-      })
-    );
+    this.generateSecondaryDocFormData({ secondary_doc_number, secondary_doc_validdate, secondary_doc_photo });
 
     this.sections = this.getFormSections(this.indetificationForm).map(section => {
       section.fields = this.getFields(section);
@@ -192,6 +266,37 @@ export class IdentificationComponent implements OnInit {
     });
 
     this.user = { name, surname };
+  }
+
+  generateView(identificationItem: any) {
+    const fields = identificationItem.data;
+    const {
+      name,
+      surname,
+      date_of_birth,
+      country,
+      city,
+      adress,
+      main_doc_number,
+      main_doc_photo,
+      main_doc_selfie,
+      main_doc_validdate,
+      secondary_doc_number,
+      secondary_doc_photo,
+      secondary_doc_validdate
+    } = fields;
+
+    this.generateBaseDataForm({ name, surname, date_of_birth }, true);
+    this.generateAdrressDataForm({ country, city, adress }, true);
+    this.generateMainDocDataForm({ main_doc_number, main_doc_photo, main_doc_selfie, main_doc_validdate }, true);
+    this.generateSecondaryDocFormData({ secondary_doc_number, secondary_doc_photo, secondary_doc_validdate }, true);
+
+    this.user = { name: name.value, surname: surname.value };
+
+    this.sections = this.getFormSections(this.indetificationForm).map(section => {
+      section.fields = this.getFields(section);
+      return section;
+    });
   }
 
   sectionStateChanges() {

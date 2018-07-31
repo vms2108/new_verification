@@ -1,7 +1,7 @@
 <div class="field" [formGroup]="field" [class.without-toggle]="toggleNone === false" >
   <div class="field__header">
     <div class="field__label"><span (click)="toggleState()">{{ field.get('title').value | translate: lang }}</span></div>
-    <app-toggle class="field__toggle" formControlName="state" *ngIf="toggleNone"></app-toggle>
+    <app-toggle class="field__toggle" formControlName="state" *ngIf="toggleNone" [readonly]="readonly"></app-toggle>
   </div>
   <mat-form-field *ngIf="!isPhoto">
     <input matInput readonly formControlName="value">

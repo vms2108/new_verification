@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 const CONTROL_ACCESSOR = {
@@ -16,6 +16,8 @@ const CONTROL_ACCESSOR = {
 export class ToggleComponent implements ControlValueAccessor, OnInit {
   state = null;
 
+  @Input() readonly = false;
+
   onChange: Function = () => {};
   onTouched: Function = () => {};
   ngOnInit() {}
@@ -32,6 +34,9 @@ export class ToggleComponent implements ControlValueAccessor, OnInit {
   }
 
   changeState(state) {
+    if (this.readonly) {
+      return;
+    }
     if (state === null && this.state === null) {
       state = true;
     }

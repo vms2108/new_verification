@@ -13,6 +13,8 @@ export class FieldComponent implements OnInit {
   @Input() toggleNone = true;
   @Language() lang: string;
 
+  @Input() readonly = false;
+
   get isPhoto(): boolean {
     return this.field.get('photo').value;
   }

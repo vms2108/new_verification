@@ -417,6 +417,9 @@
   &__header{
     position: relative;
     padding-left: 100px;
+    &.readonly {
+      padding-left: 0;
+    }
   }
   &__state{
     width: 80px;
