@@ -85,3 +85,14 @@ select:-webkit-autofill:focus {
   line-height: 20px !important;
   height: 20px;
 }
+
+.loading-spinner{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  width: 30px;
+  height: 30px;
+  background: url("/assets/loading-spinner.svg") no-repeat;
+}

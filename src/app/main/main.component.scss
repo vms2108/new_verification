@@ -2,35 +2,62 @@
   margin: 30px 0 30px;
   position: relative;
   overflow: hidden;
-  &__header{
-    display: block;
-    @media screen and (min-width: 1480px) {
-      margin-bottom: 20px;
-    }
-  }
-  &__container{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    margin-top: 30px;
-  }
   &__content{
-    display: block;
-    width: calc(50% - 15px);
-    box-sizing: border-box;
+    background-color: #353545;
+    box-shadow: 0 0 24px rgba(0,0,0,.15);
+    padding: 40px 50px;
+    color: #fff;
+    margin: 30px auto 50px;
+    border-radius: 12px;
+    width: auto;
+    max-width: 1280px;
+    text-align: center;
+    height: 50vh;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  &__column{
-    display: block;
-    @media screen and (min-width: 1180px) {
-      display: flex;
+  &__title{
+    margin: 0;
+    font-size: 26px;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    max-width: 500px;
+    margin-bottom: 50px;
+    & strong{
+      color: #009cff;
     }
-    @media screen and (min-width: 1480px) {
-      flex: 1;
-      display: block;
+    & small{
+      text-transform: none;
+      color: rgba(255, 255, 255, .5);
+    }
+  }
+  &__button{
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    height: 50px;
+    padding: 0 32px;
+    color: white;
+    border-radius: 30px;
+    border: 2px solid #f7931a;
+    cursor: pointer;
+    &:disabled{
+      border: 2px solid rgba(247, 147, 26, .5);
+      pointer-events: none;
+    }
+    &.loading{
+      background-image: url("/assets/loading-spinner.svg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      & span {
+        opacity: 0;
+      }
     }
   }
 }

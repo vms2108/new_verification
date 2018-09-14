@@ -1,103 +1,15 @@
 <div class="main">
-  <app-queue-info></app-queue-info>
   <div class="container">
-    <div class="main__container">
-      <div class="main__content table table--mp">
-        <h1 class="table__title table__title--small">{{ 'Waiting for verification:' | translate:lang }}</h1>
-        <div class="table__container">
-          <table mat-table [dataSource]="dataVerification">
-            <ng-container matColumnDef="number">
-              <th mat-header-cell *matHeaderCellDef> # </th>
-              <td mat-cell *matCellDef="let waitingVerification">{{ waitingVerification.queueIndex+1 }} </td>
-            </ng-container>
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> {{ "User" | translate : lang }} </th>
-              <td mat-cell *matCellDef="let waitingVerification">ID: {{ waitingVerification.id }}, {{waitingVerification.userInfo.name}} {{waitingVerification.userInfo.surname}} </td>
-            </ng-container>
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> {{ "Data" | translate : lang }} </th>
-                <td mat-cell *matCellDef="let waitingVerification">{{ waitingVerification.date | date : 'dd.MM.yyy' }} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="veriicationColumns"></tr>
-            <tr mat-row *matRowDef="let waitingVerification; columns: veriicationColumns;"></tr>
-          </table>
-          <mat-paginator #paginatorVer [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-        </div>
-      </div>
-      <div class="main__content table table--mp">
-        <h1 class="table__title table__title--small">{{ 'Waiting for identification with the status of transaction:' | translate:lang }}</h1>
-        <div class="table__container">
-          <table mat-table [dataSource]="dataIdentificationTransaction" >
-            <ng-container matColumnDef="number">
-              <th mat-header-cell *matHeaderCellDef> # </th>
-              <td mat-cell *matCellDef="let waitingIdentificationTransaction">{{ waitingIdentificationTransaction.queueIndex+1 }}</td>
-            </ng-container>
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> {{ "User" | translate : lang }} </th>
-              <td mat-cell *matCellDef="let waitingIdentificationTransaction">ID: {{ waitingIdentificationTransaction.id }}, {{waitingIdentificationTransaction.userInfo.name}} {{waitingIdentificationTransaction.userInfo.surname}} </td>
-            </ng-container>
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef> {{ "Data" | translate : lang }} </th>
-              <td mat-cell *matCellDef="let waitingIdentificationTransaction">{{ waitingIdentificationTransaction.date | date : 'dd.MM.yyy' }} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="identificationColumns"></tr>
-            <tr mat-row *matRowDef="let waitingIdentificationTransaction; columns: identificationColumns;"></tr>
-          </table>
-          <mat-paginator #paginatorIdT [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-        </div>
-      </div>
-      <div class="main__content table table--mp">
-        <h1 class="table__title table__title--small">{{ 'Waiting for identification with the status of initiative:' | translate:lang }}</h1>
-        <div class="table__container">
-          <table mat-table [dataSource]="dataIdentificationInitiative" >
-            <ng-container matColumnDef="number">
-              <th mat-header-cell *matHeaderCellDef> # </th>
-              <td mat-cell *matCellDef="let waitingIdentificationInitiative">{{ waitingIdentificationInitiative.queueIndex+1 }}</td>
-            </ng-container>
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> {{ "User" | translate : lang }} </th>
-              <td mat-cell *matCellDef="let waitingIdentificationInitiative">ID: {{ waitingIdentificationInitiative.id }}, {{waitingIdentificationInitiative.userInfo.name}} {{waitingIdentificationInitiative.userInfo.surname}} </td>
-            </ng-container>
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> {{ "Data" | translate : lang }} </th>
-                <td mat-cell *matCellDef="let waitingIdentificationInitiative">{{ waitingIdentificationInitiative.date | date : 'dd.MM.yyy' }} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="identificationColumns"></tr>
-            <tr mat-row *matRowDef="let waitingIdentificationInitiative; columns: identificationColumns;"></tr>
-          </table>
-          <mat-paginator #paginatorIdIn [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-        </div>
-      </div>
-      <div class="main__content table table--mp">
-        <h1 class="table__title table__title--small">{{ 'All deals' | translate:lang }}</h1>
-        <div class="table__container">
-          <table mat-table [dataSource]="dataDeals" >
-            <ng-container matColumnDef="number">
-              <th mat-header-cell *matHeaderCellDef> # </th>
-              <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.queueIndex+1 }} </td>
-            </ng-container>
-            <ng-container matColumnDef="transactionId">
-              <th mat-header-cell *matHeaderCellDef> {{ "Deal ID" | translate : lang }} </th>
-              <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.transactionId }}</td>
-            </ng-container>
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> {{ "Data" | translate : lang }} </th>
-                <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.date | date : 'dd.MM.yyy' }} </td>
-            </ng-container>
-            <ng-container matColumnDef="amount">
-                <th mat-header-cell *matHeaderCellDef>{{ "Amount" | translate : lang }}</th>
-                <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.transactionAmount }} </td>
-            </ng-container>
-            <ng-container matColumnDef="waiting">
-                <th mat-header-cell *matHeaderCellDef>{{ "Waiting for" | translate : lang }}</th>
-                <td mat-cell *matCellDef="let waitingDeal">{{ waitingDeal.type | translate: lang }} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="dealsColumns"></tr>
-            <tr mat-row *matRowDef="let waitingDeal; columns: dealsColumns;"></tr>
-          </table>
-          <mat-paginator #paginatorDeal [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-        </div>
-      </div>
+    <div class="main__content">
+      <h1 class="main__title">
+        Добро пожаловать в&nbsp;Систему&nbsp;Верификации&nbsp;<strong>Bonum</strong>
+      </h1>
+      <button class="main__button"
+        [class.loading]="loading"
+        [disabled]="loading"
+        (click)="searchRequests()">
+        <span>Поиск новых запросов</span>
+      </button>
     </div>
   </div>
 </div>

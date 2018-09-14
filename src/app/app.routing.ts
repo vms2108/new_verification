@@ -1,5 +1,3 @@
-import { HistoryIdentificationComponent } from './history-identification/history-identification.component';
-import { HistoryVerificationComponent } from './history-verification/history-verification.component';
 import { MainComponent } from './main/main.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,9 +9,7 @@ import { LoginComponent } from './login';
 const routes: Routes = [
   { path: '', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'verification/form', component: VerificationComponent, canActivate: [AuthGuard] },
-  { path: 'verification/history', component: HistoryVerificationComponent, canActivate: [AuthGuard] },
   { path: 'identification/form', component: IdentificationComponent, canActivate: [AuthGuard] },
-  { path: 'identification/history', component: HistoryIdentificationComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }
 ];
