@@ -1,65 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AppRoutingModule } from './app.routing';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { MainComponent } from './main/main.component';
-import { LoginComponent } from './login';
-
-import { CoreModule } from './core/core.module';
-import { DialogsModule } from './dialogs/dialogs.module';
-
-import { FormModule } from './form/form.module';
-import { MaterialModule } from './material/material.module';
-import { VerificationModule } from './verification/verification.module';
-import { IdentificationModule } from './identification/identification.module';
-import { HeaderLangModule } from './header-lang/header-lang.module';
-
-import { L10nConfig, L10nLoader, TranslationModule, StorageStrategy, ProviderType } from 'angular-l10n';
-
-const l10nConfig: L10nConfig = {
-  locale: {
-    languages: [{ code: 'en', dir: 'ltr' }, { code: 'ru', dir: 'ltr' }],
-    language: 'en',
-    storage: StorageStrategy.Cookie
-  },
-  translation: {
-    providers: [{ type: ProviderType.Static, prefix: './assets/locales/locale-' }],
-    caching: true,
-    missingValue: 'No translation found... :(('
-  }
-};
-
 @NgModule({
-  declarations: [AppComponent, MainComponent, LoginComponent],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CoreModule,
-    MaterialModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    DialogsModule,
-    FormModule,
-    VerificationModule,
-    IdentificationModule,
-    TranslationModule.forRoot(l10nConfig),
-    HeaderLangModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(public l10nLoader: L10nLoader) {
-    this.l10nLoader.load();
-  }
-}
+export class AppModule {}
