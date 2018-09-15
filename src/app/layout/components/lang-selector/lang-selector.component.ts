@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Language, LocaleService } from 'angular-l10n';
 
 @Component({
@@ -7,20 +7,31 @@ import { Language, LocaleService } from 'angular-l10n';
   styleUrls: ['lang-selector.component.scss']
 })
 export class LangSelectorComponent implements OnInit {
-  public isVisible = false;
-
   @Language()
   lang: string;
+
+  public isVisible = false;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick() {
+    this.close();
+  }
 
   constructor(private localeService: LocaleService) {}
 
   ngOnInit() {}
 
-  toggle() {
+  toggle(e: Event) {
+    e.stopPropagation();
     this.isVisible = !this.isVisible;
   }
 
-  selectLang(lang: string) {
+  close() {
+    this.isVisible = false;
+  }
+
+  selectLang(lang: string, e: Event) {
+    e.stopPropagation();
     this.localeService.setCurrentLanguage(lang);
     this.isVisible = false;
   }

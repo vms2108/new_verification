@@ -2,4 +2,4 @@
 <div class="content">
   <ng-content></ng-content>
 </div>
-<app-mobile-menu [open]="mobileMenuOpen"></app-mobile-menu>
+<app-mobile-menu [open]="mobileMenuOpen" (close)="onMenuClose()"></app-mobile-menu>

@@ -1,0 +1,13 @@
+<div class="login">
+  <form class="login__form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <div class="login__loader" [class.show]="sending"></div>
+    <mat-form-field>
+      <input matInput type="text" placeholder="{{'Login' | translate:lang }}" name="email" formControlName="email" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="{{'Password' | translate:lang }}" name="password" formControlName="password" required>
+    </mat-form-field>
+    <button class="login__button" mat-raised-button color="primary" [disabled]="!loginForm.valid || sending">{{"Log in" | translate:lang }}</button>
+    <p class="login__msg" [class.show]="userNotFound"> {{"Wrong login or password" | translate:lang }} </p>
+  </form>
+</div>

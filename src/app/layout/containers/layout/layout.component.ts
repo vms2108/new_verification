@@ -13,4 +13,8 @@ export class LayoutComponent implements OnInit {
   onMenuToggle() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
+
+  onMenuClose() {
+    this.mobileMenuOpen = false;
+  }
 }

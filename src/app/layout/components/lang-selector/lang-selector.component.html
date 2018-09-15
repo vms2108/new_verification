@@ -1,5 +1,5 @@
  <div class="lang-selector">
-  <button class="lang-btn" (click)="toggle()">
+  <button class="lang-btn" (click)="toggle($event)">
     <span class="lang-btn-text">{{ lang }}</span>
     <span class="lang-btn-arrow"></span>
   </button>
@@ -7,8 +7,8 @@
     class="lang-dropdown"
     [class.show]="isVisible">
     <div class="lang-dropdown__container">
-      <div (click)="selectLang('en')" class="lang-dropdown-item">EN</div>
-      <div (click)="selectLang('ru')" class="lang-dropdown-item">RU</div>
+      <div (click)="selectLang('en', $event)" class="lang-dropdown-item">EN</div>
+      <div (click)="selectLang('ru', $event)" class="lang-dropdown-item">RU</div>
     </div>
   </div>
 </div>

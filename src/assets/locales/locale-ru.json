@@ -1,3 +1,9 @@
 {
-  "Bonum": "Бонум"
+  "Bonum": "Бонум",
+
+  "Log in": "Войти",
+  "Wrong login or password": "Неверный логин или пароль",
+  "Login": "Логин",
+  "Password": "Пароль"
+
 }

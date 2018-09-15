@@ -1,0 +1,21 @@
+<div class="main">
+    <div class="container">
+      <div class="main__content">
+        <h1 class="main__title">
+          Добро пожаловать в&nbsp;Систему&nbsp;Верификации&nbsp;<strong>Bonum</strong>
+        </h1>
+        <button class="main__button"
+          [class.loading]="loading"
+          [disabled]="loading"
+          (click)="searchRequests()">
+          <span>Поиск новых запросов</span>
+        </button>
+      </div>
+      <p class="main__info">
+        Обратите внимание, что время жизни заявки, полученной в&nbsp;обработку, ограничено
+        30 минутами. По&nbsp;истечении времени, сохранение заявки будет заблокировано.
+        Таймер с&nbsp;индикацией оставшегося времени находится в&nbsp;левом нижнем углу формы.
+      </p>
+    </div>
+  </div>
+

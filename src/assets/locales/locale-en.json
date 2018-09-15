@@ -1,3 +1,9 @@
 {
-  "Bonum": "Bonum"
+  "Bonum": "Bonum",
+
+  "Log in": "Log in",
+  "Wrong login or password": "Wrong login or password",
+  "Login": "Login",
+  "Password": "Password"
+
 }

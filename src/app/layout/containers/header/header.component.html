@@ -14,8 +14,8 @@
     <div class="header__action">
       <app-lang-selector></app-lang-selector>
     </div>
-    <div class="header__action header__user">
-      <span>petter@inbox.ru</span>
+    <div class="header__action header__user" *ngIf="this.isAuthenticated">
+      <span>{{ email }}</span>
       <button (click)="logout()">
         <img src="/assets/icons/logout.svg" alt="Logout">
       </button>
