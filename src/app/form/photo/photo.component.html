@@ -1,8 +1,0 @@
-<a class="photo" (click)="open()" [style.backgroundImage]="imageUrlStyle"></a>
-
-<div class="photo--hidden" [class.visible]="visible" >
-  <button class="closer" (click)="close()" (keyup)= "onKeyDown($event)"></button>
-  <div class="photo-show">
-    <img [src]="imageUrl">
-  </div>
-</div>
