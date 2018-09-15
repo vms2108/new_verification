@@ -1,0 +1,55 @@
+:host{
+  position: fixed;
+  left: 0;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background-color: #3e3e51;
+  display: none;
+  &.open{
+    display: block;
+    @media screen and (min-width: 768px){
+      display: none;
+    }
+  }
+}
+
+.menu{
+  padding: 16px 32px;
+  &__section{
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.logout{
+  display: block;
+  height: 25px;
+  width: 120px;
+  text-align: right;
+  & span{
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 15px;
+    line-height: 25px;
+    margin-right: 10px;
+  }
+  & img{
+    display: inline-block;
+    vertical-align: middle;
+    width: 15px;
+    height: 15px;
+    opacity: .8;
+  }
+}
+
+.text{
+  font-size: 15px;
+  line-height: 25px;
+  height: 25px;
+  display: block;
+}

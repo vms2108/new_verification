@@ -1,0 +1,73 @@
+:host{
+  display: block;
+  position: relative;
+}
+
+.lang-selector{
+  display: inline-block;
+  position: relative;
+}
+
+.lang-btn{
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  font-family: "Ubuntu";
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  color: #ffffff;
+  height: 100%;
+  @media screen and (min-width: 1280px) {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+.lang-btn-text{
+  display: inline-block;
+  vertical-align: middle;
+}
+.lang-btn-arrow{
+  display: inline-block;
+  vertical-align: middle;
+  width: 10px;
+  height: 10px;
+  background-image: url('/assets/icons/lang-dropdown-arrow.svg');
+  background-size: 10px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-left: 5px;
+}
+
+.lang-dropdown{
+  position: absolute;
+  background-color: #4f4f4f;
+  border-radius: 10px;
+  padding: 10px 0;
+  right: 0;
+  top: 100%;
+  margin-top: 10px;
+  box-shadow: 0px 3px 16px 0px rgba(45, 45, 55, 0.24);
+  display: none;
+}
+.lang-dropdown.show{
+  display: block;
+  overflow: hidden;
+}
+
+.lang-dropdown-item{
+  display: block;
+  padding: 8px 24px;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.lang-dropdown-item:hover{
+  background-color: #2d2d37;
+}

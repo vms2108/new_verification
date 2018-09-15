@@ -1,0 +1,24 @@
+<div class="header">
+  <a class="header__logo" routerLink="/">
+    <img src="assets/icons/logo.svg" alt="Bonum">
+  </a>
+  <button class="header__burger"
+    [class.open]="menuOpen"
+    (click)="toggle()">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="header__actions">
+    <div class="header__action">
+      <app-lang-selector></app-lang-selector>
+    </div>
+    <div class="header__action header__user">
+      <span>petter@inbox.ru</span>
+      <button (click)="logout()">
+        <img src="/assets/icons/logout.svg" alt="Logout">
+      </button>
+    </div>
+  </div>
+</div>

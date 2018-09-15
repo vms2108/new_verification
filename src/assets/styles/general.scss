@@ -8,12 +8,15 @@
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 input, textarea{
   border-radius: 0;
   background: none;
   box-shadow: none;
 }
 
+=======
+>>>>>>> Start project refactoring
 button{
   padding: 0;
   border: none;
@@ -31,7 +34,11 @@ body{
   line-height: 1.6;
   -webkit-font-smoothing: antialiased; // Font Smoothing for webkit
   -moz-osx-font-smoothing: grayscale;  // Font Smoothing for firefox
+<<<<<<< HEAD
   min-width: 1024px;
+=======
+  min-width: 320px;
+>>>>>>> Start project refactoring
   margin: 0;
   background-color: #282834;
   color: #fff;
@@ -46,7 +53,11 @@ body{
   margin: 0 auto;
   width: 100%;
   @media screen and (min-width: 768px){
+<<<<<<< HEAD
     padding: 0 30px;
+=======
+    padding: 0 32px;
+>>>>>>> Start project refactoring
     max-width: 1450px;
   }
   &--fw{
@@ -54,7 +65,10 @@ body{
   }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Start project refactoring
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus
@@ -68,10 +82,15 @@ select:-webkit-autofill:focus {
   border: 0;
   -webkit-text-fill-color: #fff;
   -webkit-box-shadow: 0;
+<<<<<<< HEAD
+=======
+  box-shadow: 0;
+>>>>>>> Start project refactoring
   transition: background-color 5000s ease-in-out 0s;
   background-color: #282834 !important;
 }
 
+<<<<<<< HEAD
 /* .table-filters__datepicker .mat-form-field-wrapper {
   position: relative !important;
 } */
@@ -87,6 +106,9 @@ select:-webkit-autofill:focus {
 }
 
 .loading-spinner{
+=======
+.app-loading{
+>>>>>>> Start project refactoring
   position: absolute;
   left: 50%;
   top: 50%;
@@ -94,5 +116,9 @@ select:-webkit-autofill:focus {
   margin-top: -15px;
   width: 30px;
   height: 30px;
+<<<<<<< HEAD
   background: url("/assets/loading-spinner.svg") no-repeat;
+=======
+  background: url("/assets/loader.svg") no-repeat;
+>>>>>>> Start project refactoring
 }

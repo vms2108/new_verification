@@ -1,0 +1,10 @@
+:host{
+  display: block;
+  min-height: 100vh;
+  padding-top: 60px;
+}
+
+.content{
+  display: block;
+  min-height: calc(100vh - 60px);
+}

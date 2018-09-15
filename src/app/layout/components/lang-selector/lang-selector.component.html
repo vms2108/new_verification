@@ -1,0 +1,14 @@
+ <div class="lang-selector">
+  <button class="lang-btn" (click)="toggle()">
+    <span class="lang-btn-text">{{ lang }}</span>
+    <span class="lang-btn-arrow"></span>
+  </button>
+  <div
+    class="lang-dropdown"
+    [class.show]="isVisible">
+    <div class="lang-dropdown__container">
+      <div (click)="selectLang('en')" class="lang-dropdown-item">EN</div>
+      <div (click)="selectLang('ru')" class="lang-dropdown-item">RU</div>
+    </div>
+  </div>
+</div>

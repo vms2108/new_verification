@@ -1,0 +1,5 @@
+<app-header [menuOpen]="mobileMenuOpen" (toggleMenu)="onMenuToggle($event)"></app-header>
+<div class="content">
+  <ng-content></ng-content>
+</div>
+<app-mobile-menu [open]="mobileMenuOpen"></app-mobile-menu>
