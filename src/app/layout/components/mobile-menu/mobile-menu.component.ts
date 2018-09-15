@@ -1,6 +1,7 @@
 import { Component, Input, HostBinding, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
+import { Language } from 'angular-l10n';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -18,6 +19,9 @@ export class MobileMenuComponent implements OnInit {
 
   @Output()
   close = new EventEmitter();
+
+  @Language()
+  lang: string;
 
   public email = '';
   public isAuthenticated = false;

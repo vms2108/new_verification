@@ -1,34 +1,49 @@
 .main{
-  margin: 30px 0 30px;
   position: relative;
   overflow: hidden;
+  padding: 16px 0;
+  @media screen and (min-height: 800px) {
+    padding: 32px 0;
+  }
   &__content{
     background-color: #353545;
     box-shadow: 0 0 24px rgba(0,0,0,.15);
-    padding: 40px 50px;
     color: #fff;
-    margin: 30px auto 50px;
+    margin: 16px auto 24px;
     border-radius: 12px;
     width: auto;
-    max-width: 1280px;
+    max-width: 760px;
     text-align: center;
-    height: 50vh;
-    min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 40px 24px;
+    @media screen and (min-width: 768px) {
+      margin: 32px auto 48px;
+      padding: 40px 50px;
+      height: 50vh;
+      min-height: 400px;
+    }
+    @media screen and (min-width: 1260px) {
+      max-width: 920px;
+    }
   }
   &__title{
     margin: 0;
-    font-size: 26px;
     color: rgba(255, 255, 255, 1);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    max-width: 500px;
-    margin-bottom: 50px;
-    & strong{
+    max-width: 420px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    @media screen and (min-width: 768px) {
+      font-size: 26px;
+      margin-bottom: 50px;
+      max-width: 500px;
+    }
+    & /deep/ strong{
       color: #009cff;
     }
     & small{
@@ -37,15 +52,29 @@
     }
   }
   &__button{
-    font-size: 15px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    height: 52px;
     padding: 0 34px;
     color: white;
     border-radius: 30px;
     border: 2px solid #df9234;
+    font-size: 11px;
+    padding: 0 18px;
+    height: 48px;
+    width: 100%;
+    max-width: 250px;
+    @media screen and (min-width: 375px) {
+      font-size: 12px;
+      padding: 0 24px;
+    }
+    @media screen and (min-width: 768px) {
+      height: 52px;
+      width: auto;
+      font-size: 15px;
+      padding: 0 34px;
+      max-width: initial;
+    }
     &:hover{
       border: 2px solid #f7931a;
     }
@@ -65,28 +94,40 @@
   }
   &__info{
     display: block;
-    padding: 30px 50px;
-    font-size: 15px;
+    font-size: 13px;
     max-width: 600px;
     padding-left: 50px;
     position: relative;
     margin: 0;
     margin: 0 auto;
+    padding: 20px 36px;
+    padding-right: 0;
+    @media screen and (min-width: 768px) {
+      font-size: 15px;
+      padding: 30px 50px;
+    }
     &::after{
       content: '!';
       display: block;
       position: absolute;
       left: 0;
-      top: 36px;
-      width: 30px;
-      height: 30px;
       border-radius: 50%;
       background-color: rgba(235, 147, 40, 1);
       color: #fff;
       font-weight: bold;
       text-align: center;
-      font-size: 20px;
-      line-height: 30px;
+      top: 26px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      font-size: 18px;
+      @media screen and (min-width: 768px) {
+        top: 36px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 20px;
+      }
     }
   }
 }

@@ -1,13 +1,13 @@
 <div class="menu">
   <div class="menu__section" *ngIf="isAuthenticated">
     <span class="text">{{ email }}</span>
-    <button class="logout">
-      <span>Logout</span>
+    <button class="logout" (click)="logout()">
+      <span>{{ 'Logout' | translate : lang }}</span>
       <img src="/assets/icons/logout.svg" alt="Logout">
     </button>
   </div>
   <div class="menu__section">
-    <span class="text">Select language</span>
+    <span class="text">{{ 'Select language' | translate : lang }}</span>
     <app-lang-selector class="menu__langpicker"></app-lang-selector>
   </div>
 </div>
