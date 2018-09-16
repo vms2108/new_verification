@@ -11,5 +11,54 @@
 
   "Main welcome": "Welcome to <strong>Bonum</strong> Verification System",
   "Search new requests": "Search new requests",
-  "Main info message": "Please note, that the lifetime of the request received for processing is limited to 30 minutes. After the time has expired, the application saving will be blocked. The timer with the indication of the remaining time is in the lower left corner of the form."
+  "Main info message": "Please note, that the lifetime of the request received for processing is limited to 30 minutes. After the time has expired, the application saving will be blocked. The timer with the indication of the remaining time is in the lower left corner of the form.",
+
+  "Basic data": "Basic data",
+  "Location": "Location",
+  "Basic document": "Basic document",
+  "Additional document": "Additional document",
+
+  "name": "Name",
+  "surname": "Surname",
+  "second_name": "Second Name",
+  "date_of_birth": "Date of birth",
+  "place_of_birth": "Place of birth",
+  "phone_number": "Phone number",
+
+  "postal_code": "Postal code",
+  "country": "Country",
+  "state": "State",
+  "city": "City",
+  "street": "Street",
+  "house": "House",
+  "flat": "Flat",
+
+  "main_doc_type": "Type",
+  "main_doc_number": "Number",
+  "main_doc_expiration_date": " Epiration date",
+  "main_doc_photo": "Document photo",
+  "main_doc_selfie": "Selfi with doc",
+
+  "additional_doc_type": "Type",
+  "additional_doc_number": "Number",
+  "additional_doc_expiration_date": "Expiration date",
+  "additional_doc_photo": "Document photo",
+  "additional_doc_selfie": "Selfi with doc",
+
+  "identification": "Identification",
+  "verification": "Verification",
+
+  "Request": "Request",
+  "from": "from",
+
+  "Personal data": "Personal data",
+  "User verification": "Check user",
+  "Check terrorist": "By list of extremists",
+  "Check platform criterias": "By internal criteria",
+
+  "identification denied": "Not Identify",
+  "identification approved": "Identify",
+  "verification denied": "Not Verify",
+  "verification approved": "Verify"
+
 }

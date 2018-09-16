@@ -1,0 +1,27 @@
+:host{
+  display: block;
+  margin-bottom: 24px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 32px;
+  }
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.form-section{
+  &__title{
+    margin: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+    @media screen and (min-width: 768px) {
+      font-size: 20px;
+    }
+  }
+  &__fields{
+    display: block;
+  }
+  &__field{
+    display: block;
+  }
+}

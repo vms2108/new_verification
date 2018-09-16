@@ -1,14 +1,14 @@
+import { NgModule } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { NgModule } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
+// import { MatTableModule } from '@angular/material/table';
+// import { MatPaginatorModule } from '@angular/material/paginator';
+// import { MatSortModule } from '@angular/material/sort';
+// import { MatDatepickerModule } from '@angular/material/datepicker';
+// import { MatNativeDateModule } from '@angular/material/core';
+// import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -16,13 +16,13 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule
+    MatDialogModule
+    // MatTableModule,
+    // MatSortModule,
+    // MatPaginatorModule,
+    // MatDatepickerModule,
+    // MatNativeDateModule,
+    // MatSelectModule
   ],
   providers: [],
   bootstrap: [],
@@ -30,12 +30,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
-    MatSelectModule
+    MatDialogModule
+    // MatTableModule,
+    // MatSortModule,
+    // MatPaginatorModule,
+    // MatDatepickerModule,
+    // MatSelectModule
   ]
 })
 export class MaterialModule {}

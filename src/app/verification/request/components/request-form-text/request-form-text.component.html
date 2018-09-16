@@ -1,0 +1,33 @@
+<div class="field" [formGroup]="field">
+  <div class="field__info">
+    <span class="field__label"
+      [class.fullwith]="!value && noMessage"
+      [class.approved]="state === true"
+      [class.denied]="state === false"
+      (click)="toggleState($event)">
+      {{ title | translate: lang }}
+    </span>
+    <p class="field__value">
+      {{ value }}
+    </p>
+    <app-request-form-toggler
+      *ngIf="!stateless"
+      class="field__toggle"
+      formControlName="state">
+    </app-request-form-toggler>
+  </div>
+  <div class="field__message"
+    *ngIf="!stateless && !noMessage"
+    [class.hidden]="!(state === false)">
+    <mat-form-field>
+      <textarea
+        formControlName="message"
+        matInput
+        placeholder="Причина отказа"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="6">
+      </textarea>
+    </mat-form-field>
+  </div>
+</div>

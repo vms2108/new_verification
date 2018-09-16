@@ -1,0 +1,3 @@
+<div class="image-viewer" #container (wheel)="onWheel($event)">
+  <img class="image" [src]="url || ''" #image (mousedown)="onMouseDown($event)">
+</div>

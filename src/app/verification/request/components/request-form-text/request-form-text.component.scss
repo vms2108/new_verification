@@ -1,0 +1,93 @@
+:host {
+  display: block;
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.field {
+  width: 100%;
+  position: relative;
+  &__info{
+    @media screen and (min-width: 1280px) {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+  &__label {
+    display: block;
+    font-size: 13px;
+    line-height: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    font-weight: bold;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 180px;
+    cursor: pointer;
+    user-select: none;
+    opacity: .5;
+    &:hover{
+      opacity: .7;
+    }
+    padding: 14px 0 6px;
+    @media screen and (min-width: 1280px) {
+      padding: 16px 0 14px;
+    }
+    &.fullwith{
+      width: calc(100% - 74px);
+      opacity: 0.8;
+      &:hover{
+        opacity: .9;
+      }
+    }
+  }
+  &__value{
+    display: block;
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: normal;
+    text-align: left;
+    padding: 4px 0 16px;
+    @media screen and (min-width: 1280px) {
+      padding: 16px 0 14px;
+      width: calc(100% - 74px - 180px);
+    }
+  }
+  &__toggle{
+    display: block;
+    width: 74px;
+    position: absolute;
+    top: 14px;
+    right: 0;
+    @media screen and (min-width: 1280px) {
+      position: static;
+      margin-top: 15px;
+    }
+  }
+  &__message{
+    display: block;
+    width: 100%;
+    .mat-form-field{
+      display: block;
+    }
+    /deep/ textarea {
+      background-color: #4d4d5a;
+    }
+    /deep/ .mat-form-field-underline {
+      display: none;
+    }
+    /deep/ .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.without-toggle .field__header {
+    padding-left: 0;
+}

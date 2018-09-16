@@ -1,0 +1,22 @@
+<div class="request-form">
+  <app-request-form-section
+    *ngFor="let section of formSections"
+    [section]="section">
+  </app-request-form-section>
+  <div class="request-form__buttons">
+    <button
+     [disabled]="!valid"
+      class="request-form__button approved"
+      (click)="openDialog(true)"
+      *ngIf="approved">
+      {{ type + ' approved' | translate: lang }}
+    </button>
+    <button
+      [disabled]="!valid"
+      class="request-form__button denied"
+      *ngIf="!approved"
+      (click)="openDialog(false)">
+      {{ type + ' denied' | translate: lang }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+:host{
+  position: fixed;
+  left: calc(50% + 32px);
+  top: 60px + 32px;
+  bottom: 32px;
+  width: calc(50% - 64px);
+  display: none;
+  background-color: #353545;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+  @media screen and (min-width: 1425px) {
+    width: calc(100% - 680px - 96px);
+    left: 680px + 64px;
+  }
+  @media screen and (min-width: 1520px) {
+    left: calc(((100% - 1520px) / 2) + 680px + 64px);
+    width: calc( 100% - (((100% - 1520px) / 2) * 2) - 680px - 96px );
+
+  }
+}

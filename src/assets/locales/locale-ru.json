@@ -11,6 +11,54 @@
 
   "Main welcome": "Добро пожаловать в систему верификации <strong>Bonum</strong>",
   "Search new requests": "Поиск новых запросов",
-  "Main info message": "Обратите внимание, что время жизни заявки, взятой в работу, ограничено 30 минутами. По истечении времени, сохранение заявки будет заблокировано. Таймер с индикацией оставшегося времени находится в левом нижнем углу формы."
+  "Main info message": "Обратите внимание, что время жизни заявки, взятой в работу, ограничено 30 минутами. По истечении времени, сохранение заявки будет заблокировано. Таймер с индикацией оставшегося времени находится в левом нижнем углу формы.",
+
+  "Basic data": "Базовые данные",
+  "Location": "Место жительства",
+  "Basic document": "Основной документ",
+  "Additional document": "Дополнительный документ",
+
+  "name": "Имя",
+  "surname": "Фамилия",
+  "second_name": "Отчество",
+  "date_of_birth": "Дата рождения",
+  "place_of_birth": "Место рождения",
+  "phone_number": "Телефон",
+
+  "postal_code": "Почтовый индекс",
+  "country": "Страна",
+  "state": "Штат (область)",
+  "city": "Город",
+  "street": "Улица",
+  "house": "Дом",
+  "flat": "Квартира",
+
+  "main_doc_type": "Тип",
+  "main_doc_number": "Номер",
+  "main_doc_expiration_date": "Срок действия",
+  "main_doc_photo": "Фото документа",
+  "main_doc_selfie": "Селфи с документом",
+
+  "additional_doc_type": "Тип",
+  "additional_doc_number": "Номер",
+  "additional_doc_expiration_date": "Срок действия",
+  "additional_doc_photo": "Фото документа",
+  "additional_doc_selfie": "Селфи с документом",
+
+  "identification": "Идентификация",
+  "verification": "Верификация",
+
+  "Request": "Заяка",
+  "from": "от",
+
+  "Personal data": "Персональные данные",
+  "User verification": "Проверка пользователя",
+  "Check terrorist": "По списку экстремистов",
+  "Check platform criterias": "По внутренним критериям",
+
+  "identification denied": "Не идентифицировать",
+  "identification approved": "Идентифицировать",
+  "verification denied": "Не Верифицировать",
+  "verification approved": "Верифицировать"
 
 }

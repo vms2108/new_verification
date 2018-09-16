@@ -1,0 +1,10 @@
+.request-layout{
+  &__container{
+    padding: 16px;
+    @media screen and (min-width: 768px) {
+      padding: 32px;
+      margin: 0 auto;
+      max-width: 1520px;
+    }
+  }
+}

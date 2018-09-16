@@ -23,12 +23,12 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LayoutModule,
     HttpClientModule,
     BrowserAnimationsModule,
     TranslationModule.forRoot(l10nConfig),
     ApiModule.forRoot(),
-    AuthModule.forRoot()
+    AuthModule.forRoot(),
+    LayoutModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

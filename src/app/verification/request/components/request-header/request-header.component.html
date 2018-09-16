@@ -1,0 +1,20 @@
+<div class="request-header">
+  <div class="request-header__info">
+    <h1 class="request-header__title">
+      <span>{{ type | translate : lang }}</span>
+      <strong>{{ user }}</strong>
+    </h1>
+    <p class="request-header__number">
+      {{ 'Request' | translate : lang }}
+      №{{ id }}
+      {{ 'from' | translate : lang }}
+      {{ date | date : 'dd.MM.yyyy HH:MM' }}
+    </p>
+  </div>
+</div>
+
+<!-- <div class="request-header__actions">
+  <button class="request-header__toggle">
+    <img src="/assets/icons/split-type-window.svg" alt="Toggle Split Mode">
+  </button>
+</div> -->

@@ -1,5 +1,6 @@
-<app-header [menuOpen]="mobileMenuOpen" (toggleMenu)="onMenuToggle($event)"></app-header>
+<app-header [menuOpen]="mobileMenuOpen" (toggleMenu)="onMenuToggle()"></app-header>
 <div class="content">
   <ng-content></ng-content>
 </div>
 <app-mobile-menu [open]="mobileMenuOpen" (close)="onMenuClose()"></app-mobile-menu>
+<app-image-modal-viewer></app-image-modal-viewer>

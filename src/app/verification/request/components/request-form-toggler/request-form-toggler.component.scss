@@ -1,0 +1,55 @@
+:host{
+  display: block;
+}
+
+.toggle {
+  width: 100%;
+  width: 64px;
+  height: 24px;
+  border-radius: 20px;
+  position: relative;
+  background-color: rgba(255, 255, 255, .1);
+  &__ball {
+    position: absolute;
+    left: calc(50% - 10px);
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 14px;
+    background-color: #fff;
+    transition: .1s linear;
+    opacity: .5;
+  }
+  &__btns {
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: -5px;
+    bottom: -5px;
+  }
+  &__btn {
+    width: 33%;
+    height: 34px;
+    opacity: 0;
+    cursor: pointer;
+  }
+  &.success {
+    background-color: #00A060;
+
+    & .toggle__ball {
+      left: calc(100% - 23px);
+      opacity: .9;
+    }
+  }
+  &.fail {
+    background-color: #FF4921;
+
+    & .toggle__ball {
+      left: calc(3px);
+      opacity: .9;
+    }
+    & .toggle__cause {
+      display: block;
+    }
+  }
+}

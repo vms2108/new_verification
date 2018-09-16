@@ -7,6 +7,7 @@
   z-index: 0;
   background-color: #3e3e51;
   display: none;
+  z-index: 199;
   &.open{
     display: block;
     @media screen and (min-width: 768px){

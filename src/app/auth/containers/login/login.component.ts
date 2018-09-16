@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Language } from 'angular-l10n';
 import { ApiService } from '../../../api/services/api.service';
@@ -12,11 +12,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private apiService: ApiService,
     private authService: AuthService
@@ -33,7 +31,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.authService.logout();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   submitLogin() {
@@ -74,7 +71,7 @@ export class LoginComponent implements OnInit {
       this.sending = false;
       if (res) {
         this.authService.setUserInfo(res);
-        this.router.navigate([this.returnUrl]);
+        this.router.navigate(['/']);
       }
     });
   }

@@ -1,0 +1,66 @@
+:host{
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.request-header{
+  margin-bottom: 24px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 48px;
+    width: 50%;
+    max-width: 680px;
+  }
+  &__title{
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: normal;
+    color: #fff;
+    margin-bottom: 12px;
+    @media screen and (min-width: 768px) {
+      font-size: 24px;
+    }
+    @media screen and (min-width: 1280px) {
+      font-size: 32px;
+      margin-bottom: 24px;
+    }
+    & strong{
+      display: inline-block;
+    }
+    & span {
+      color: #F5921A;
+      display: inline-block;
+      margin-right: 6px;
+      @media screen and (min-width: 768px) {
+        margin-right: 8px;
+      }
+    }
+  }
+  &__number{
+    margin: 0;
+    font-size: 15px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  &__actions{
+    display: none;
+    @media screen and (min-width: 768px) {
+      position: fixed;
+      right: 32px;
+      top: 64px;
+      display: block;
+    }
+  }
+  &__toggle{
+    margin-top: 8px;
+    display: block;
+    opacity: .5;
+    cursor: pointer;
+    & img{
+      display: block;
+      width: 33px;
+      height: 33px;
+    }
+  }
+}

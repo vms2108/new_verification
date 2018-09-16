@@ -1,0 +1,41 @@
+<div class="field" [formGroup]="field">
+  <div class="field__info">
+    <span class="field__label" (click)="toggleState($event)">
+      {{ title | translate : lang }}
+    </span>
+    <app-request-form-toggler
+      *ngIf="!field.get('stateless').value"
+      class="field__toggle"
+      formControlName="state">
+    </app-request-form-toggler>
+  </div>
+  <div class="field__value" (click)='defaultAction()'>
+    <div class="holder"></div>
+    <div [style.backgroundImage]="getSafeUrl(value)" class="photo"></div>
+    <div class="actions">
+      <button class="action" (click)="onZoom($event)">
+        <img src="/assets/icons/search.svg" alt="zoom">
+      </button>
+      <button class="action split" (click)="onSplit($event)">
+        <img src="/assets/icons/split-browser.svg" alt="split">
+      </button>
+      <a class="action" (click)="stopPropagation($event)" target="_blank" href="value">
+        <img src="/assets/icons/external-link.svg" alt="link">
+      </a>
+    </div>
+  </div>
+  <div class="field__message"
+    *ngIf="!stateless"
+    [class.hidden]="!(state === false)">
+    <mat-form-field>
+      <textarea
+        formControlName="message"
+        matInput
+        placeholder="Причина отказа"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="6">
+      </textarea>
+    </mat-form-field>
+  </div>
+</div>

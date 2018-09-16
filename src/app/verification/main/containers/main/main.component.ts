@@ -19,9 +19,10 @@ export class MainComponent implements OnInit {
 
   searchRequests() {
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.router.navigate(['/']);
-    }, 2000);
+    this.router.navigate(['/request']);
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   this.router.navigate(['/']);
+    // }, 2000);
   }
 }
