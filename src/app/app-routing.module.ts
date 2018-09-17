@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', canActivate: [AuthGuard], loadChildren: './verification/verification.module#VerificationModule' },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthModule' }
+  { path: 'auth', loadChildren: './auth/auth.module#AuthModule' },
+  { path: '', canActivate: [AuthGuard], loadChildren: './verification/verification.module#VerificationModule' }
 ];
 
 @NgModule({

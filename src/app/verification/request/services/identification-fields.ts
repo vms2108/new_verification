@@ -15,13 +15,7 @@ export const identificationFields: FieldsGroup[] = [
   },
   {
     group: 'Additional document',
-    fields: [
-      'additional_doc_type',
-      'additional_doc_number',
-      'additional_doc_expiration_date',
-      'additional_doc_photo',
-      'additional_doc_selfie'
-    ]
+    fields: ['additional_doc_type', 'additional_doc_expiration_date', 'additional_doc_photo', 'additional_doc_selfie']
   }
 ];
 

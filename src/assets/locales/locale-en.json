@@ -59,6 +59,15 @@
   "identification denied": "Not Identify",
   "identification approved": "Identify",
   "verification denied": "Not Verify",
-  "verification approved": "Verify"
+  "verification approved": "Verify",
+
+  "Yes": "Yes",
+  "No": "No",
+
+  "You have decied": "You have decied",
+  "not to identification": "not to identify",
+  "to identification": "to identify",
+  "not to verification": "not to verify",
+  "to verification": "to verify"
 
 }

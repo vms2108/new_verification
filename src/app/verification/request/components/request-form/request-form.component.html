@@ -5,9 +5,9 @@
   </app-request-form-section>
   <div class="request-form__buttons">
     <button
-     [disabled]="!valid"
+      [disabled]="!valid"
       class="request-form__button approved"
-      (click)="openDialog(true)"
+      (click)="confirm(true)"
       *ngIf="approved">
       {{ type + ' approved' | translate: lang }}
     </button>
@@ -15,7 +15,7 @@
       [disabled]="!valid"
       class="request-form__button denied"
       *ngIf="!approved"
-      (click)="openDialog(false)">
+      (click)="confirm(false)">
       {{ type + ' denied' | translate: lang }}
     </button>
   </div>

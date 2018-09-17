@@ -2,8 +2,7 @@
   <div class="field__info">
     <span class="field__label"
       [class.fullwith]="!value && noMessage"
-      [class.approved]="state === true"
-      [class.denied]="state === false"
+      [class.nohover]="stateless"
       (click)="toggleState($event)">
       {{ title | translate: lang }}
     </span>

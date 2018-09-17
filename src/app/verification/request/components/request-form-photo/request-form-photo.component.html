@@ -1,6 +1,8 @@
 <div class="field" [formGroup]="field">
   <div class="field__info">
-    <span class="field__label" (click)="toggleState($event)">
+    <span class="field__label"
+      [class.nohover]="stateless"
+      (click)="toggleState($event)">
       {{ title | translate : lang }}
     </span>
     <app-request-form-toggler
@@ -19,7 +21,7 @@
       <button class="action split" (click)="onSplit($event)">
         <img src="/assets/icons/split-browser.svg" alt="split">
       </button>
-      <a class="action" (click)="stopPropagation($event)" target="_blank" href="value">
+      <a class="action" (click)="stopPropagation($event)" target="_blank" href="{{ value }}">
         <img src="/assets/icons/external-link.svg" alt="link">
       </a>
     </div>

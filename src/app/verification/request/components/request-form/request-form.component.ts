@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Language } from 'angular-l10n';
 import { Subscription } from 'rxjs';
 import { every } from 'lodash';
+import { MatDialog } from '@angular/material/dialog';
+import { RequestConfirmComponent } from '../../../dialogs/components/request-confirm/request-confirm.component';
 
 @Component({
   selector: 'app-request-form',
@@ -30,6 +32,8 @@ export class RequestFormComponent implements OnInit {
     this.formSections = this.getFormSections(form);
     this.subscribeToFormChanges(form);
   }
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {}
 
@@ -89,5 +93,26 @@ export class RequestFormComponent implements OnInit {
     this.valid = allFieldsWithState && allNotApprovedHasMessage;
   }
 
-  openDialog(state: boolean) {}
+  confirm(state: boolean) {
+    const { type } = this.requestForm.value;
+    const dataSection = this.requestForm.value[type === 'verification' ? 'Personal data' : 'Basic data'];
+    const {
+      name: { value: name },
+      surname: { value: surname }
+    } = dataSection;
+
+    const user = `${name} ${surname}`;
+    const text = `${state ? '' : 'not '}to ${type}`;
+    const dialogRef = this.dialog.open(RequestConfirmComponent, {
+      width: '500px',
+      data: { text, user }
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.sendForm();
+      }
+    });
+  }
+
+  sendForm() {}
 }

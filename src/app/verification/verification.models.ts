@@ -28,7 +28,6 @@ export interface ApplicationtUserData {
   main_doc_selfie: string;
 
   additional_doc_type: string;
-  additional_doc_number: string;
   additional_doc_expiration_date: string;
   additional_doc_photo: string;
   additional_doc_selfie: string;

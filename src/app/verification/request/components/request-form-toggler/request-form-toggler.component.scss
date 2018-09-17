@@ -9,6 +9,11 @@
   border-radius: 20px;
   position: relative;
   background-color: rgba(255, 255, 255, .1);
+  &:hover{
+    .toggle__ball{
+      transform: scale(1.1);
+    }
+  }
   &__ball {
     position: absolute;
     left: calc(50% - 10px);
@@ -19,6 +24,7 @@
     background-color: #fff;
     transition: .1s linear;
     opacity: .5;
+    transform: scale(1);
   }
   &__btns {
     position: absolute;

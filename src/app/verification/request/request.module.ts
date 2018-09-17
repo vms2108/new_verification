@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TranslationModule } from 'angular-l10n';
 import { MaterialModule } from '../../material/material.module';
 import { Routes, RouterModule } from '@angular/router';
+import { DialogsModule } from '../dialogs/dialogs.module';
 
 // Containers
 import { RequestComponent } from './containers/request/request.component';
@@ -29,7 +30,8 @@ const routes: Routes = [{ path: '', component: RequestComponent }, { path: '**',
     SharedModule,
     MaterialModule,
     TranslationModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    DialogsModule
   ],
   declarations: [
     RequestComponent,

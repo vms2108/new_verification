@@ -44,6 +44,9 @@ export class RequestFormPhotoComponent implements OnInit {
     if (e) {
       e.stopPropagation();
     }
+    if (this.stateless) {
+      return;
+    }
     const currentState = this.field.get('state').value;
     let newState = null;
     if (currentState === null) {

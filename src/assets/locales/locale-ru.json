@@ -59,6 +59,15 @@
   "identification denied": "Не идентифицировать",
   "identification approved": "Идентифицировать",
   "verification denied": "Не Верифицировать",
-  "verification approved": "Верифицировать"
+  "verification approved": "Верифицировать",
+
+  "Yes": "Да",
+  "No": "Нет",
+
+  "You have decied": "Вы приняли решение",
+  "not to identification": "не идентифицировать",
+  "to identification": "идентифицировать",
+  "not to verification": "не верифицировать",
+  "to verification": "верифицировать"
 
 }

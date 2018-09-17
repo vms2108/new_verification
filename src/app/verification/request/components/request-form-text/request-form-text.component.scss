@@ -34,6 +34,10 @@
     &:hover{
       opacity: .7;
     }
+    &.nohover{
+      cursor: initial;
+      opacity: .5;
+    }
     padding: 14px 0 6px;
     @media screen and (min-width: 1280px) {
       padding: 16px 0 14px;
