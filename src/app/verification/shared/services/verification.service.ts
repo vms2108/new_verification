@@ -7,16 +7,18 @@ import { identificationRequest } from '../../request/containers/request/identifi
 
 @Injectable()
 export class VerificationService {
-  public nextRequest$ = new BehaviorSubject<Application | false>(false);
+  public nextRequest$ = new BehaviorSubject<Application | false>(this.generateFakeRequest());
 
   constructor(private apiService: ApiService) {}
 
   identificationRequest(id: string, data: IdentificatonRequest) {
-    return this.apiService.put(`api/requests/identification/${id}/`, data);
+    this.searchRequests();
+    // return this.apiService.put(`api/requests/identification/${id}/`, data);
   }
 
   verificationRequest(id: string, data: VerificationRequest) {
-    return this.apiService.put(`api/requests/verification/${id}/`, data);
+    this.searchRequests();
+    // return this.apiService.put(`api/requests/verification/${id}/`, data);
   }
 
   private popRequest(): Observable<Application | false> {

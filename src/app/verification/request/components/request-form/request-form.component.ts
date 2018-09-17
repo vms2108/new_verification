@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { every } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestConfirmComponent } from '../../../dialogs/components/request-confirm/request-confirm.component';
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'app-request-form',
@@ -30,10 +31,11 @@ export class RequestFormComponent implements OnInit {
   set form(form: FormGroup) {
     this.requestForm = form;
     this.formSections = this.getFormSections(form);
+    this.onFormChanges(form);
     this.subscribeToFormChanges(form);
   }
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private requestService: RequestService) {}
 
   ngOnInit() {}
 
@@ -61,17 +63,7 @@ export class RequestFormComponent implements OnInit {
   }
 
   onFormChanges(form: FormGroup) {
-    const fields = Object.keys(form.value)
-      .filter(field => ['splitImage', 'id', 'type'].indexOf(field) < 0)
-      .reduce((fieldsArr: any[], group: string) => {
-        Object.keys(form.value[group])
-          .filter(field => ['title'].indexOf(field) < 0)
-          .forEach(field => {
-            fieldsArr.push(form.value[group][field]);
-          });
-        return fieldsArr;
-      }, [])
-      .filter(field => !field.stateless);
+    const fields = this.requestService.getFormFields(form.value);
 
     const fieldsNum = fields.length;
     const approvedNum = fields.filter(field => field.state === true).length;
@@ -109,10 +101,12 @@ export class RequestFormComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.sendForm();
+        this.sendForm(state);
       }
     });
   }
 
-  sendForm() {}
+  sendForm(result: boolean) {
+    this.requestService.sendForm(this.requestForm.value, result);
+  }
 }

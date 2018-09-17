@@ -32,9 +32,11 @@ export class MainComponent implements OnInit, OnDestroy {
     if (res === undefined) {
       return (this.loading = true);
     }
-    this.loading = false;
     if (res && res.id) {
       this.router.navigate(['/request']);
+    }
+    if (res === false) {
+      this.loading = false;
     }
   }
 

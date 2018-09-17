@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Application, FieldsGroup, ApplicationtUserData } from '../../verification.models';
+import {
+  Application,
+  FieldsGroup,
+  ApplicationtUserData,
+  IdentificatonRequest,
+  VerificationRequest
+} from '../../verification.models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { identificationFields, identificationPhotoFields } from './identification-fields';
 import { verificationReadonlyFields, verificationFields } from './verification-fields';
+import { VerificationService } from '../../shared/services/verification.service';
 
 @Injectable()
 export class RequestService {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private verificationService: VerificationService) {}
 
   addField(fieldGroup: FormGroup, fieldName: string, userData: ApplicationtUserData, type: string) {
     fieldGroup.addControl(
@@ -52,5 +59,59 @@ export class RequestService {
     form.addControl('type', this.fb.control(application.type));
     form.addControl('id', this.fb.control(application.id));
     return form;
+  }
+
+  getFormFields(formValue: any) {
+    return Object.keys(formValue)
+      .filter(field => ['splitImage', 'id', 'type'].indexOf(field) < 0)
+      .reduce((fieldsArr: any[], group: string) => {
+        Object.keys(formValue[group])
+          .filter(field => ['title'].indexOf(field) < 0)
+          .forEach(field => {
+            fieldsArr.push(formValue[group][field]);
+          });
+        return fieldsArr;
+      }, [])
+      .filter(field => !field.stateless);
+  }
+
+  sendForm(formData: any, result: boolean) {
+    const { type, id } = formData;
+    if (type === 'verification') {
+      this.verificationService.verificationRequest(id, this.generateVerificationRequest(formData, result));
+    }
+    if (type === 'identification') {
+      this.verificationService.identificationRequest(id, this.generateIdentificationRequest(formData, result));
+    }
+  }
+
+  generateVerificationRequest(formData: any, result: boolean): VerificationRequest {
+    const { id } = formData;
+    let {
+      'User verification': {
+        'Check platform criterias': { state: is_blacklisted },
+        'Check terrorist': { state: is_terrorist }
+      }
+    } = formData;
+    is_blacklisted = !is_blacklisted;
+    is_terrorist = !is_terrorist;
+    return { id, result, is_blacklisted, is_terrorist };
+  }
+
+  generateIdentificationRequest(formData: any, result: boolean): IdentificatonRequest {
+    const { id } = formData;
+    const fields = this.getFormFields(formData);
+    const user_data: {
+      [key: string]: {
+        state: boolean;
+        message?: string;
+      };
+    } = fields.reduce((userdata: any, field: any) => {
+      const { title, state, message } = field;
+      userdata[title] = { state, message: message || undefined };
+      return userdata;
+    }, {});
+
+    return { id, result, user_data };
   }
 }

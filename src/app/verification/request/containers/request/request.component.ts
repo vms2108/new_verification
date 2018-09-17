@@ -38,6 +38,8 @@ export class RequestComponent implements OnInit, OnDestroy {
     if (res && res.id) {
       this.application = res;
       this.identificationForm = this.requestService.generateForm(res);
+      this.identificationForm.updateValueAndValidity();
+      window.scrollTo(0, 0);
       return;
     }
     this.router.navigate(['/']);

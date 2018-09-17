@@ -68,6 +68,8 @@
   "not to identification": "не идентифицировать",
   "to identification": "идентифицировать",
   "not to verification": "не верифицировать",
-  "to verification": "верифицировать"
+  "to verification": "верифицировать",
+
+  "Rejection reason": "Причина отказа"
 
 }

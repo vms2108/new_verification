@@ -1,10 +1,33 @@
 .request-layout{
+  position: relative;
   &__container{
     padding: 16px;
     @media screen and (min-width: 768px) {
       padding: 32px;
       margin: 0 auto;
       max-width: 1520px;
+    }
+  }
+  &__loader{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: rgba(53, 53, 69, .75);
+    background-image: url("/assets/icons/loader.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    visibility: hidden;
+    transition: .1s ease;
+    height: 100vh;
+  }
+  &.loading {
+    & .request-layout__loader{
+      opacity: 1;
+      visibility: visible;
     }
   }
 }
