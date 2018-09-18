@@ -71,18 +71,23 @@ export class RequestFormComponent implements OnInit {
     this.approved = fieldsNum === approvedNum;
 
     if (this.approved) {
+      this.requestService.setRequestFieldsInfo(approvedNum, fieldsNum);
       return (this.valid = true);
     }
 
     const fieldsWithStateNum = fields.filter(field => typeof field.state === 'boolean').length;
     const allFieldsWithState = fieldsWithStateNum === fieldsNum;
 
-    const allNotApprovedHasMessage = every(
-      fields.filter(field => field.state === false),
-      field => field.noMessage || field.message
-    );
+    const notApprovedNum = fields.filter(field => field.state === false).length;
+    const notApprovedWithMessageNum = fields.filter(
+      field => field.state === false && (field.noMessage || field.message)
+    ).length;
+
+    const allNotApprovedHasMessage = notApprovedNum === notApprovedWithMessageNum;
 
     this.valid = allFieldsWithState && allNotApprovedHasMessage;
+
+    this.requestService.setRequestFieldsInfo(approvedNum + notApprovedWithMessageNum, fieldsNum);
   }
 
   confirm(state: boolean) {
@@ -107,7 +112,6 @@ export class RequestFormComponent implements OnInit {
   }
 
   sendForm(result: boolean) {
-    console.log('send form');
     this.requestService.sendForm(this.requestForm.value, result);
   }
 }

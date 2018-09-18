@@ -22,13 +22,29 @@
     padding: 0 32px;
   }
   &__logo{
-    width: 111px;
+    width: 28px;
     height: 60px;
     padding: 15px 0 17px;
-    & img{
-      display: block;
+    @media screen and (min-width: 768px){
       width: 111px;
-      height: 28px;
+    }
+    & img{
+      &.small{
+        height: 28px;
+        width: 28px;
+        display: block;
+        @media screen and (min-width: 768px){
+          display: none;
+        }
+      }
+      &.big{
+        height: 28px;
+        width: 111px;
+        display: none;
+        @media screen and (min-width: 768px){
+          display: block;
+        }
+      }
     }
   }
   &__burger{

@@ -1,7 +1,9 @@
 <div class="header">
   <a class="header__logo" routerLink="/">
-    <img src="assets/icons/logo.svg" alt="Bonum">
+    <img class="small" src="assets/icons/logo-small.svg" alt="Bonum">
+    <img class="big" src="assets/icons/logo.svg" alt="Bonum">
   </a>
+  <app-request-info></app-request-info>
   <button class="header__burger"
     [class.open]="menuOpen"
     (click)="toggle()">

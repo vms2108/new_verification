@@ -5,11 +5,12 @@ import { MaterialModule } from '../../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 import { VerificationService } from './services/verification.service';
+import { TimePipe } from './pipes/time.pipe';
 
 @NgModule({
   imports: [CommonModule, TranslationModule, MaterialModule, ReactiveFormsModule],
-  declarations: [ImageViewerComponent],
-  exports: [ImageViewerComponent]
+  declarations: [ImageViewerComponent, TimePipe],
+  exports: [ImageViewerComponent, TimePipe]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

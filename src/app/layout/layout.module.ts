@@ -14,6 +14,7 @@ import { LangSelectorComponent } from './components/lang-selector/lang-selector.
 import { ImageModalViewerComponent } from './components/image-modal-viewer/image-modal-viewer.component';
 import { SharedModule } from '../verification/shared/shared.module';
 import { LayoutService } from './services/layout.service';
+import { RequestInfoComponent } from './components/request-info/request-info.component';
 
 @NgModule({
   imports: [CommonModule, TranslationModule, RouterModule, SharedModule],
@@ -22,7 +23,8 @@ import { LayoutService } from './services/layout.service';
     HeaderComponent,
     MobileMenuComponent,
     LangSelectorComponent,
-    ImageModalViewerComponent
+    ImageModalViewerComponent,
+    RequestInfoComponent
   ],
   exports: [LayoutComponent]
 })

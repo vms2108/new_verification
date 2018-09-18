@@ -1,0 +1,17 @@
+<div class="request-info">
+  <div class="request-info__item">
+    <div class="request-info__icon"><img src="/assets/icons/clock-circular-outline.svg"></div>
+    <div class="request-info__title">{{ 'Remaining time' | translate : lang }}</div>
+    <div class="request-info__text">{{ time$ | async | time }}</div>
+  </div>
+  <div class="request-info__item">
+    <div class="request-info__icon"><img src="/assets/icons/checked-box.svg"></div>
+    <div class="request-info__title">{{ 'Checked fields' | translate : lang }}</div>
+    <div class="request-info__text">{{ fields$ | async }}</div>
+  </div>
+  <!-- <div class="request-info__item">
+    <div class="request-info__icon"><img src="/assets/icons/newspaper.svg"></div>
+    <div class="request-info__title">Заявок в очереди</div>
+    <div class="request-info__text">599</div>
+  </div> -->
+</div>

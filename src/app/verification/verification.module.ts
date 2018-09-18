@@ -4,6 +4,7 @@ import { VerificationRoutingModule } from './verification-routing.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, VerificationRoutingModule, SharedModule.forRoot()]
+  imports: [CommonModule, VerificationRoutingModule, SharedModule.forRoot()],
+  exports: [SharedModule]
 })
 export class VerificationModule {}

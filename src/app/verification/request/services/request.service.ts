@@ -11,10 +11,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { identificationFields, identificationPhotoFields } from './identification-fields';
 import { verificationReadonlyFields, verificationFields } from './verification-fields';
 import { VerificationService } from '../../shared/services/verification.service';
+import { LayoutService } from '../../../layout/services/layout.service';
 
 @Injectable()
 export class RequestService {
-  constructor(private fb: FormBuilder, private verificationService: VerificationService) {}
+  constructor(
+    private fb: FormBuilder,
+    private verificationService: VerificationService,
+    private layoutService: LayoutService
+  ) {}
 
   addField(fieldGroup: FormGroup, fieldName: string, userData: ApplicationtUserData, type: string) {
     fieldGroup.addControl(
@@ -113,5 +118,9 @@ export class RequestService {
     }, {});
 
     return { id, result, user_data };
+  }
+
+  setRequestFieldsInfo(checked: number, all: number) {
+    this.layoutService.requestFields$.next(`${checked}/${all}`);
   }
 }
