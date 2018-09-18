@@ -7,7 +7,7 @@ import { identificationRequest } from '../../request/containers/request/identifi
 
 @Injectable()
 export class VerificationService {
-  public nextRequest$ = new BehaviorSubject<Application | false>(this.generateFakeRequest());
+  public nextRequest$ = new BehaviorSubject<Application | false>(false);
 
   constructor(private apiService: ApiService) {}
 

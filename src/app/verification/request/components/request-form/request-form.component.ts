@@ -107,6 +107,7 @@ export class RequestFormComponent implements OnInit {
   }
 
   sendForm(result: boolean) {
+    console.log('send form');
     this.requestService.sendForm(this.requestForm.value, result);
   }
 }

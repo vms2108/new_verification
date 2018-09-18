@@ -14,6 +14,10 @@ export class MainComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public loading = false;
 
+  private btnClicked = false;
+  public noNewRequests = false;
+  public timer = 0;
+
   @Language()
   lang: string;
 
@@ -25,6 +29,10 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   searchRequests() {
+    if (this.btnClicked) {
+      return;
+    }
+    this.btnClicked = true;
     this.verificationService.searchRequests();
   }
 
@@ -33,14 +41,30 @@ export class MainComponent implements OnInit, OnDestroy {
       return (this.loading = true);
     }
     if (res && res.id) {
-      this.router.navigate(['/request']);
+      return this.router.navigate(['/request']);
     }
-    if (res === false) {
-      this.loading = false;
+    this.loading = false;
+    if (res === false && this.btnClicked) {
+      this.btnClicked = false;
+      this.startTimer();
     }
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  startTimer() {
+    this.timer = 10;
+    this.noNewRequests = true;
+    const count = () => {
+      this.timer--;
+      if (this.timer > 0) {
+        return setTimeout(() => count(), 1000);
+      }
+      this.noNewRequests = false;
+      this.btnClicked = false;
+    };
+    count();
   }
 }

@@ -1,15 +1,20 @@
 <div class="main">
-    <div class="container">
-      <div class="main__content">
-        <h1 class="main__title" innerHTML="{{ 'Main welcome' | translate : lang }}"></h1>
+  <div class="container">
+    <div class="main__content">
+      <h1 class="main__title" innerHTML="{{ 'Main welcome' | translate : lang }}"></h1>
+      <div class="main__btn-wrapper">
         <button class="main__button"
+          *ngIf="!noNewRequests"
           [class.loading]="loading"
           [disabled]="loading"
           (click)="searchRequests()">
           <span>{{ 'Search new requests' | translate : lang }}</span>
         </button>
+        <span class="main__message" *ngIf="noNewRequests">
+          {{ 'No new requests. Retry in' | translate : lang }} {{ timer }}
+        </span>
       </div>
-      <p class="main__info">{{ 'Main info message' | translate : lang }}</p>
     </div>
+    <p class="main__info">{{ 'Main info message' | translate : lang }}</p>
   </div>
-
+</div>

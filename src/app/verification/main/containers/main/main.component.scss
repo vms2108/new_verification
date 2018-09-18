@@ -56,6 +56,27 @@
       color: rgba(255, 255, 255, .5);
     }
   }
+  &__btn-wrapper{
+    height: 48px;
+    @media screen and (min-width: 768px) {
+      height: 52px;
+    }
+  }
+  &__message{
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, .7);
+    font-size: 11px;
+    height: 48px;
+    line-height: 48px;
+    @media screen and (min-width: 375px) {
+      font-size: 12px;
+    }
+    @media screen and (min-width: 768px) {
+      font-size: 15px;
+      height: 52px;
+      line-height: 52px;
+    }
+  }
   &__button{
     font-weight: 900;
     text-transform: uppercase;
