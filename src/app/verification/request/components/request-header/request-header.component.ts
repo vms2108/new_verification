@@ -21,8 +21,15 @@ export class RequestHeaderComponent implements OnInit {
     this.type = application.type;
     this.id = application.id;
     this.date = application.date_of_creation;
-    const { name, second_name, surname } = application.user_data;
-    this.user = `${name} ${second_name || ''} ${surname}`;
+    const { first_name : { value: firstName } } = application.user_data;
+    const { last_name : { value: lastName } } = application.user_data;
+    let middleName;
+
+    if ( application.user_data.middle_name && application.user_data.middle_name.value ) {
+      middleName = application.user_data.middle_name.value;
+    }
+
+    this.user = `${firstName} ${middleName || ''} ${lastName}`;
   }
 
   ngOnInit() {}

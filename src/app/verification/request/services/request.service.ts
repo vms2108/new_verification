@@ -60,7 +60,7 @@ export class RequestService {
     fields.forEach(fieldsGroup => {
       this.addFieldsGroup(form, fieldsGroup, application.user_data, application.type);
     });
-    form.addControl('splitImage', this.fb.control(application.user_data.main_doc_photo));
+    form.addControl('splitImage', this.fb.control(application.user_data.main_document.path));
     form.addControl('type', this.fb.control(application.type));
     form.addControl('id', this.fb.control(application.id));
     return form;
