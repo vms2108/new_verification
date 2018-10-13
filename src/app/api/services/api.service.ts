@@ -5,7 +5,8 @@ import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable()
 export class ApiService {
-  private API_URL = 'http://35.192.110.131';
+  // private API_URL = 'http://35.192.110.131';
+  private API_URL = 'http://35.202.103.254';
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 

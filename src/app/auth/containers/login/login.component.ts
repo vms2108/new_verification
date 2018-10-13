@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   getUser() {
     this.sending = true;
-    this.apiService.get('api/user/current').subscribe((res: any) => {
+    this.apiService.get('api/user').subscribe((res: any) => {
       this.sending = false;
       if (res) {
         this.authService.setUserInfo(res);
