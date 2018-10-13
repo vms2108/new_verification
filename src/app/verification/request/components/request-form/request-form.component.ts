@@ -33,6 +33,9 @@ export class RequestFormComponent implements OnInit {
     this.formSections = this.getFormSections(form);
     this.onFormChanges(form);
     this.subscribeToFormChanges(form);
+
+    console.log( this.requestForm, this.formSections );
+
   }
 
   constructor(private dialog: MatDialog, private requestService: RequestService) {}

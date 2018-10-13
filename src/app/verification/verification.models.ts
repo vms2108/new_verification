@@ -69,5 +69,11 @@ export interface VerificationRequest {
 
 export interface FieldsGroup {
   group: string;
-  fields: string[];
+  fields: RequestField[];
+}
+
+export interface RequestField {
+  name: string;
+  parent?: string;
+  stateless?: boolean;
 }

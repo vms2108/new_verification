@@ -4,7 +4,8 @@ import {
   FieldsGroup,
   ApplicationtUserData,
   IdentificatonRequest,
-  VerificationRequest
+  VerificationRequest,
+  RequestField
 } from '../../verification.models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -21,17 +22,29 @@ export class RequestService {
     private layoutService: LayoutService
   ) {}
 
-  addField(fieldGroup: FormGroup, fieldName: string, userData: ApplicationtUserData, type: string) {
+  addField(fieldGroup: FormGroup, field: RequestField, userData: ApplicationtUserData, type: string, ) {
+
+    const formField = field.parent ? userData[field.parent][field.name] : userData[field.name];
+
+    let formValue = null;
+
+    if ( formField ) {
+      formValue = field.stateless ? formField || null : formField && formField.value || null;
+    }
+
+
+    console.log( field.name, formField, formValue );
+
     fieldGroup.addControl(
-      fieldName,
+      field.name,
       this.fb.group({
-        title: fieldName,
-        value: userData[fieldName],
+        title: field.name,
+        value: formValue,
         state: null,
         message: null,
-        isPhoto: this.isPhotoField(fieldName),
-        stateless: type === 'verification' ? this.isFieldStateless(fieldName) : false,
-        noMessage: type === 'verification' ? this.isFieldDontNeedMeesage(fieldName) : false
+        isPhoto: this.isPhotoField(field.name),
+        stateless: type === 'verification' ? this.isFieldStateless(field.name) : false,
+        noMessage: type === 'verification' ? this.isFieldDontNeedMeesage(field.name) : false
       })
     );
   }
