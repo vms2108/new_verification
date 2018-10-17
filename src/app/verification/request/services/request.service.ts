@@ -7,9 +7,10 @@ import {
   RequestField,
   ApplicationDocument,
   RequestFieldsGroup,
-  Request
+  Request,
+  ApplicationUserField
 } from '../../verification.models';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 import { VerificationService } from '../../shared/services/verification.service';
 import { LayoutService } from '../../../layout/services/layout.service';
@@ -19,6 +20,9 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class RequestService {
 
+  private personalFields = ['first_name', 'middle_name', 'last_name', 'birth_date', 'birth_place', 'phone'];
+  private addressFields = ['index', 'state', 'country', 'city', 'street', 'building', 'apartment'];
+  private documentFields = ['number', 'type', 'issue_date', 'expiration_date', 'endless', 'path', 'selfie_path'];
   private dateFields = ['birth_date', 'issue_date', 'expiration_date'];
   private photoFields = ['path', 'selfie_path'];
 
@@ -39,16 +43,20 @@ export class RequestService {
   }
 
   private addPhoneField(personalFields: any[], form: FormGroup, phone) {
+    form.addControl('phone',
+    this.fb.array([
+      this.fb.group({
+        id: phone.id,
+        status: null,
+        comment: null
+      })
+    ]));
     personalFields.push({
       name: 'phone',
       state: true,
-      value: `${phone.country_code} ${phone.number}`
+      value: `${phone.country_code} ${phone.number}`,
+      control: (form.get('phone') as FormArray).controls[0]
     });
-    form.addControl('phone', this.fb.group({
-      id: phone.id,
-      status: null,
-      comment: null
-    }));
   }
 
   private addStatefulField(name: string, value: any, form: FormGroup, fields: RequestField[]) {
@@ -71,15 +79,7 @@ export class RequestService {
 
   private createPersonalFields(userData: ApplicationtUserData, form: FormGroup, fields: RequestFieldsGroup[]) {
     const personalFields: RequestField[] = [];
-    const keys = [
-      'first_name',
-      'middle_name',
-      'last_name',
-      'birth_date',
-      'birth_place',
-      'phone'
-    ];
-    keys.forEach((key) => {
+    this.personalFields.forEach((key) => {
       const field = userData[key];
       if ( key === 'phone' && userData.phone && userData.phone.length &&  userData.phone[0].number ) {
         return this.addPhoneField( personalFields, form, userData.phone[0] );
@@ -102,16 +102,7 @@ export class RequestService {
     form.addControl('address', this.fb.group({}));
     const addressForm = form.get('address') as FormGroup;
 
-    const keys = [
-      'index',
-      'state',
-      'country',
-      'city',
-      'street',
-      'building',
-      'apartment'
-    ];
-    keys.forEach((key) => {
+    this.addressFields.forEach((key) => {
       const field = address[key];
       if ( field && field.value ) {
         return this.addStatefulField(key, this.prepareFieldValue(key, field.value), addressForm, addressFields);
@@ -134,11 +125,7 @@ export class RequestService {
       comment: null
     }));
 
-    const keys = [
-      'number', 'type', 'issue_date', 'expiration_date', 'endless', 'path', 'selfie_path'
-    ];
-
-    keys.forEach(key => {
+    this.documentFields.forEach(key => {
       let value = document[key];
       if ( key === 'type' && value === 'OTHER' ) {
         value = document.type_custom;
@@ -198,74 +185,34 @@ export class RequestService {
     }
   }
 
+  private getIdentificationFormFields(userData: ApplicationtUserData) {
+    const personal = Object.keys(userData)
+      .reduce((fields: any[], next: string) => {
+        if ( this.personalFields.indexOf(next) > -1 ) {
+          if ( next === 'phone' ) {
+            fields.push( userData[next][0] );
+          } else {
+            fields.push( userData[next] );
+          }
+        }
+        return fields;
+      }, []);
+    const address = Object.keys(userData.address)
+      .map(key => userData.address[key]);
+    return [
+      ...personal,
+      ...address,
+      userData.main_document,
+      userData.extra_document
+    ];
+  }
 
-  // addField(fieldGroup: FormGroup, field: RequestField, userData: ApplicationtUserData, type: string, ) {
 
-  //   const formField = field.parent ? userData[field.parent][field.name] : userData[field.name];
-
-  //   let formValue = null;
-
-  //   if ( formField ) {
-  //     formValue = field.stateless ? formField || null : formField && formField.value || null;
-  //   }
-
-  //   fieldGroup.addControl(
-  //     field.name,
-  //     this.fb.group({
-  //       title: field.name,
-  //       value: formValue,
-  //       state: null,
-  //       message: null,
-  //       isPhoto: this.isPhotoField(field.name),
-  //       stateless: type === 'verification' ? this.isFieldStateless(field.name) : !!field.stateless,
-  //       noMessage: type === 'verification' ? this.isFieldDontNeedMeesage(field.name) : false
-  //     })
-  //   );
-  // }
-
-  // isFieldDontNeedMeesage(fieldName: string): boolean {
-  //   return verificationReadonlyFields.indexOf(fieldName) < 0;
-  // }
-
-  // isFieldStateless(fieldName: string): boolean {
-  //   return verificationReadonlyFields.indexOf(fieldName) > -1;
-  // }
-
-  // isPhotoField(fieldName: string): boolean {
-  //   return identificationPhotoFields.indexOf(fieldName) > -1;
-  // }
-
-  // addFieldsGroup(form: FormGroup, group: FieldsGroup, userData: ApplicationtUserData, type: string) {
-  //   const fieldGroup = this.fb.group({ title: group.group });
-  //   group.fields.forEach(field => this.addField(fieldGroup, field, userData, type));
-  //   form.addControl(group.group, fieldGroup);
-  // }
-
-  // generateForm(application: Application): FormGroup {
-  //   const fields = application.type === 'identification' ? identificationFields : verificationFields;
-  //   const form = this.fb.group({});
-  //   fields.forEach(fieldsGroup => {
-  //     this.addFieldsGroup(form, fieldsGroup, application.user_data, application.type);
-  //   });
-  //   form.addControl('splitImage', this.fb.control(application.user_data.main_document.path));
-  //   form.addControl('type', this.fb.control(application.type));
-  //   form.addControl('id', this.fb.control(application.id));
-  //   return form;
-  // }
-
-  // getFormFields(formValue: any) {
-  //   return Object.keys(formValue)
-  //     .filter(field => ['splitImage', 'id', 'type'].indexOf(field) < 0)
-  //     .reduce((fieldsArr: any[], group: string) => {
-  //       Object.keys(formValue[group])
-  //         .filter(field => ['title'].indexOf(field) < 0)
-  //         .forEach(field => {
-  //           fieldsArr.push(formValue[group][field]);
-  //         });
-  //       return fieldsArr;
-  //     }, [])
-  //     .filter(field => !field.stateless);
-  // }
+  getFormFields(value: Application, type: 'identification' | 'verification'): ApplicationUserField[] {
+    if ( type === 'identification' ) {
+      return this.getIdentificationFormFields( value.user_data );
+    }
+  }
 
   // sendForm(formData: any, result: boolean) {
   //   const { type, id } = formData;
@@ -307,7 +254,7 @@ export class RequestService {
   //   return { id, result, user_data };
   // }
 
-  // setRequestFieldsInfo(checked: number, all: number) {
-  //   this.layoutService.requestFields$.next(`${checked}/${all}`);
-  // }
+  setRequestFieldsInfo(checked: number, all: number) {
+    this.layoutService.requestFields$.next(`${checked}/${all}`);
+  }
 }

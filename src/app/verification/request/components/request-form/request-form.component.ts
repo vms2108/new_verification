@@ -13,8 +13,8 @@ import { RequestFieldsGroup, Application } from 'src/app/verification/verificati
   styleUrls: ['request-form.component.scss']
 })
 export class RequestFormComponent implements OnInit {
+
   private subscription: Subscription;
-  private requestForm: FormGroup;
   public formSections: FormGroup[] = [];
 
   public approved = false;
@@ -27,15 +27,15 @@ export class RequestFormComponent implements OnInit {
   @Language()
   lang: string;
 
+  @Input() application: Application;
+  @Input() fields: RequestFieldsGroup[];
+
   @Input()
   set form(form: FormGroup) {
-    this.requestForm = form;
     this.onFormChanges(form);
     this.subscribeToFormChanges(form);
   }
 
-  @Input() fields: RequestFieldsGroup[];
-  @Input() application: Application;
 
   constructor(private dialog: MatDialog, private requestService: RequestService) {}
 
@@ -52,41 +52,36 @@ export class RequestFormComponent implements OnInit {
 
   onFormChanges(form: FormGroup) {
 
-    console.log( form );
+    const fields = this.requestService.getFormFields( form.value, this.application.type );
 
-    // const fieldsNum = fields.length;
-    // const approvedNum = fields.filter(field => field.state === true).length;
+    const fieldsNum = fields.length;
+    const approvedNum = fields.filter(field => field.status === true).length;
 
-    // this.approved = fieldsNum === approvedNum;
+    this.approved = fieldsNum === approvedNum;
 
-    // if (this.approved) {
-    //   this.requestService.setRequestFieldsInfo(approvedNum, fieldsNum);
-    //   return (this.valid = true);
-    // }
+    if (this.approved) {
+      this.requestService.setRequestFieldsInfo(approvedNum, fieldsNum);
+      return (this.valid = true);
+    }
 
-    // const fieldsWithStateNum = fields.filter(field => typeof field.state === 'boolean').length;
-    // const allFieldsWithState = fieldsWithStateNum === fieldsNum;
+    const fieldsWithStateNum = fields.filter(field => typeof field.status === 'boolean').length;
+    const allFieldsWithState = fieldsWithStateNum === fieldsNum;
 
-    // const notApprovedNum = fields.filter(field => field.state === false).length;
-    // const notApprovedWithMessageNum = fields.filter(
-    //   field => field.state === false && (field.noMessage || field.message)
-    // ).length;
+    const notApprovedNum = fields.filter(field => field.status === false).length;
+    const notApprovedWithMessageNum = fields.filter(
+      field => field.status === false && field.comment
+    ).length;
 
-    // const allNotApprovedHasMessage = notApprovedNum === notApprovedWithMessageNum;
+    const allNotApprovedHasMessage = notApprovedNum === notApprovedWithMessageNum;
 
-    // this.valid = allFieldsWithState && allNotApprovedHasMessage;
+    this.valid = allFieldsWithState && allNotApprovedHasMessage;
 
-    // this.requestService.setRequestFieldsInfo(approvedNum + notApprovedWithMessageNum, fieldsNum);
+    this.requestService.setRequestFieldsInfo(approvedNum + notApprovedWithMessageNum, fieldsNum);
   }
 
   confirm(state: boolean) {
-    const { type } = this.requestForm.value;
-    const dataSection = this.requestForm.value[type === 'verification' ? 'Personal data' : 'Basic data'];
-    const {
-      name: { value: name },
-      surname: { value: surname }
-    } = dataSection;
-
+    const { type } = this.application;
+    const { first_name: { value: name }, last_name: { value: surname } } = this.application.user_data;
     const user = `${name} ${surname}`;
     const text = `${state ? '' : 'not '}to ${type}`;
     const dialogRef = this.dialog.open(RequestConfirmComponent, {

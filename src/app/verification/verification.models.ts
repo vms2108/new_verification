@@ -19,6 +19,8 @@ export interface ApplicationtUserData {
     id: number;
     country_code?: string;
     number?: string;
+    status?: boolean;
+    comment?: string;
   }[];
 
   address: {
@@ -45,10 +47,14 @@ export interface ApplicationDocument {
   path: string;
   selfie_path: string;
   endless: boolean;
+  status?: boolean;
+  comment?: string;
 }
 
 export interface ApplicationUserField {
   value: string;
+  comment?: string;
+  status?: boolean;
 }
 
 export interface IdentificatonRequest {
