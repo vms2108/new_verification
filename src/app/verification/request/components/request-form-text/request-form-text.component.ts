@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Language } from 'angular-l10n';
 import { FormGroup } from '@angular/forms';
+import { RequestField } from 'src/app/verification/verification.models';
 
 @Component({
   selector: 'app-request-form-text',
@@ -9,29 +10,29 @@ import { FormGroup } from '@angular/forms';
 })
 export class RequestFormTextComponent implements OnInit {
   @Input()
-  field: FormGroup;
+  field: RequestField;
 
   @Language()
   lang: string;
 
   get title(): string {
-    return this.field.get('title').value;
+    return this.field.name;
   }
 
   get value(): string {
-    return this.field.get('value').value;
+    return this.field.value;
   }
 
   get stateless(): boolean {
-    return this.field.get('stateless').value;
+    return !this.field.state;
   }
 
   get noMessage() {
-    return this.field.get('noMessage').value;
+    return false;
   }
 
   get state() {
-    return this.field.get('state').value;
+    return this.field.control.get('status').value;
   }
 
   ngOnInit() {}
@@ -43,7 +44,7 @@ export class RequestFormTextComponent implements OnInit {
     if (this.stateless) {
       return;
     }
-    const currentState = this.field.get('state').value;
+    const currentState = this.field.control.get('status').value;
     let newState = null;
     if (currentState === null) {
       newState = true;
@@ -54,6 +55,6 @@ export class RequestFormTextComponent implements OnInit {
     if (currentState === false) {
       newState = null;
     }
-    this.field.get('state').setValue(newState);
+    this.field.control.get('status').setValue(newState);
   }
 }

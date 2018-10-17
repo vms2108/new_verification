@@ -1,3 +1,5 @@
+import { FormGroup } from "@angular/forms";
+
 export interface Application {
   id: string;
   type: 'verification' | 'identification';
@@ -67,13 +69,22 @@ export interface VerificationRequest {
   is_terrorist: boolean;
 }
 
-export interface FieldsGroup {
-  group: string;
+
+export interface RequestFieldsGroup {
+  name: string;
   fields: RequestField[];
+  state: boolean;
+  control?: FormGroup;
 }
 
 export interface RequestField {
   name: string;
-  parent?: string;
-  stateless?: boolean;
+  value: string;
+  state: boolean;
+  control?: FormGroup;
+}
+
+export interface Request {
+  form: FormGroup;
+  fields: RequestFieldsGroup[];
 }

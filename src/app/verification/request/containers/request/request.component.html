@@ -1,5 +1,11 @@
-<app-request-layout *ngIf="identificationForm" [loading]="loading">
-  <!-- <app-request-header [application]="application"></app-request-header>
-  <app-request-form [form]="identificationForm"></app-request-form>
-  <app-request-big-image [image]="identificationForm.get('splitImage').value"></app-request-big-image> -->
+<app-request-layout
+  [loading]="loading"
+  *ngIf="requestForm && requestFields"
+>
+  <app-request-header [application]="application"></app-request-header>
+  <app-request-form
+    [form]="requestForm"
+    [fields]="requestFields">
+  </app-request-form>
+  <!-- <app-request-big-image [image]="identificationForm.get('splitImage').value"></app-request-big-image> -->
 </app-request-layout>

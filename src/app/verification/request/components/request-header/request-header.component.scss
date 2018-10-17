@@ -43,24 +43,4 @@
     line-height: 1;
     color: rgba(255, 255, 255, 0.5);
   }
-  &__actions{
-    display: none;
-    @media screen and (min-width: 768px) {
-      position: fixed;
-      right: 32px;
-      top: 64px;
-      display: block;
-    }
-  }
-  &__toggle{
-    margin-top: 8px;
-    display: block;
-    opacity: .5;
-    cursor: pointer;
-    & img{
-      display: block;
-      width: 33px;
-      height: 33px;
-    }
-  }
 }

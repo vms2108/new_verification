@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
   Application,
-  FieldsGroup,
   ApplicationtUserData,
   IdentificatonRequest,
   VerificationRequest,
   RequestField,
-  ApplicationDocument
+  ApplicationDocument,
+  RequestFieldsGroup,
+  Request
 } from '../../verification.models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -42,12 +43,12 @@ export class RequestService {
     }));
   }
 
-  private addStatefulField(name: string, value: any, form: FormGroup, fields: any[]) {
+  private addStatefulField(name: string, value: any, form: FormGroup, fields: RequestField[]) {
     form.addControl(name, this.fb.group({
       status: null,
       comment: null
     }));
-    const control = form.get(name);
+    const control = form.get(name) as FormGroup;
     fields.push({
       name, value, state: true, control
     });
@@ -60,8 +61,8 @@ export class RequestService {
     return value;
   }
 
-  private createPersonalFields(userData: ApplicationtUserData, form: FormGroup, fields: any[]) {
-    const personalFields = [];
+  private createPersonalFields(userData: ApplicationtUserData, form: FormGroup, fields: RequestFieldsGroup[]) {
+    const personalFields: RequestField[] = [];
     const keys = [
       'first_name',
       'middle_name',
@@ -86,7 +87,7 @@ export class RequestService {
     });
   }
 
-  private createAddressFields(userData: ApplicationtUserData, form: FormGroup, fields: any[]) {
+  private createAddressFields(userData: ApplicationtUserData, form: FormGroup, fields: RequestFieldsGroup[]) {
     const addressFields = [];
     const address = userData.address;
 
@@ -115,7 +116,7 @@ export class RequestService {
     });
   }
 
-  private createDocumentFields(userData: ApplicationtUserData, name: string, form: FormGroup, fields: any[]) {
+  private createDocumentFields(userData: ApplicationtUserData, name: string, form: FormGroup, fields: RequestFieldsGroup[]) {
     const documentFields = [];
     const document = userData[name] as ApplicationDocument;
 
@@ -147,14 +148,13 @@ export class RequestService {
       name,
       state: true,
       fields: documentFields,
-      control: form.get(name)
+      control: form.get(name) as FormGroup
     });
 
   }
 
-  private generateIdentificationForm(application: Application) {
-
-    const fields = [];
+  private generateIdentificationForm(application: Application): Request {
+    const fields: RequestFieldsGroup[] = [];
 
     const form = this.fb.group({
       id: application.id,
@@ -171,15 +171,10 @@ export class RequestService {
     this.createDocumentFields( userData, 'main_document', formData, fields );
     this.createDocumentFields( userData, 'extra_document', formData, fields );
 
-    console.log(form);
-    console.log(fields);
-
-    return form;
+    return { form, fields };
   }
 
-  generateForm(application: Application): FormGroup {
-    console.log('generate form');
-    console.log(application);
+  generateForm(application: Application): Request {
     if (application.type === 'identification') {
       return this.generateIdentificationForm(application);
     }

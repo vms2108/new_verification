@@ -1,19 +1,19 @@
-<div class="form-section" *ngIf="title && fields.length">
+<div class="form-section">
   <div class="form-section__header">
-    <h3 class="form-section__title">{{ title | translate : lang }}</h3>
+    <h3 class="form-section__title">{{ section.name | translate : lang }}</h3>
   </div>
+
   <div class="form-section__fields" [class.photos]="hasPhotoFields">
-    <ng-container *ngFor="let field of fields">
+    <ng-container *ngFor="let field of section.fields">
       <app-request-form-text
         class="form-section__field"
-        *ngIf="!field.get('isPhoto').value"
         [field]="field">
       </app-request-form-text>
-      <app-request-form-photo
+      <!-- <app-request-form-photo
         class="form-section__field"
         *ngIf="field.get('isPhoto').value"
         [field]="field">
-      </app-request-form-photo>
+      </app-request-form-photo> -->
     </ng-container>
   </div>
 </div>

@@ -16,8 +16,8 @@
 
   "Basic data": "Basic data",
   "Location": "Location",
-  "Basic document": "Basic document",
-  "Additional document": "Additional document",
+  "main_document": "Basic document",
+  "extra_documen": "Additional document",
 
   "first_name": "Name",
   "last_name": "Surname",

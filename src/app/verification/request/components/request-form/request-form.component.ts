@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestConfirmComponent } from '../../../dialogs/components/request-confirm/request-confirm.component';
 import { RequestService } from '../../services/request.service';
+import { RequestFieldsGroup } from 'src/app/verification/verification.models';
 
 @Component({
   selector: 'app-request-form',
@@ -20,7 +21,8 @@ export class RequestFormComponent implements OnInit {
   public valid = false;
 
   get type() {
-    return this.requestForm.get('type').value;
+    return 'identification';
+    // return this.requestForm.get('type').value;
   }
 
   @Language()
@@ -29,13 +31,15 @@ export class RequestFormComponent implements OnInit {
   @Input()
   set form(form: FormGroup) {
     this.requestForm = form;
-    this.formSections = this.getFormSections(form);
+    // this.formSections = this.getFormSections(form);
     this.onFormChanges(form);
     this.subscribeToFormChanges(form);
 
-    console.log( this.requestForm, this.formSections );
+    console.log( this.form );
 
   }
+
+  @Input() fields: RequestFieldsGroup[];
 
   constructor(private dialog: MatDialog, private requestService: RequestService) {}
 
@@ -65,7 +69,8 @@ export class RequestFormComponent implements OnInit {
   }
 
   onFormChanges(form: FormGroup) {
-    // const fields = this.requestService.getFormFields(form.value);
+
+    console.log( form );
 
     // const fieldsNum = fields.length;
     // const approvedNum = fields.filter(field => field.state === true).length;

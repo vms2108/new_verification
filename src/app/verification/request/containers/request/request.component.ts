@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Application } from '../../../verification.models';
+import { Application, RequestFieldsGroup } from '../../../verification.models';
 import { RequestService } from '../../services/request.service';
 import { Subscription } from 'rxjs';
 import { VerificationService } from '../../../shared/services/verification.service';
@@ -16,8 +16,9 @@ export class RequestComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  public identificationForm: FormGroup;
   public application: Application;
+  public requestForm: FormGroup;
+  public requestFields: RequestFieldsGroup[];
 
   constructor(
     private requestService: RequestService,
@@ -43,14 +44,19 @@ export class RequestComponent implements OnInit, OnDestroy {
   }
 
   getForm(res: Application) {
+
     this.application = { ...res };
-    this.identificationForm = this.requestService.generateForm(this.application);
 
-    // console.log( this.identificationForm );
-    // console.log( this.identificationForm.value );
+    const { form, fields } = this.requestService.generateForm(this.application);
 
-    this.identificationForm.updateValueAndValidity();
-    window.scrollTo(0, 0);
+    this.requestForm = form;
+    this.requestFields = fields;
+
+    console.log( this.requestForm );
+    console.log( this.requestFields );
+
+    // this.identificationForm.updateValueAndValidity();
+    // window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

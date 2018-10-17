@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Language } from 'angular-l10n';
+import { RequestFieldsGroup } from 'src/app/verification/verification.models';
 
 @Component({
   selector: 'app-request-form-section',
@@ -12,27 +13,10 @@ export class RequestFormSectionComponent implements OnInit {
   public fields: FormGroup[] = [];
   public hasPhotoFields = false;
 
-  @Input()
-  set section(section: FormGroup) {
-    this.title = section.get('title').value;
-    this.fields = this.getFields(section);
-  }
+  @Input() section: RequestFieldsGroup;
 
   @Language()
   lang: string;
 
   ngOnInit() {}
-
-  getFields(section: FormGroup) {
-    const fields = [];
-    Object.keys(section.controls).forEach((name: string) => {
-      if (name !== 'title') {
-        fields.push(section.controls[name]);
-        if (section.controls[name].get('isPhoto').value) {
-          this.hasPhotoFields = true;
-        }
-      }
-    });
-    return fields;
-  }
 }

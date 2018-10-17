@@ -16,8 +16,8 @@
 
   "Basic data": "Базовые данные",
   "Location": "Место жительства",
-  "Basic document": "Основной документ",
-  "Additional document": "Дополнительный документ",
+  "main_document": "Основной документ",
+  "extra_document": "Дополнительный документ",
 
   "first_name": "Имя",
   "last_name": "Фамилия",

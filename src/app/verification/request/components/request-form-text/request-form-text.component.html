@@ -1,4 +1,4 @@
-<div class="field" [formGroup]="field">
+<div class="field" *ngIf="field">
   <div class="field__info">
     <span class="field__label"
       [class.fullwith]="!value && noMessage"
@@ -9,18 +9,23 @@
     <p class="field__value">
       {{ value }}
     </p>
-    <app-request-form-toggler
-      *ngIf="!stateless"
-      class="field__toggle"
-      formControlName="state">
-    </app-request-form-toggler>
+    <ng-container
+      *ngIf="field.state && field.control"
+      [formGroup]="field.control">
+      <app-request-form-toggler
+        *ngIf="field.state && field.control"
+        class="field__toggle"
+        formControlName="status">
+      </app-request-form-toggler>
+    </ng-container>
   </div>
   <div class="field__message"
-    *ngIf="!stateless && !noMessage"
+    *ngIf="field.state && field.control"
+    [formGroup]="field.control"
     [class.hidden]="!(state === false)">
     <mat-form-field>
       <textarea
-        formControlName="message"
+        formControlName="comment"
         matInput
         placeholder="{{ 'Rejection reason' | translate : lang }}"
         cdkTextareaAutosize
