@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Application, RequestFieldsGroup } from '../../../verification.models';
 import { RequestService } from '../../services/request.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { VerificationService } from '../../../shared/services/verification.service';
 import { Router } from '@angular/router';
 
@@ -19,6 +19,7 @@ export class RequestComponent implements OnInit, OnDestroy {
   public application: Application;
   public requestForm: FormGroup;
   public requestFields: RequestFieldsGroup[];
+  public splittedPhoto$: Observable<string>;
 
   constructor(
     private requestService: RequestService,
@@ -29,6 +30,7 @@ export class RequestComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const nextRequest$ = this.verificationService.nextRequest$;
     this.subscription = nextRequest$.subscribe(this.nextRequestChanged.bind(this));
+    this.splittedPhoto$ = this.requestService.splittedPhoto$;
   }
 
   nextRequestChanged(res: Application | false) {

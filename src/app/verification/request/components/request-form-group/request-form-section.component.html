@@ -1,19 +1,49 @@
 <div class="form-section">
-  <div class="form-section__header">
+  <div class="form-section__header" *ngIf="!section.state">
     <h3 class="form-section__title">{{ section.name | translate : lang }}</h3>
   </div>
+  <div class="form-section__header"
+    *ngIf="section.state && section.control"
+    [formGroup]="section.control">
+    <h3
+      class="form-section__title pointer"
+      (click)="toggleState($event)">
+      {{ section.name | translate : lang }}
+    </h3>
+    <app-request-form-toggler
+      class="form-section__toggle"
+      formControlName="status">
+    </app-request-form-toggler>
+  </div>
 
-  <div class="form-section__fields" [class.photos]="hasPhotoFields">
+  <div class="form-section__message"
+    *ngIf="section.state && section.control"
+    [formGroup]="section.control"
+    [class.hidden]="!(section.control.get('status').value === false)">
+    <mat-form-field>
+      <textarea
+        formControlName="comment"
+        matInput
+        placeholder="{{ 'Rejection reason' | translate : lang }}"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="6">
+      </textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="form-section__fields">
     <ng-container *ngFor="let field of section.fields">
       <app-request-form-text
         class="form-section__field"
+        *ngIf="!field.photo"
         [field]="field">
       </app-request-form-text>
-      <!-- <app-request-form-photo
+      <app-request-form-photo
         class="form-section__field"
-        *ngIf="field.get('isPhoto').value"
+        *ngIf="field.photo"
         [field]="field">
-      </app-request-form-photo> -->
+      </app-request-form-photo>
     </ng-container>
   </div>
 </div>

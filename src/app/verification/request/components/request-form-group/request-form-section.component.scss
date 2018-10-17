@@ -17,11 +17,27 @@
     @media screen and (min-width: 768px) {
       font-size: 20px;
     }
+    &.pointer {
+      cursor: pointer;
+      user-select: none;
+    }
   }
   &__fields{
     display: block;
   }
   &__field{
     display: block;
+  }
+  &__header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  &__message{
+    display: block;
+    width: 100%;
+    /deep/ .mat-form-field {
+      display: block;
+    }
   }
 }

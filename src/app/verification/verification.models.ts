@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormGroup } from '@angular/forms';
 
 export interface Application {
   id: string;
@@ -82,6 +82,7 @@ export interface RequestField {
   value: string;
   state: boolean;
   control?: FormGroup;
+  photo?: boolean;
 }
 
 export interface Request {

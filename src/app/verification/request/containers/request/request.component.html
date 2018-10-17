@@ -5,7 +5,9 @@
   <app-request-header [application]="application"></app-request-header>
   <app-request-form
     [form]="requestForm"
-    [fields]="requestFields">
+    [fields]="requestFields"
+    [application]="application">
   </app-request-form>
-  <!-- <app-request-big-image [image]="identificationForm.get('splitImage').value"></app-request-big-image> -->
+  <app-request-big-image [image]="splittedPhoto$ | async">
+  </app-request-big-image>
 </app-request-layout>

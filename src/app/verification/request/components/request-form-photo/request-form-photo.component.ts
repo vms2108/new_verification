@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Language } from 'angular-l10n';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LayoutService } from '../../../../layout/services/layout.service';
+import { RequestField } from 'src/app/verification/verification.models';
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'app-request-form-photo',
@@ -10,33 +12,38 @@ import { LayoutService } from '../../../../layout/services/layout.service';
   styleUrls: ['request-form-photo.component.scss']
 })
 export class RequestFormPhotoComponent implements OnInit {
+
   @Input()
-  field: FormGroup;
+  field: RequestField;
 
   @Language()
   lang: string;
 
   get title(): string {
-    return this.field.get('title').value;
+    return this.field.name;
   }
 
   get value(): string {
-    return this.field.get('value').value;
+    return this.field.value;
   }
 
   get stateless(): boolean {
-    return this.field.get('stateless').value;
+    return !this.field.state;
   }
 
   get noMessage() {
-    return this.field.get('noMessage').value;
+    return false;
   }
 
   get state() {
-    return this.field.get('state').value;
+    return this.field.control.get('status').value;
   }
 
-  constructor(private sanitizer: DomSanitizer, private layoutService: LayoutService) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private layoutService: LayoutService,
+    private requestService: RequestService
+  ) {}
 
   ngOnInit() {}
 
@@ -47,7 +54,7 @@ export class RequestFormPhotoComponent implements OnInit {
     if (this.stateless) {
       return;
     }
-    const currentState = this.field.get('state').value;
+    const currentState = this.field.control.get('status').value;
     let newState = null;
     if (currentState === null) {
       newState = true;
@@ -58,7 +65,7 @@ export class RequestFormPhotoComponent implements OnInit {
     if (currentState === false) {
       newState = null;
     }
-    this.field.get('state').setValue(newState);
+    this.field.control.get('status').setValue(newState);
   }
 
   getSafeUrl(url: string) {
@@ -80,14 +87,10 @@ export class RequestFormPhotoComponent implements OnInit {
     if (e) {
       e.stopPropagation();
     }
-    this.layoutService.setZoomImage(this.field.get('value').value);
+    this.layoutService.setZoomImage(this.field.value);
   }
 
   onSplit(e?: Event) {
-    if (e) {
-      e.stopPropagation();
-    }
-    const form = this.field.parent.parent;
-    form.get('splitImage').setValue(this.field.get('value').value);
+    this.requestService.splittedPhoto$.next( this.field.value );
   }
 }

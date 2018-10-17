@@ -1,15 +1,16 @@
-<div class="field" [formGroup]="field">
+<div class="field">
   <div class="field__info">
     <span class="field__label"
       [class.nohover]="stateless"
       (click)="toggleState($event)">
       {{ title | translate : lang }}
     </span>
-    <app-request-form-toggler
-      *ngIf="!field.get('stateless').value"
-      class="field__toggle"
-      formControlName="state">
-    </app-request-form-toggler>
+    <ng-container *ngIf="field.state && field.control" [formGroup]="field.control">
+      <app-request-form-toggler
+        class="field__toggle"
+        formControlName="status">
+      </app-request-form-toggler>
+    </ng-container>
   </div>
   <div class="field__value" (click)='defaultAction()'>
     <div class="holder"></div>
@@ -27,11 +28,11 @@
     </div>
   </div>
   <div class="field__message"
-    *ngIf="!stateless"
+    *ngIf="field.state && field.control"
     [class.hidden]="!(state === false)">
     <mat-form-field>
       <textarea
-        formControlName="message"
+        formControlName="comment"
         matInput
         placeholder="{{ 'Rejection reason' | translate : lang }}"
         cdkTextareaAutosize

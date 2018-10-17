@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
 import { Language } from 'angular-l10n';
 import { RequestFieldsGroup } from 'src/app/verification/verification.models';
 
@@ -9,9 +8,6 @@ import { RequestFieldsGroup } from 'src/app/verification/verification.models';
   styleUrls: ['request-form-section.component.scss']
 })
 export class RequestFormSectionComponent implements OnInit {
-  public title: string;
-  public fields: FormGroup[] = [];
-  public hasPhotoFields = false;
 
   @Input() section: RequestFieldsGroup;
 
@@ -19,4 +15,25 @@ export class RequestFormSectionComponent implements OnInit {
   lang: string;
 
   ngOnInit() {}
+
+  toggleState(e: Event) {
+    if (e) {
+      e.preventDefault();
+    }
+    if (!this.section.state) {
+      return;
+    }
+    const currentState = this.section.control.get('status').value;
+    let newState = null;
+    if (currentState === null) {
+      newState = true;
+    }
+    if (currentState === true) {
+      newState = false;
+    }
+    if (currentState === false) {
+      newState = null;
+    }
+    this.section.control.get('status').setValue(newState);
+  }
 }

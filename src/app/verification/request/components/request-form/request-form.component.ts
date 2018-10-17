@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestConfirmComponent } from '../../../dialogs/components/request-confirm/request-confirm.component';
 import { RequestService } from '../../services/request.service';
-import { RequestFieldsGroup } from 'src/app/verification/verification.models';
+import { RequestFieldsGroup, Application } from 'src/app/verification/verification.models';
 
 @Component({
   selector: 'app-request-form',
@@ -21,8 +21,7 @@ export class RequestFormComponent implements OnInit {
   public valid = false;
 
   get type() {
-    return 'identification';
-    // return this.requestForm.get('type').value;
+    return this.application.type;
   }
 
   @Language()
@@ -31,33 +30,16 @@ export class RequestFormComponent implements OnInit {
   @Input()
   set form(form: FormGroup) {
     this.requestForm = form;
-    // this.formSections = this.getFormSections(form);
     this.onFormChanges(form);
     this.subscribeToFormChanges(form);
-
-    console.log( this.form );
-
   }
 
   @Input() fields: RequestFieldsGroup[];
+  @Input() application: Application;
 
   constructor(private dialog: MatDialog, private requestService: RequestService) {}
 
   ngOnInit() {}
-
-  getFormSections(form: FormGroup) {
-    if (!form) {
-      return [];
-    }
-    const controls = form.controls;
-    const sections = [];
-    Object.keys(controls)
-      .filter(control => ['splitImage', 'type', 'id'].indexOf(control) < 0)
-      .forEach((name: string) => {
-        sections.push(controls[name]);
-      });
-    return sections;
-  }
 
   subscribeToFormChanges(form: FormGroup) {
     if (this.subscription) {

@@ -14,17 +14,25 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { VerificationService } from '../../shared/services/verification.service';
 import { LayoutService } from '../../../layout/services/layout.service';
 import * as moment from 'moment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class RequestService {
 
   private dateFields = ['birth_date', 'issue_date', 'expiration_date'];
+  private photoFields = ['path', 'selfie_path'];
+
+  public splittedPhoto$ = new BehaviorSubject<string>(undefined);
 
   constructor(
     private fb: FormBuilder,
     private verificationService: VerificationService,
     private layoutService: LayoutService
   ) {}
+
+  private isPhotoField(field: string) {
+    return this.photoFields.indexOf(field) > -1;
+  }
 
   private prepareDate(date: string): string {
     return moment(date).format('MM.DD.YYYY');
@@ -117,7 +125,7 @@ export class RequestService {
   }
 
   private createDocumentFields(userData: ApplicationtUserData, name: string, form: FormGroup, fields: RequestFieldsGroup[]) {
-    const documentFields = [];
+    const documentFields: RequestField[] = [];
     const document = userData[name] as ApplicationDocument;
 
     form.addControl(name, this.fb.group({
@@ -137,9 +145,10 @@ export class RequestService {
       }
       if ( value ) {
         documentFields.push({
-          name: 'key',
+          name: key,
           value,
-          state: false
+          state: false,
+          photo: this.isPhotoField(key)
         });
       }
     });
@@ -148,7 +157,7 @@ export class RequestService {
       name,
       state: true,
       fields: documentFields,
-      control: form.get(name) as FormGroup
+      control: form.get(name) as FormGroup,
     });
 
   }
@@ -170,6 +179,15 @@ export class RequestService {
 
     this.createDocumentFields( userData, 'main_document', formData, fields );
     this.createDocumentFields( userData, 'extra_document', formData, fields );
+
+    const mainDocPhoto = application
+      && application.user_data
+      && application.user_data.main_document
+      && application.user_data.main_document.path;
+
+    if ( mainDocPhoto ) {
+      this.splittedPhoto$.next(mainDocPhoto);
+    }
 
     return { form, fields };
   }
