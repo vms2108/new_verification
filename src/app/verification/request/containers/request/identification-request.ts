@@ -16,10 +16,12 @@ export const identificationRequest: Application = {
       value: 'Muckanaghederdauhaulia'
     },
     birth_date: {
-      value: '10.10.1994'
+      value: '1990-10-09T21:00:00.000Z'
     },
     phone: [{
-      id: 1
+      id: 1,
+      country_code: '+7',
+      number: '910-440-91-24'
     }],
     address: {
       index: {

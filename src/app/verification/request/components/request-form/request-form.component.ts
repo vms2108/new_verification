@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Language } from 'angular-l10n';
 import { Subscription } from 'rxjs';
-import { every } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestConfirmComponent } from '../../../dialogs/components/request-confirm/request-confirm.component';
 import { RequestService } from '../../services/request.service';
@@ -66,31 +65,31 @@ export class RequestFormComponent implements OnInit {
   }
 
   onFormChanges(form: FormGroup) {
-    const fields = this.requestService.getFormFields(form.value);
+    // const fields = this.requestService.getFormFields(form.value);
 
-    const fieldsNum = fields.length;
-    const approvedNum = fields.filter(field => field.state === true).length;
+    // const fieldsNum = fields.length;
+    // const approvedNum = fields.filter(field => field.state === true).length;
 
-    this.approved = fieldsNum === approvedNum;
+    // this.approved = fieldsNum === approvedNum;
 
-    if (this.approved) {
-      this.requestService.setRequestFieldsInfo(approvedNum, fieldsNum);
-      return (this.valid = true);
-    }
+    // if (this.approved) {
+    //   this.requestService.setRequestFieldsInfo(approvedNum, fieldsNum);
+    //   return (this.valid = true);
+    // }
 
-    const fieldsWithStateNum = fields.filter(field => typeof field.state === 'boolean').length;
-    const allFieldsWithState = fieldsWithStateNum === fieldsNum;
+    // const fieldsWithStateNum = fields.filter(field => typeof field.state === 'boolean').length;
+    // const allFieldsWithState = fieldsWithStateNum === fieldsNum;
 
-    const notApprovedNum = fields.filter(field => field.state === false).length;
-    const notApprovedWithMessageNum = fields.filter(
-      field => field.state === false && (field.noMessage || field.message)
-    ).length;
+    // const notApprovedNum = fields.filter(field => field.state === false).length;
+    // const notApprovedWithMessageNum = fields.filter(
+    //   field => field.state === false && (field.noMessage || field.message)
+    // ).length;
 
-    const allNotApprovedHasMessage = notApprovedNum === notApprovedWithMessageNum;
+    // const allNotApprovedHasMessage = notApprovedNum === notApprovedWithMessageNum;
 
-    this.valid = allFieldsWithState && allNotApprovedHasMessage;
+    // this.valid = allFieldsWithState && allNotApprovedHasMessage;
 
-    this.requestService.setRequestFieldsInfo(approvedNum + notApprovedWithMessageNum, fieldsNum);
+    // this.requestService.setRequestFieldsInfo(approvedNum + notApprovedWithMessageNum, fieldsNum);
   }
 
   confirm(state: boolean) {
@@ -115,6 +114,6 @@ export class RequestFormComponent implements OnInit {
   }
 
   sendForm(result: boolean) {
-    this.requestService.sendForm(this.requestForm.value, result);
+    // this.requestService.sendForm(this.requestForm.value, result);
   }
 }

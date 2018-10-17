@@ -26,6 +26,9 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const nextRequest$ = this.verificationService.nextRequest$;
     this.subscription = nextRequest$.subscribe(this.nextRequestChanged.bind(this));
+
+    ///
+    this.searchRequests();
   }
 
   searchRequests() {

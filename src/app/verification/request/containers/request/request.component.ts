@@ -36,13 +36,21 @@ export class RequestComponent implements OnInit, OnDestroy {
     }
     this.loading = false;
     if (res && res.id) {
-      this.application = { ...res };
-      this.identificationForm = this.requestService.generateForm(this.application);
-      this.identificationForm.updateValueAndValidity();
-      window.scrollTo(0, 0);
-      return;
+      this.getForm(res);
+    } else {
+      this.router.navigate(['/']);
     }
-    this.router.navigate(['/']);
+  }
+
+  getForm(res: Application) {
+    this.application = { ...res };
+    this.identificationForm = this.requestService.generateForm(this.application);
+
+    // console.log( this.identificationForm );
+    // console.log( this.identificationForm.value );
+
+    this.identificationForm.updateValueAndValidity();
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

@@ -69,6 +69,7 @@ export class VerificationService {
 
   generateFakeRequest(): Application | false {
     const request = identificationRequest;
+
     // const requestType = random(0, 2);
     const requestType = 1;
     // if (requestType === 0) {

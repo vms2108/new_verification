@@ -35,7 +35,7 @@ export interface ApplicationtUserData {
 
 export interface ApplicationDocument {
   id: string;
-  type: 'ID' | 'DRIVER_ID' | 'BANK_STATEMENT' | 'OTHER';
+  type: string;
   type_custom?: string;
   issue_date?: string;
   expiration_date?: string;
