@@ -26,6 +26,12 @@ export class RequestService {
   private dateFields = ['birth_date', 'issue_date', 'expiration_date'];
   private photoFields = ['path', 'selfie_path'];
 
+  private verificationFields = {
+    personal: ['first_name', 'last_name', 'birth_date'],
+    address: ['country'],
+    document: ['type', 'number', 'expiration_date', 'path']
+  };
+
   public splittedPhoto$ = new BehaviorSubject<string>(undefined);
 
   constructor(
@@ -59,14 +65,25 @@ export class RequestService {
     });
   }
 
-  private addStatefulField(name: string, value: any, form: FormGroup, fields: RequestField[]) {
+  private addStatefulField(name: string, value: any, comment: boolean, form: FormGroup, fields: RequestField[]) {
     form.addControl(name, this.fb.group({
-      status: null,
-      comment: null
+      status: null
     }));
     const control = form.get(name) as FormGroup;
+    if ( comment ) {
+      control.addControl('comment', this.fb.control(null));
+    }
     fields.push({
-      name, value, state: true, control
+      name, value, state: true, control, comment
+    });
+  }
+
+  private addStatelessField(name: string, value: any, fields: RequestField[]) {
+    fields.push({
+      name,
+      value,
+      state: false,
+      photo: this.isPhotoField(name)
     });
   }
 
@@ -85,7 +102,7 @@ export class RequestService {
         return this.addPhoneField( personalFields, form, userData.phone[0] );
       }
       if ( field && field.value ) {
-        return this.addStatefulField(key, this.prepareFieldValue(key, field.value), form, personalFields);
+        return this.addStatefulField(key, this.prepareFieldValue(key, field.value), true, form, personalFields);
       }
     });
     fields.push({
@@ -105,7 +122,7 @@ export class RequestService {
     this.addressFields.forEach((key) => {
       const field = address[key];
       if ( field && field.value ) {
-        return this.addStatefulField(key, this.prepareFieldValue(key, field.value), addressForm, addressFields);
+        return this.addStatefulField(key, this.prepareFieldValue(key, field.value), true, addressForm, addressFields);
       }
     });
     fields.push({
@@ -131,12 +148,7 @@ export class RequestService {
         value = document.type_custom;
       }
       if ( value ) {
-        documentFields.push({
-          name: key,
-          value,
-          state: false,
-          photo: this.isPhotoField(key)
-        });
+        this.addStatelessField( name, this.prepareFieldValue(name, value), documentFields );
       }
     });
 
@@ -167,6 +179,61 @@ export class RequestService {
     this.createDocumentFields( userData, 'main_document', formData, fields );
     this.createDocumentFields( userData, 'extra_document', formData, fields );
 
+    this.setMainDocPhoto(application);
+
+    return { form, fields };
+  }
+
+  private addVerificationFields(form: FormGroup, fields: RequestFieldsGroup[], data: ApplicationtUserData) {
+    const personalFields = [];
+    const addressFields = [];
+    const documentFields = [];
+
+    this.verificationFields.personal
+      .forEach(key => this.addStatelessField(key, this.prepareFieldValue(key, data[key].value), personalFields));
+    this.verificationFields.address
+      .forEach(key => this.addStatelessField(key, this.prepareFieldValue(key, data.address[key].value), addressFields));
+    this.verificationFields.document
+      .forEach(key => this.addStatelessField(key, this.prepareFieldValue(key, data.main_document[key]), documentFields));
+
+    const personalDataFields = [ ...personalFields, ...addressFields, ...documentFields ];
+
+    fields.push({
+      name: 'Personal data',
+      fields: personalDataFields,
+      state: false
+    });
+
+    const checkFields = [];
+
+    this.addStatefulField( 'is_blacklisted', null, false, form, checkFields );
+    this.addStatefulField( 'is_terrorist', null, false, form, checkFields );
+
+    fields.push({
+      name: 'User verification',
+      fields: checkFields,
+      state: false
+    });
+  }
+
+
+  private generateVerificationForm(application: Application): Request {
+
+    const fields: RequestFieldsGroup[] = [];
+
+    const form = this.fb.group({
+      id: application.id,
+      result: undefined
+    });
+
+    this.addVerificationFields(form, fields, application.user_data);
+
+    this.setMainDocPhoto(application);
+
+    return { fields, form };
+  }
+
+  private setMainDocPhoto(application: Application) {
     const mainDocPhoto = application
       && application.user_data
       && application.user_data.main_document
@@ -175,13 +242,14 @@ export class RequestService {
     if ( mainDocPhoto ) {
       this.splittedPhoto$.next(mainDocPhoto);
     }
-
-    return { form, fields };
   }
 
   generateForm(application: Application): Request {
     if (application.type === 'identification') {
       return this.generateIdentificationForm(application);
+    }
+    if (application.type === 'verification') {
+      return this.generateVerificationForm(application);
     }
   }
 
@@ -208,9 +276,12 @@ export class RequestService {
   }
 
 
-  getFormFields(value: Application, type: 'identification' | 'verification'): ApplicationUserField[] {
+  getFormFields(value: any, type: 'identification' | 'verification'): ApplicationUserField[] {
     if ( type === 'identification' ) {
       return this.getIdentificationFormFields( value.user_data );
+    }
+    if ( type === 'verification' ) {
+      return [ value.is_blacklisted, value.is_terrorist ];
     }
   }
 

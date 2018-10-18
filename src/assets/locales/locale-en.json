@@ -17,7 +17,7 @@
   "Basic data": "Basic data",
   "Location": "Location",
   "main_document": "Basic document",
-  "extra_documen": "Additional document",
+  "extra_document": "Additional document",
 
   "first_name": "Name",
   "last_name": "Surname",
@@ -51,8 +51,9 @@
 
   "Personal data": "Personal data",
   "User verification": "Check user",
-  "Check terrorist": "By list of extremists",
-  "Check platform criterias": "By internal criteria",
+
+  "is_blacklisted": "By list of extremists",
+  "is_terrorist": "By internal criteria",
 
   "identification denied": "Not Identify",
   "identification approved": "Identify",

@@ -28,7 +28,7 @@ export class RequestFormTextComponent implements OnInit {
   }
 
   get noMessage() {
-    return false;
+    return this.field.state && !this.field.comment;
   }
 
   get state() {

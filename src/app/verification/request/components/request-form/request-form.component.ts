@@ -69,7 +69,7 @@ export class RequestFormComponent implements OnInit {
 
     const notApprovedNum = fields.filter(field => field.status === false).length;
     const notApprovedWithMessageNum = fields.filter(
-      field => field.status === false && field.comment
+      field => field.status === false && ( field.comment === undefined || field.comment  )
     ).length;
 
     const allNotApprovedHasMessage = notApprovedNum === notApprovedWithMessageNum;

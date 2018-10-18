@@ -69,20 +69,7 @@ export class VerificationService {
 
   generateFakeRequest(): Application | false {
     const request = identificationRequest;
-
-    // const requestType = random(0, 2);
-    const requestType = 1;
-    // if (requestType === 0) {
-    //   return false;
-    // }
-    if (requestType === 1) {
-      request.type = 'identification';
-      return request;
-    }
-    if (requestType === 2) {
-      request.type = 'verification';
-      return request;
-    }
+    return request;
   }
 
   clearNextRequest() {

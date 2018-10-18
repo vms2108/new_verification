@@ -89,6 +89,7 @@ export interface RequestField {
   state: boolean;
   control?: FormGroup;
   photo?: boolean;
+  comment?: boolean;
 }
 
 export interface Request {

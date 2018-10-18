@@ -20,7 +20,7 @@
     </ng-container>
   </div>
   <div class="field__message"
-    *ngIf="field.state && field.control"
+    *ngIf="field.state && field.control && field.comment"
     [formGroup]="field.control"
     [class.hidden]="!(state === false)">
     <mat-form-field>
