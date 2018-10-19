@@ -15,14 +15,11 @@ import { RequestFieldsGroup, Application } from 'src/app/verification/verificati
 export class RequestFormComponent implements OnInit {
 
   private subscription: Subscription;
-  public formSections: FormGroup[] = [];
 
   public approved = false;
   public valid = false;
 
-  get type() {
-    return this.application.type;
-  }
+  private requestForm: FormGroup;
 
   @Language()
   lang: string;
@@ -30,8 +27,13 @@ export class RequestFormComponent implements OnInit {
   @Input() application: Application;
   @Input() fields: RequestFieldsGroup[];
 
+  get type() {
+    return this.application.type;
+  }
+
   @Input()
   set form(form: FormGroup) {
+    this.requestForm = form;
     this.onFormChanges(form);
     this.subscribeToFormChanges(form);
   }
@@ -96,6 +98,6 @@ export class RequestFormComponent implements OnInit {
   }
 
   sendForm(result: boolean) {
-    // this.requestService.sendForm(this.requestForm.value, result);
+   this.requestService.sendForm(this.application, this.requestForm.value, result);
   }
 }

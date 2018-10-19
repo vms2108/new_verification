@@ -46,19 +46,12 @@ export class RequestComponent implements OnInit, OnDestroy {
   }
 
   getForm(res: Application) {
-
     this.application = { ...res };
-
     const { form, fields } = this.requestService.generateForm(this.application);
-
     this.requestForm = form;
     this.requestFields = fields;
-
-    console.log( this.requestForm );
-    console.log( this.requestFields );
-
-    // this.identificationForm.updateValueAndValidity();
-    // window.scrollTo(0, 0);
+    this.requestForm.updateValueAndValidity();
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

@@ -52,8 +52,8 @@
   "Personal data": "Personal data",
   "User verification": "Check user",
 
-  "is_blacklisted": "By list of extremists",
-  "is_terrorist": "By internal criteria",
+  "is_terrorist": "By list of extremists",
+  "is_blacklisted": "By internal criteria",
 
   "identification denied": "Not Identify",
   "identification approved": "Identify",

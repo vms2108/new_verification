@@ -148,7 +148,7 @@ export class RequestService {
         value = document.type_custom;
       }
       if ( value ) {
-        this.addStatelessField( name, this.prepareFieldValue(name, value), documentFields );
+        this.addStatelessField( key, this.prepareFieldValue(key, value), documentFields );
       }
     });
 
@@ -285,45 +285,30 @@ export class RequestService {
     }
   }
 
-  // sendForm(formData: any, result: boolean) {
-  //   const { type, id } = formData;
-  //   if (type === 'verification') {
-  //     this.verificationService.verificationRequest(id, this.generateVerificationRequest(formData, result));
-  //   }
-  //   if (type === 'identification') {
-  //     this.verificationService.identificationRequest(id, this.generateIdentificationRequest(formData, result));
-  //   }
-  // }
+  sendForm(application: Application, formData: any, result: boolean) {
+    const { id, type } = application;
+    if (type === 'verification') {
+      console.log( this.generateVerificationRequest(formData, result) );
+      // this.verificationService.verificationRequest(id, this.generateVerificationRequest(formData, result));
+    }
+    if (type === 'identification') {
+      console.log( this.generateIdentificationRequest(formData, result) );
+      // this.verificationService.identificationRequest(id, this.generateIdentificationRequest(formData, result));
+    }
+  }
 
-  // generateVerificationRequest(formData: any, result: boolean): VerificationRequest {
-  //   const { id } = formData;
-  //   let {
-  //     'User verification': {
-  //       'Check platform criterias': { state: is_blacklisted },
-  //       'Check terrorist': { state: is_terrorist }
-  //     }
-  //   } = formData;
-  //   is_blacklisted = !is_blacklisted;
-  //   is_terrorist = !is_terrorist;
-  //   return { id, result, is_blacklisted, is_terrorist };
-  // }
+  generateVerificationRequest(formData: any, result: boolean): VerificationRequest {
+    const { id } = formData;
+    const { is_blacklisted: { status: blacklisted }, is_terrorist: { status: terrorist } } = formData;
+    const is_blacklisted = !blacklisted;
+    const is_terrorist = !terrorist;
+    return { id, result, is_blacklisted, is_terrorist };
+  }
 
-  // generateIdentificationRequest(formData: any, result: boolean): IdentificatonRequest {
-  //   const { id } = formData;
-  //   const fields = this.getFormFields(formData);
-  //   const user_data: {
-  //     [key: string]: {
-  //       state: boolean;
-  //       message?: string;
-  //     };
-  //   } = fields.reduce((userdata: any, field: any) => {
-  //     const { title, state, message } = field;
-  //     userdata[title] = { state, message: message || undefined };
-  //     return userdata;
-  //   }, {});
-
-  //   return { id, result, user_data };
-  // }
+  generateIdentificationRequest(formData: any, result: boolean): IdentificatonRequest {
+    const { id, user_data } = formData;
+    return { id, result, user_data };
+  }
 
   setRequestFieldsInfo(checked: number, all: number) {
     this.layoutService.requestFields$.next(`${checked}/${all}`);

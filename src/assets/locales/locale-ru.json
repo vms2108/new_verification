@@ -52,8 +52,8 @@
   "Personal data": "Персональные данные",
   "User verification": "Проверка пользователя",
 
-  "is_blacklisted": "По списку экстремистов",
-  "is_terrorist": "По внутренним критериям",
+  "is_terrorist": "По списку экстремистов",
+  "is_blacklisted": "По внутренним критериям",
 
   "identification denied": "Не идентифицировать",
   "identification approved": "Идентифицировать",
