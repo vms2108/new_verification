@@ -5,4 +5,4 @@ BUCKET=vdev.bonum.credit
 all:
 	ng build --prod
 	gcloud config set project $(PROJECT_ID)
-	gsutil -m rsync -a public-read -r -d dist gs://$(BUCKET)
+	gsutil -m rsync -a public-read -r -d dist/verification-front gs://$(BUCKET)
