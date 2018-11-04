@@ -43,23 +43,23 @@ export class VerificationService {
   identificationRequest(id: string, data: IdentificatonRequest) {
     this.timer.unsubscribe();
     this.searchRequests();
-    // return this.apiService.put(`api/requests/identification/${id}/`, data);
+    return this.apiService.put(`api/requests/identification/${id}/`, data);
   }
 
   verificationRequest(id: string, data: VerificationRequest) {
     this.timer.unsubscribe();
     this.searchRequests();
-    // return this.apiService.put(`api/requests/verification/${id}/`, data);
+    return this.apiService.put(`api/requests/verification/${id}/`, data);
   }
 
   private popRequest(): Observable<Application | false> {
-    return Observable.create((observer: Observer<Application | false>) => {
-      setTimeout(() => {
-        observer.next(this.generateFakeRequest());
-        observer.complete();
-      }, 200);
-    });
-    // return this.apiService.get('api/requests/pop/');
+    // return Observable.create((observer: Observer<Application | false>) => {
+    //   setTimeout(() => {
+    //     observer.next(this.generateFakeRequest());
+    //     observer.complete();
+    //   }, 200);
+    // });
+    return this.apiService.get('api/requests/pop/');
   }
 
   searchRequests() {

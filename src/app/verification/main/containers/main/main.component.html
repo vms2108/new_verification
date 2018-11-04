@@ -6,7 +6,7 @@
         <button class="main__button"
           *ngIf="!noNewRequests"
           [class.loading]="loading"
-          [disabled]="loading"
+          [disabled]="loading || btnClicked"
           (click)="searchRequests()">
           <span>{{ 'Search new requests' | translate : lang }}</span>
         </button>

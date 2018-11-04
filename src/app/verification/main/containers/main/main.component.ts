@@ -14,7 +14,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public loading = false;
 
-  private btnClicked = false;
+  public btnClicked = false;
   public noNewRequests = false;
   public timer = 0;
 
@@ -26,12 +26,10 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const nextRequest$ = this.verificationService.nextRequest$;
     this.subscription = nextRequest$.subscribe(this.nextRequestChanged.bind(this));
-
-    ///
-    this.searchRequests();
   }
 
   searchRequests() {
+    console.log('search request', this.btnClicked);
     if (this.btnClicked) {
       return;
     }
@@ -39,7 +37,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.verificationService.searchRequests();
   }
 
-  nextRequestChanged(res: Application | false) {
+  nextRequestChanged(res: Application | null) {
     if (res === undefined) {
       return (this.loading = true);
     }
@@ -47,7 +45,7 @@ export class MainComponent implements OnInit, OnDestroy {
       return this.router.navigate(['/request']);
     }
     this.loading = false;
-    if (res === false && this.btnClicked) {
+    if (res === null && this.btnClicked) {
       this.btnClicked = false;
       this.startTimer();
     }
@@ -58,7 +56,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
-    this.timer = 10;
+    this.timer = 11;
     this.noNewRequests = true;
     const count = () => {
       this.timer--;
