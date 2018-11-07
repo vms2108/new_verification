@@ -72,6 +72,9 @@
   "Rejection reason": "Причина отказа",
 
   "Remaining time": "Оставшееся время",
-  "Checked fields": "Проверено полей"
+  "Checked fields": "Проверено полей",
+
+  "Close": "Закрыть",
+  "Request error message": "Произошла ошибка при отправке запроса"
 
 }

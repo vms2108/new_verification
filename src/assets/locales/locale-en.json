@@ -72,6 +72,9 @@
   "Rejection reason": "Rejection reason",
 
   "Remaining time": "Remaining time",
-  "Checked fields": "Checked fields"
+  "Checked fields": "Checked fields",
+
+  "Close": "Close",
+  "Request error message": "Error on sending request"
 
 }

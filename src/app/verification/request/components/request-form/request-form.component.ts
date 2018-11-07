@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Language } from 'angular-l10n';
 import { Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RequestConfirmComponent } from '../../../dialogs/components/request-confirm/request-confirm.component';
 import { RequestService } from '../../services/request.service';
 import { RequestFieldsGroup, Application } from 'src/app/verification/verification.models';
+import { RequestErrorComponent } from 'src/app/verification/dialogs/components/request-error/request-error.component';
 
 @Component({
   selector: 'app-request-form',
@@ -20,6 +21,8 @@ export class RequestFormComponent implements OnInit {
   public valid = false;
 
   private requestForm: FormGroup;
+
+  @Output() loading = new EventEmitter<boolean>();
 
   @Language()
   lang: string;
@@ -98,6 +101,13 @@ export class RequestFormComponent implements OnInit {
   }
 
   sendForm(result: boolean) {
-   this.requestService.sendForm(this.application, this.requestForm.value, result);
+    this.loading.emit(true);
+    this.requestService.sendForm(this.application, this.requestForm.value, result).subscribe(
+      () => this.loading.emit(false),
+      () => {
+        this.loading.emit(false);
+        this.dialog.open(RequestErrorComponent);
+      }
+    );
   }
 }

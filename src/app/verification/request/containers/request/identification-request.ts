@@ -2,9 +2,9 @@ import { Application } from '../../../verification.models';
 
 export const identificationRequest: Application = {
   id: '11123',
-  type: 'identification',
+  type: 'verification',
   date_of_creation: '2017-11-09T21:00:00.000Z',
-  expiration_date: '2020-11-09T21:00:00.000Z',
+  expiration_date: '2018-11-07T21:55:34.964Z',
   user_data: {
     first_name: {
       value: 'Konstantin'

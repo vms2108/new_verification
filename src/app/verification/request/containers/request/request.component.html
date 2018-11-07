@@ -6,7 +6,8 @@
   <app-request-form
     [form]="requestForm"
     [fields]="requestFields"
-    [application]="application">
+    [application]="application"
+    (loading)="setLoader($event)">
   </app-request-form>
   <app-request-big-image [image]="splittedPhoto$ | async">
   </app-request-big-image>

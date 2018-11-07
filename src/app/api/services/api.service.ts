@@ -22,7 +22,7 @@ export class ApiService {
     const requests = {
       GET: this.http.get(`${this.API_URL}/${uri}`, { headers: this.getAuthHeader() }),
       POST: this.http.post(`${this.API_URL}/${uri}`, data, { headers: this.getAuthHeader() }),
-      PUT: this.http.post(`${this.API_URL}/${uri}`, data, { headers: this.getAuthHeader() })
+      PUT: this.http.put(`${this.API_URL}/${uri}`, data, { headers: this.getAuthHeader() })
     };
 
     return Observable.create((observer: Observer<any>) => {

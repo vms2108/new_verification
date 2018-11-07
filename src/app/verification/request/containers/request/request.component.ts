@@ -33,7 +33,7 @@ export class RequestComponent implements OnInit, OnDestroy {
     this.splittedPhoto$ = this.requestService.splittedPhoto$;
   }
 
-  nextRequestChanged(res: Application | false) {
+  nextRequestChanged(res: Application | null) {
     if (res === undefined) {
       return (this.loading = true);
     }
@@ -52,6 +52,10 @@ export class RequestComponent implements OnInit, OnDestroy {
     this.requestFields = fields;
     this.requestForm.updateValueAndValidity();
     window.scrollTo(0, 0);
+  }
+
+  setLoader(loader: boolean) {
+    this.loading = loader;
   }
 
   ngOnDestroy() {

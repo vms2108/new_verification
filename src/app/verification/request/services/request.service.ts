@@ -288,10 +288,14 @@ export class RequestService {
   sendForm(application: Application, formData: any, result: boolean) {
     const { id, type } = application;
     if (type === 'verification') {
-      this.verificationService.verificationRequest(id, this.generateVerificationRequest(formData, result));
+      return this.verificationService.verificationRequest(
+        id, this.generateVerificationRequest(formData, result)
+      );
     }
     if (type === 'identification') {
-      this.verificationService.identificationRequest(id, this.generateIdentificationRequest(formData, result));
+      return this.verificationService.identificationRequest(
+        id, this.generateIdentificationRequest(formData, result)
+      );
     }
   }
 

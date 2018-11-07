@@ -2,6 +2,7 @@ import { Component, HostBinding, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { LayoutService } from '../../services/layout.service';
 import { Language } from 'angular-l10n';
+import { VerificationService } from 'src/app/verification/shared/services/verification.service';
 
 @Component({
   selector: 'app-request-info',
@@ -19,7 +20,9 @@ export class RequestInfoComponent implements OnInit, OnDestroy {
   @HostBinding('class.show')
   visible = false;
 
-  constructor(private layoutService: LayoutService) {}
+  constructor(
+    private layoutService: LayoutService
+  ) {}
 
   ngOnInit() {
     this.subscription = this.layoutService.showRequestInfo$.subscribe(this.setVisible.bind(this));

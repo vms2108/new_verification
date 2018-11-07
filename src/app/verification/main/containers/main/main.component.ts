@@ -29,7 +29,6 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   searchRequests() {
-    console.log('search request', this.btnClicked);
     if (this.btnClicked) {
       return;
     }
