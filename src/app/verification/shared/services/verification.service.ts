@@ -4,8 +4,8 @@ import { identificationRequest } from '../../request/containers/request/identifi
 import { LayoutService } from '../../../layout/services/layout.service';
 import * as moment from 'moment';
 
-import { BehaviorSubject, Observable, Observer, timer, Subscription, of, Subject, interval, throwError } from 'rxjs';
-import { tap, filter, map, switchMap, takeUntil, retry, catchError, retryWhen, take, delay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, timer, Subject, throwError } from 'rxjs';
+import { tap, filter, map, switchMap, takeUntil, catchError } from 'rxjs/operators';
 
 import { IdentificatonRequest, VerificationRequest, Application } from '../../verification.models';
 
@@ -71,14 +71,14 @@ export class VerificationService {
   }
 
   private popRequest(): Observable<Application | null> {
-    return Observable.create((observer: Observer<Application | null>) => {
-      setTimeout(() => {
-        observer.next(this.generateFakeRequest());
-        // observer.next(null);
-        observer.complete();
-      }, 482);
-    });
-    // return this.apiService.get('api/requests/pop/');
+    // return Observable.create((observer: Observer<Application | null>) => {
+    //   setTimeout(() => {
+    //     observer.next(this.generateFakeRequest());
+    //     // observer.next(null);
+    //     observer.complete();
+    //   }, 482);
+    // });
+    return this.apiService.get('api/requests/pop/');
   }
 
   searchRequests() {

@@ -4,7 +4,7 @@ export const identificationRequest: Application = {
   id: '11123',
   type: 'verification',
   date_of_creation: '2017-11-09T21:00:00.000Z',
-  expiration_date: '2018-11-07T21:55:34.964Z',
+  expiration_date: '2018-11-08T14:00:17.979Z',
   user_data: {
     first_name: {
       value: 'Konstantin'
