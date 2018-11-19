@@ -38,6 +38,9 @@
     width: 100%;
     /deep/ .mat-form-field {
       display: block;
+      & textarea {
+        background-color: #4d4d5a;
+      }
     }
   }
 }

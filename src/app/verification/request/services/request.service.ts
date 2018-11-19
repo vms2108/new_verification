@@ -61,7 +61,8 @@ export class RequestService {
       name: 'phone',
       state: true,
       value: `${phone.country_code} ${phone.number}`,
-      control: (form.get('phone') as FormArray).controls[0]
+      control: (form.get('phone') as FormArray).controls[0],
+      comment: true
     });
   }
 
