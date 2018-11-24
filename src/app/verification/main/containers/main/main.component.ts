@@ -15,7 +15,10 @@ export class MainComponent implements OnInit, OnDestroy {
   public loading = false;
 
   public btnClicked = false;
+
   public noNewRequests = false;
+  public popError = false;
+
   public timer = 0;
 
   @Language()
@@ -25,7 +28,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const nextRequest$ = this.verificationService.nextRequest$;
-    this.subscription = nextRequest$.subscribe(this.nextRequestChanged.bind(this));
+    this.subscription = nextRequest$.subscribe(
+      this.nextRequestChanged.bind(this)
+    );
   }
 
   searchRequests() {
@@ -36,7 +41,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.verificationService.searchRequests();
   }
 
-  nextRequestChanged(res: Application | null) {
+  nextRequestChanged(res: (Application | null)) {
     if (res === undefined) {
       return (this.loading = true);
     }
@@ -44,9 +49,13 @@ export class MainComponent implements OnInit, OnDestroy {
       return this.router.navigate(['/request']);
     }
     this.loading = false;
+    if ( res && (<any>res).error ) {
+      this.btnClicked = false;
+      this.startTimer(true);
+    }
     if (res === null && this.btnClicked) {
       this.btnClicked = false;
-      this.startTimer();
+      this.startTimer(false);
     }
   }
 
@@ -54,15 +63,18 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  startTimer() {
+  startTimer(error = false) {
     this.timer = 11;
-    this.noNewRequests = true;
+    error
+      ? this.popError = true
+      : this.noNewRequests = true;
     const count = () => {
       this.timer--;
       if (this.timer > 0) {
         return setTimeout(() => count(), 1000);
       }
       this.noNewRequests = false;
+      this.popError = false;
       this.btnClicked = false;
     };
     count();

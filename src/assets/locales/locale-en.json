@@ -11,7 +11,8 @@
 
   "Main welcome": "Welcome to <strong>Bonum</strong> Verification System",
   "Search new requests": "Search new requests",
-  "No new requests. Retry in": "No new requests. Retry in",
+  "No new requests. Retry in": "No new requests. Retry in",
+  "New request error. Retry in": "Error on receiving new requests. Retry in",
   "Main info message": "Please note, that the lifetime of the request received for processing is limited. After the time has expired, the application saving will be blocked. The timer with the indication of the remaining time is at the top panel.",
 
   "Basic data": "Basic data",

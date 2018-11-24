@@ -4,14 +4,17 @@
       <h1 class="main__title" innerHTML="{{ 'Main welcome' | translate : lang }}"></h1>
       <div class="main__btn-wrapper">
         <button class="main__button"
-          *ngIf="!noNewRequests"
+          *ngIf="!noNewRequests && !popError"
           [class.loading]="loading"
           [disabled]="loading || btnClicked"
           (click)="searchRequests()">
           <span>{{ 'Search new requests' | translate : lang }}</span>
         </button>
         <span class="main__message" *ngIf="noNewRequests">
-          {{ 'No new requests. Retry in' | translate : lang }} {{ timer }}
+          {{ 'No new requests. Retry in' | translate : lang }} {{ timer }}
+        </span>
+        <span class="main__message" *ngIf="popError">
+          {{ 'New request error. Retry in' | translate : lang }} {{ timer }}
         </span>
       </div>
     </div>
