@@ -45,7 +45,11 @@ export class RequestService {
   }
 
   private prepareDate(date: string): string {
-    return moment(date).format('MM.DD.YYYY');
+    if (date === 'endless') {
+      return 'endless';
+    }
+    const momentDate = moment(date);
+    return momentDate.format('MM.DD.YYYY');
   }
 
   private addPhoneField(personalFields: any[], form: FormGroup, phone) {
@@ -148,8 +152,14 @@ export class RequestService {
       if ( key === 'type' && value === 'OTHER' ) {
         value = document.type_custom;
       }
+
+      if ( key === 'endless' && value === true ) {
+        key = 'expiration_date';
+        value = 'endless';
+      }
+
       if ( value ) {
-        this.addStatelessField( key, this.prepareFieldValue(key, value), documentFields );
+        this.addStatelessField(  key, this.prepareFieldValue(key, value), documentFields );
       }
     });
 

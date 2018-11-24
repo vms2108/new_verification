@@ -6,8 +6,11 @@
       (click)="toggleState($event)">
       {{ title | translate: lang }}
     </span>
-    <p class="field__value">
+    <p class="field__value" *ngIf="value !== 'endless'">
       {{ value }}
+    </p>
+    <p class="field__value" *ngIf="value === 'endless'">
+      {{ value | translate : lang }}
     </p>
     <ng-container
       *ngIf="field.state && field.control"

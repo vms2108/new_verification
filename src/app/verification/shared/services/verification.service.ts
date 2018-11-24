@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../api/services/api.service';
-import { identificationRequest } from '../../request/containers/request/identification-request';
+// import { identificationRequest } from '../../request/containers/request/identification-request';
 import { LayoutService } from '../../../layout/services/layout.service';
 import * as moment from 'moment';
 
@@ -71,6 +71,7 @@ export class VerificationService {
   }
 
   private popRequest(): Observable<Application | null> {
+    // return of( this.generateFakeRequest() );
     return this.apiService.get('api/requests/pop/').pipe(
       catchError(err => of({ error: true, err:  err.error }))
     );
@@ -82,8 +83,9 @@ export class VerificationService {
   }
 
   generateFakeRequest(): Application | null {
-    const request = identificationRequest;
-    return request;
+    // const request = identificationRequest;
+    // return request;
+    return null;
   }
 
   clearNextRequest() {

@@ -10,7 +10,7 @@ import { DialogsModule } from '../dialogs/dialogs.module';
 // Containers
 import { RequestComponent } from './containers/request/request.component';
 
-// Component
+// Components
 import { RequestBigImageComponent } from './components/request-big-image/request-big-image.component';
 import { RequestFormComponent } from './components/request-form/request-form.component';
 import { RequestFormTogglerComponent } from './components/request-form-toggler/request-form-toggler.component';
